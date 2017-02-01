@@ -1,2 +1,2 @@
-# CS4098_GroupProject
+# CS4098 Group Project
 ## Team Name: Wildcards
