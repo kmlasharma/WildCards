@@ -78,14 +78,18 @@ type ObjectProperty struct {
 	AbbreviatedIRI AbbreviatedIRI `xml:"abbreviatedIRI,attr"`
 }
 
-func main() {
-	data, err := ioutil.ReadFile("./data/DINTO.owl")
+func GenerateOntology(filepath string) Ontology {
+	data, err := ioutil.ReadFile(filepath)
 	if err != nil {
-		fmt.Println("Error opening file:", err)
+		fmt.Println("Error opening file:", filepath, err)
 		return
 	}
 
 	var ontology Ontology
-	xml.Unmarshal(data, &ontology)
+	return xml.Unmarshal(data, &ontology)
+}
+
+func main() {
+	ontology := GenerateOntology("./data/DINTO.owl")
 	fmt.Println(ontology)
 }
