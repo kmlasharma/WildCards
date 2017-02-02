@@ -82,14 +82,16 @@ func GenerateOntology(filepath string) Ontology {
 	data, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		fmt.Println("Error opening file:", filepath, err)
-		return
+		return Ontology{}
 	}
 
 	var ontology Ontology
-	return xml.Unmarshal(data, &ontology)
+	xml.Unmarshal(data, &ontology)
+	return ontology
 }
 
 func main() {
-	ontology := GenerateOntology("./data/DINTO.owl")
+	ontology := GenerateOntology("./data/test.owl")
+	//ontology := GenerateOntology("./data/DINTO.owl")
 	fmt.Println(ontology)
 }
