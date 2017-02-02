@@ -14,6 +14,5 @@
     * Run `brew install go` to install Go
 2. Create and set your $GOPATH
     * Create a directory to use as Go's workspace, eg. '/go'
-    * Add these two lines to *~/.bashrc*, with your chosen directory in place of '/go':
-	 `export GOPATH=$HOME/go`
+    * Add these two lines to *~/.bashrc*, with your chosen directory in place of '/go': <br /> `export GOPATH=$HOME/go` <br />
 	 `export PATH=$PATH:$GOROOT/bin:$GOPATH/bin`
