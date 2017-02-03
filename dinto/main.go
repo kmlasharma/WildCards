@@ -1,17 +1,29 @@
 package main
 
 import (
+	"bytes"
 	"encoding/xml"
 	"fmt"
+	"golang.org/x/net/html/charset"
 	"io/ioutil"
 )
 
+func main() {
+	ontology := GenerateOntology("./data/test.xml")
+	//ontology := GenerateOntology("./data/DINTO.owl")
+	fmt.Println(ontology)
+
+}
+
 type Ontology struct {
 	XMLName                 xml.Name                `xml:"Ontology"`
-	AnnotationAssertions    []AnnotationAssertion   `xml:"AnnotationAssertion"`
-	SubAnnotationProperties []SubAnnotationProperty `xml:"SubAnnotationPropertyOf"`
+	Prefixes                []Prefix                `xml:"Prefix"`
+	Imports                 []Import                `xml:"Import"`
+	Annotations             []Annotation            `xml:"Annotation"`
 	Declarations            []Declaration           `xml:"Declaration"`
 	Subclasses              []Subclass              `xml:"SubClassOf"`
+	AnnotationAssertions    []AnnotationAssertion   `xml:"AnnotationAssertion"`
+	SubAnnotationProperties []SubAnnotationProperty `xml:"SubAnnotationPropertyOf"`
 }
 
 /* AnnotationAssertion */
@@ -25,12 +37,12 @@ type AnnotationAssertion struct {
 type AnnotationProperty struct {
 	XMLName        xml.Name       `xml:"AnnotationProperty"`
 	AbbreviatedIRI AbbreviatedIRI `xml:"abbreviatedIRI,attr"`
+	IRI            IRI            `xml:"IRI,attr"`
 }
 
-type AbbreviatedIRI struct {
-	XMLName xml.Name `xml:"AbbreviatedIRI"`
-	Value   string   `xml:",chardata"`
-}
+type AbbreviatedIRI string
+
+type IRI string
 
 type Literal struct {
 	XMLName     xml.Name `xml:"Literal"`
@@ -42,16 +54,19 @@ type Literal struct {
 /* Sub Annotation Properties */
 
 type SubAnnotationProperty struct {
-	XMLName                  xml.Name `xml:"SubAnnotationPropertyOf"`
-	ParentAnnotationProperty AnnotationProperty
-	ChildAnnotationProperty  AnnotationProperty
+	XMLName              xml.Name             `xml:"SubAnnotationPropertyOf"`
+	AnnotationProperties []AnnotationProperty `xml:"AnnotationProperty"`
 }
 
 /* Declaration */
 
 type Declaration struct {
-	XMLName xml.Name `xml:"Declaration"`
-	Class   Class
+	XMLName            xml.Name `xml:"Declaration"`
+	Class              Class
+	ObjectProperty     ObjectProperty
+	NamedIndividual    NamedIndividual
+	AnnotationProperty AnnotationProperty
+	Datatype           Datatype
 }
 
 type Class struct {
@@ -59,11 +74,21 @@ type Class struct {
 	AbbreviatedIRI AbbreviatedIRI `xml:"abbreviatedIRI,attr"`
 }
 
+type NamedIndividual struct {
+	XMLName        xml.Name       `xml:"NamedIndividual"`
+	AbbreviatedIRI AbbreviatedIRI `xml:"abbreviatedIRI,attr"`
+}
+
+type Datatype struct {
+	XMLName        xml.Name       `xml:"Datatype"`
+	AbbreviatedIRI AbbreviatedIRI `xml:"abbreviatedIRI,attr"`
+}
+
 /* Subclass */
 
 type Subclass struct {
-	XMLName              xml.Name `xml:"SubclassOf"`
-	Class                Class
+	XMLName              xml.Name `xml:"SubClassOf"`
+	Classes              []Class  `xml:"Class"`
 	ObjectSomeValuesFrom ObjectSomeValuesFrom
 }
 
@@ -78,6 +103,27 @@ type ObjectProperty struct {
 	AbbreviatedIRI AbbreviatedIRI `xml:"abbreviatedIRI,attr"`
 }
 
+/* Annotation */
+
+type Annotation struct {
+	XMLName            xml.Name `xml:"Annotation"`
+	AnnotationProperty AnnotationProperty
+	Literal            Literal
+}
+
+/* Prefix */
+
+type Prefix struct {
+	XMLName xml.Name `xml:"Prefix"`
+	Name    string   `xml:"Name"`
+	IRI     string   `xml:"IRI"`
+}
+
+type Import struct {
+	XMLName xml.Name `xml:"Import"`
+	Value   string   `xml:",chardata"`
+}
+
 func GenerateOntology(filepath string) Ontology {
 	data, err := ioutil.ReadFile(filepath)
 	if err != nil {
@@ -86,12 +132,10 @@ func GenerateOntology(filepath string) Ontology {
 	}
 
 	var ontology Ontology
-	xml.Unmarshal(data, &ontology)
-	return ontology
-}
 
-func main() {
-	ontology := GenerateOntology("./data/test.owl")
-	//ontology := GenerateOntology("./data/DINTO.owl")
-	fmt.Println(ontology)
+	reader := bytes.NewReader(data)
+	decoder := xml.NewDecoder(reader)
+	decoder.CharsetReader = charset.NewReaderLabel
+	decoder.Decode(&ontology)
+	return ontology
 }
