@@ -21,18 +21,18 @@
     <Import>http://purl.obolibrary.org/obo/MF/external/ontology-metadata-slim.owl</Import>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/date"/>
-        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">28/04/2015</Literal>
+        <Literal xml:lang="en" datatypeIRI="PlainLiteral">28/04/2015</Literal>
     </Annotation>
-    <!--<Annotation>
+    <Annotation>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <Literal datatypeIRI="&xsd;string">This is a reduced version of DINTO 1.2 created to test if the information included in the ontology in the form of drug-ADRs relationships can be combined with an SWRL rule to infer new DDIs occurring by the addition of a common adverse effect.
+        <Literal datatypeIRI="string">This is a reduced version of DINTO 1.2 created to test if the information included in the ontology in the form of drug-ADRs relationships can be combined with an SWRL rule to infer new DDIs occurring by the addition of a common adverse effect.
 
-        The version includes eleven severe ADRs and 33 drugs related to at least one of the selected ADRs. All the pharcological entities and adverse effects are represented at the individual level, and made distinc among them. The SWRL rule can be seen in the Object Property tab. Using the reasoner HermiT it is posible to obtain the inferred &apos;may interact with&apos; relationships.</Literal>
-    </Annotation>-->
-    <!--<Annotation>
+        The version includes eleven severe ADRs and 33 drugs related to at least one of the selected ADRs. All the pharcological entities and adverse effects are represented at the individual level, and made distinc among them. The SWRL rule can be seen in the Object Property tab. Using the reasoner HermiT it is posible to obtain the inferred &apos;may interact with relationships.</Literal>
+    </Annotation>
+    <Annotation>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">This ontology has been created and is maintained by the Department of Computer Science at University Carlos III of Madrid.</Literal>
-    </Annotation>-->
+        <Literal xml:lang="en" datatypeIRI="PlainLiteral">This ontology has been created and is maintained by the Department of Computer Science at University Carlos III of Madrid.</Literal>
+    </Annotation>
   <Declaration>
     <Class abbreviatedIRI="obo2:CHEBI_100147"/>
   </Declaration>
@@ -62,7 +62,7 @@
   <AnnotationAssertion>
       <AnnotationProperty abbreviatedIRI="rdfs:label"/>
       <AbbreviatedIRI>obo2:DINTO_1812</AbbreviatedIRI>
-      <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">multidrug and toxin extrusion protein 1</Literal>
+      <Literal xml:lang="en" datatypeIRI="PlainLiteral">multidrug and toxin extrusion protein 1</Literal>
   </AnnotationAssertion>
   <SubAnnotationPropertyOf>
       <AnnotationProperty abbreviatedIRI="skos:prefLabel"/>
