@@ -10,6 +10,8 @@ if [ $? -ne 0 ]; then
 		# Linux.
 		# Install dependencies
 		sudo apt-get install curl \
+					linux-image-extra-$(uname -r) \
+					linux-image-extra-virtual \
 					software-properties-common \
 					apt-transport-https \
 					ca-certificates
