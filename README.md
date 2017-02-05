@@ -12,7 +12,15 @@ All that is required to run the project is Docker:
 
 Once the Docker stack has been installed (see above), building the project is simple.
 
-1. Run `docker-compose up --build`
+### Ubuntu
+
+1. Run the following commands as root - `sudo su` to change to root user
+2. Run `sudo usermod -aG root && sudo service docker start`
+3. Run `docker-compose up --build`
+
+### Mac
+
+1. TODO
 
 ## Running PEOS:
 
