@@ -15,21 +15,24 @@ Once the Docker stack has been installed (see above), building the project is si
 ### Ubuntu
 
 1. Run the following commands as root - `sudo su` to change to root user
-2. Run `sudo usermod -aG root && sudo service docker start`
+2. Run `sudo usermod -aG docker root && sudo service docker start`
 3. Run `docker-compose up --build`
 
 ### Mac
 
-1. TODO
+1. Run `docker-machine create --driver virtualbox default` unless a docker machine already exists.
+2. Run `eval $(docker-machine env default)` to setup the new docker machine.
+1. Run `docker-machine start default` to make sure it is running.
+2. Run `docker-compose up --build`
 
 ## Running PEOS:
 
 1. Run `docker-compose run peos` to enter the Docker container for PEOS
-3. Run `peos/pml/check/pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
+2. Run `peos/pml/check/pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
    * Note that `test.pml` does not pass pmlcheck and it should not
    * `test.pml` should be used to verify that the pmlcheck tool works
-4. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
-5. Run `exit` to get out of the Docker container
+3. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
+4. Run `exit` to get out of the Docker container
 
 ## Running DINTO:
 
