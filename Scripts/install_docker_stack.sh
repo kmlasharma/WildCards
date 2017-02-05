@@ -5,7 +5,7 @@
 # Only install Docker if not already installed.
 # If Docker is already on the machine then redownloading it can cause issues
 which docker
-if [ $? -ne 0 ] then
+if [ $? -ne 0 ]; then
 	if [ "$(uname)" != "Darwin" ]; then
 		# Linux.
 		# Install dependencies
@@ -35,7 +35,7 @@ if [ $? -ne 0 ] then
 		# Install Docker Compose
 		sudo curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 		sudo chmod +x /usr/local/bin/docker-compose
-	elif
+	else
 		# Mac
 		# Install Homebrew
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
