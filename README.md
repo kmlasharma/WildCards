@@ -2,17 +2,25 @@
 ## Team Name: Wildcards
 
 ## Installation:
+### Ubuntu
 
-### PEOS
-1. Run `install_peos.sh` to install PEOS and its dependencies
+All that is required to run the project is Docker:
 
+1. Run `./Scripts/install_docker_stack.sh`
+   * This installs Docker, Docker Engine and Docker Compose
 
-### Installing the Go programming language on macOS Sierra
-1. Install Go using Homebrew
-    * Run `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` to install Homebrew
-    * Run `brew doctor` to test that Homebrew installed correctly
-    * Run `brew install go` to install Go
-2. Create and set your $GOPATH
-    * Create a directory to use as Go's workspace, eg. '/go'
-    * Add these two lines to *~/.bashrc*, with your chosen directory in place of '/go': <br /> `export GOPATH=$HOME/go` <br />
-	 `export PATH=$PATH:$GOROOT/bin:$GOPATH/bin`
+## Running:
+### Ubuntu
+
+Once the Docker stack has been installed (see above), running the project is simple.
+
+1. Run `docker-compose up --build`
+   * This builds the Docker container, installs the project dependencies in the container and set up the project
+2. Run `docker-compose run groupproject` to enter the Docker container
+3. Rum `peos/pml/check/pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
+   * Note that `test.pml` does not pass pmlcheck and it should not
+   * `test.pml` should be used to verify that the pmlcheck tool works
+4. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
+5. Run `exit` to get out of the Docker container
+6. Run `docker-compose stop` to completely tear down the Docker container
+
