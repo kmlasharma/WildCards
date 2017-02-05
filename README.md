@@ -15,7 +15,7 @@ Once the Docker stack has been installed (see above), building the project is si
 ### Ubuntu
 
 1. Run the following commands as root - `sudo su` to change to root user
-2. Run `sudo usermod -aG root && sudo service docker start`
+2. Run `sudo usermod -aG docker root && sudo service docker start`
 3. Run `docker-compose up --build`
 
 ### Mac
