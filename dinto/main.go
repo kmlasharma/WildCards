@@ -10,7 +10,13 @@ import (
 
 func main() {
 	ontology := GenerateOntology("./data/test.owl")
-	fmt.Println(ontology)
+	fmt.Println("Number of Prefixes:", len(ontology.Prefixes))
+	fmt.Println("Number of Imports:", len(ontology.Imports))
+	fmt.Println("Number of Annotations:", len(ontology.Annotations))
+	fmt.Println("Number of Declarations:", len(ontology.Declarations))
+	fmt.Println("Number of Subclasses:", len(ontology.Subclasses))
+	fmt.Println("Number of Anootation Assertions:", len(ontology.AnnotationAssertions))
+	fmt.Println("Number of Sub Annotation Properties:", len(ontology.SubAnnotationProperties))
 
 }
 
