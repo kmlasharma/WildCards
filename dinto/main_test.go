@@ -74,6 +74,15 @@ func TestDeclarations(t *testing.T) {
 	if actualDeclarationsLength != expectedDeclarationsLength {
 		t.Error("Ontology Declarations amount is incorrect, expected", expectedDeclarationsLength, ", but got", actualDeclarationsLength)
 	}
+
+	var expectedClassAbbreviatedIRI AbbreviatedIRI = "obo2:CHEBI_100147"
+	var decl = ontology.Declarations[0]
+	var class = decl.Class
+	var actualClassAbbreviatedIRI = class.AbbreviatedIRI
+
+	if actualClassAbbreviatedIRI != expectedClassAbbreviatedIRI {
+		t.Error("Ontology Declaration Class Abbreviated IRI string is incorrect, expected",  expectedClassAbbreviatedIRI, ", but got", actualClassAbbreviatedIRI)
+	}
 }
 
 func TestSubclasses(t *testing.T) {
@@ -82,6 +91,15 @@ func TestSubclasses(t *testing.T) {
 
 	if actualSubclassesLength != expectedSubclassesLength {
 		t.Error("Ontology Subclasses amount is incorrect, expected", expectedSubclassesLength, ", but got", actualSubclassesLength)
+	}
+
+	var expectedSubClassAbbreviatedIRI AbbreviatedIRI = "obo2:OAE_0000287"
+	var subclass = ontology.Subclasses[1]
+	var class = subclass.Classes[0]
+	var actualSubClassAbbreviatedIRI = class.AbbreviatedIRI
+
+	if actualSubClassAbbreviatedIRI != expectedSubClassAbbreviatedIRI {
+		t.Error("Ontology SubClass Abbreviated IRI string is incorrect, expected",  expectedSubClassAbbreviatedIRI, ", but got", actualSubClassAbbreviatedIRI)
 	}
 }
 
@@ -92,6 +110,22 @@ func TestAnnotationAssertions(t *testing.T) {
 	if actualAnnotationAssertionsLength != expectedAnnotationAssertionsLength {
 		t.Error("Ontology Annotation Assertions amount is incorrect, expected", expectedAnnotationAssertionsLength, ", but got", actualAnnotationAssertionsLength)
 	}
+
+	var expectedAnnotationAssertAbbrevIRI AbbreviatedIRI = "obo2:DINTO_1812"
+	var AnnotationAssertion = ontology.AnnotationAssertions[0]
+	var actualAnnotationAssertAbbrevIRI = AnnotationAssertion.AbbreviatedIRI
+	var literal = AnnotationAssertion.Literal
+	var actualLiteralValue = literal.Value
+	var expectedLiteralValue = "multidrug and toxin extrusion protein 1"
+	if actualAnnotationAssertAbbrevIRI != expectedAnnotationAssertAbbrevIRI {
+		t.Error("Ontology Annotation Assertion Abbreviated IRI string is incorrect, expected",  expectedAnnotationAssertAbbrevIRI, ", but got", actualAnnotationAssertAbbrevIRI)
+	}
+
+	if actualLiteralValue != expectedLiteralValue {
+		t.Error("Ontology Annotation Assertion Literal value string is incorrect, expected",  expectedLiteralValue, ", but got", actualLiteralValue)
+	}
+
+
 }
 
 func TestSubAnnotationProperties(t *testing.T) {
@@ -100,5 +134,14 @@ func TestSubAnnotationProperties(t *testing.T) {
 
 	if actualSubAnnotationPropertiesLength != expectedSubAnnotationProperties {
 		t.Error("Ontology SubAnnotationProperties amount is incorrect, expected", expectedSubAnnotationProperties, ", but got", actualSubAnnotationPropertiesLength)
+	}
+
+	var subAnnotProperty = ontology.SubAnnotationProperties[0]
+	var annotationProp = subAnnotProperty.AnnotationProperties[1]
+	var expectedAnnotationPropIRI AbbreviatedIRI = "rdfs:label"
+	var actualAnnotationPropIRI = annotationProp.AbbreviatedIRI
+
+	if actualAnnotationPropIRI != expectedAnnotationPropIRI {
+		t.Error("Ontology sub-annotation property IRI is incorrect, expected", expectedAnnotationPropIRI, ", but got", actualAnnotationPropIRI)
 	}
 }
