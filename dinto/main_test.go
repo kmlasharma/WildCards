@@ -14,6 +14,20 @@ func TestPrefixes(t *testing.T) {
 	if actualPrefixLength != expectedPrefixLength {
 		t.Error("Ontology Prefix amount is incorrect, expected",  expectedPrefixLength, ", but got", actualPrefixLength)
 	}
+
+	var expectedPrefixIRI = "http://purl.obolibrary.org/obo#"
+	var expectedPrefixName = "obo"
+	var prefix = ontology.Prefixes[1]
+	var actualPrefixIRI = prefix.IRI
+	var actualPrefixName = prefix.Name
+	if actualPrefixName != expectedPrefixName {
+		t.Error("Ontology Prefix name is incorrect, expected",  expectedPrefixName, ", but got", actualPrefixName)
+	}
+
+	if actualPrefixIRI != expectedPrefixIRI {
+		t.Error("Ontology Prefix name is incorrect, expected",  expectedPrefixIRI, ", but got", actualPrefixIRI)
+	}
+	
 }
 
 func TestImport(t *testing.T) {
