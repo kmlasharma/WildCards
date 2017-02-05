@@ -3,16 +3,17 @@ package main
 import (
 	"testing"
 )
+
 //code to test main's ontology object
 
-var ontology = GenerateOntology("./data/test.xml")
+var ontology = GenerateOntology("./data/test.owl")
 
 func TestPrefixes(t *testing.T) {
 	var expectedPrefixLength = 11
 	var actualPrefixLength = len(ontology.Prefixes)
 
 	if actualPrefixLength != expectedPrefixLength {
-		t.Error("Ontology Prefix amount is incorrect, expected",  expectedPrefixLength, ", but got", actualPrefixLength)
+		t.Error("Ontology Prefix amount is incorrect, expected", expectedPrefixLength, ", but got", actualPrefixLength)
 	}
 
 	var expectedPrefixIRI = "http://purl.obolibrary.org/obo#"
@@ -35,7 +36,7 @@ func TestImport(t *testing.T) {
 	var actualImportLength = len(ontology.Imports)
 
 	if actualImportLength != expectedImportLength {
-		t.Error("Ontology Imports amount is incorrect, expected",  expectedImportLength, ", but got", actualImportLength)
+		t.Error("Ontology Imports amount is incorrect, expected", expectedImportLength, ", but got", actualImportLength)
 	}
 
 	var expectedImportsValue = "http://purl.obolibrary.org/obo/MF/external/ontology-metadata-slim.owl"
@@ -52,7 +53,7 @@ func TestAnnotations(t *testing.T) {
 	var actualAnnotationsLength = len(ontology.Annotations)
 
 	if actualAnnotationsLength != expectedAnnotationsLength {
-		t.Error("Ontology Annotations amount is incorrect, expected",  expectedAnnotationsLength, ", but got", actualAnnotationsLength)
+		t.Error("Ontology Annotations amount is incorrect, expected", expectedAnnotationsLength, ", but got", actualAnnotationsLength)
 	}
 
 	var annotation = ontology.Annotations[2]
@@ -71,7 +72,7 @@ func TestDeclarations(t *testing.T) {
 	var actualDeclarationsLength = len(ontology.Declarations)
 
 	if actualDeclarationsLength != expectedDeclarationsLength {
-		t.Error("Ontology Declarations amount is incorrect, expected",  expectedDeclarationsLength, ", but got", actualDeclarationsLength)
+		t.Error("Ontology Declarations amount is incorrect, expected", expectedDeclarationsLength, ", but got", actualDeclarationsLength)
 	}
 }
 
@@ -80,7 +81,7 @@ func TestSubclasses(t *testing.T) {
 	var actualSubclassesLength = len(ontology.Subclasses)
 
 	if actualSubclassesLength != expectedSubclassesLength {
-		t.Error("Ontology Subclasses amount is incorrect, expected",  expectedSubclassesLength, ", but got", actualSubclassesLength)
+		t.Error("Ontology Subclasses amount is incorrect, expected", expectedSubclassesLength, ", but got", actualSubclassesLength)
 	}
 }
 
@@ -89,7 +90,7 @@ func TestAnnotationAssertions(t *testing.T) {
 	var actualAnnotationAssertionsLength = len(ontology.AnnotationAssertions)
 
 	if actualAnnotationAssertionsLength != expectedAnnotationAssertionsLength {
-		t.Error("Ontology Annotation Assertions amount is incorrect, expected",  expectedAnnotationAssertionsLength, ", but got", actualAnnotationAssertionsLength)
+		t.Error("Ontology Annotation Assertions amount is incorrect, expected", expectedAnnotationAssertionsLength, ", but got", actualAnnotationAssertionsLength)
 	}
 }
 
@@ -98,7 +99,6 @@ func TestSubAnnotationProperties(t *testing.T) {
 	var actualSubAnnotationPropertiesLength = len(ontology.SubAnnotationProperties)
 
 	if actualSubAnnotationPropertiesLength != expectedSubAnnotationProperties {
-		t.Error("Ontology SubAnnotationProperties amount is incorrect, expected",  expectedSubAnnotationProperties, ", but got", actualSubAnnotationPropertiesLength)
+		t.Error("Ontology SubAnnotationProperties amount is incorrect, expected", expectedSubAnnotationProperties, ", but got", actualSubAnnotationPropertiesLength)
 	}
 }
-
