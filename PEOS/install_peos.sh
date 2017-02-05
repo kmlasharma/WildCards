@@ -9,7 +9,8 @@ cd $HOME
 git clone https://github.com/jnoll/peos
 
 # Install dependencies
-sudo apt-get install -y build-essential \
+sudo DEBIAN_FRONTEND=noninteractive \
+apt-get install -y build-essential \
 			bison \
 			check \
 			flex \
@@ -31,7 +32,7 @@ sudo apt-get install -y build-essential \
 			libxslt1-dev \
 			expect \
 			expect-dev
-sudo apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
 
 # Make PEOS and run tests
 cd $HOME/peos

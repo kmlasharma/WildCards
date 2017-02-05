@@ -5,7 +5,7 @@
 # Only install Docker if not already installed.
 # If Docker is already on the machine then redownloading it can cause issues
 which docker
-if [ $? -ne 1 ] then
+if [ $? -ne 0 ] then
 	if [ "$(uname)" != "Darwin" ]; then
 		# Linux.
 		# Install dependencies
@@ -16,7 +16,7 @@ if [ $? -ne 1 ] then
 		sudo apt-get update
 
 		# Install Docker
-	#	curl -fsSL https://get.docker.com/ | sh
+		curl -fsSL https://get.docker.com/ | sh
 
 		# Add Docker's GPG key
 		curl -fsSL https://yum.dockerproject.org/gpg | sudo apt-key add -
