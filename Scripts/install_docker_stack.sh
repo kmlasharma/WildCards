@@ -45,6 +45,7 @@ if [ $? -ne 0 ]; then
 		brew install caskroom/cask/brew-cask
 		# Install docker toolbox
 		brew cask install docker-toolbox
+		brew cask install virtualbox
 	fi
 fi
 
