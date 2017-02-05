@@ -5,25 +5,13 @@
 
 All that is required to run the project is Docker:
 
-1. Run `./Scripts/install_docker_stack.sh`
-   * This installs Docker, Docker Engine and Docker Compose if it is not already installed.
+1. Running `make install` will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed.
 
-## Building Project:
+## Setting up the Project:
 
-Once the Docker stack has been installed (see above), building the project is simple.
+Once the Docker stack has been installed (see above), running `make setup` will ensure your computer is setup to run the project. On Linux, this will start the docker service. Mac, on the other hand, doesn’t have the kernel features required to run Docker containers natively, so we use virtualbox to provision a Docker machine VM. This will all be handled using `make setup` (Including using a VM if it's already provisioned).
 
-### Ubuntu
-
-1. Run the following commands as root - `sudo su` to change to root user
-2. Run `sudo usermod -aG docker root && sudo service docker start`
-3. Run `docker-compose up --build`
-
-### Mac
-
-1. Run `docker-machine create --driver virtualbox default` unless a docker machine already exists.
-2. Run `eval $(docker-machine env default)` to setup the new docker machine.
-1. Run `docker-machine start default` to make sure it is running.
-2. Run `docker-compose up --build`
+Finally, run `docker-compose up --build` to build the project.
 
 ## Running PEOS:
 
