@@ -9,8 +9,7 @@ import (
 )
 
 func main() {
-	ontology := GenerateOntology("./data/test.xml")
-	//ontology := GenerateOntology("./data/DINTO.owl")
+	ontology := GenerateOntology("./data/test.owl")
 	fmt.Println(ontology)
 
 }
