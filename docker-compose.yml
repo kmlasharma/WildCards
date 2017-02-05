@@ -4,10 +4,8 @@ services:
     build: ./PEOS
     ports:
      - "8080:8080"
-    volumes:
-     - .:/workdirgit
   dinto:
     build: ./dinto
-    command: go test
-
+    ports:
+     - "8000:8000"
 
