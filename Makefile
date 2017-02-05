@@ -1,7 +1,7 @@
 install:
-	@chmod +x ./scripts/docker-install.sh
+	@chmod +x scripts/*
 	cd ./scripts && ./docker-install.sh
 
 setup:
-	@chmod +x ./scripts/docker-setup.sh
+	@chmod +x scripts/*
 	cd ./scripts && ./docker-setup.sh
