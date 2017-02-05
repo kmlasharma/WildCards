@@ -4,8 +4,10 @@ services:
     build: ./PEOS
     ports:
      - "8080:8080"
+  dinto-tests:
+    build: ./dinto
+    command: go test
   dinto:
     build: ./dinto
-    ports:
-     - "8000:8000"
+    command: dinto
 
