@@ -115,8 +115,8 @@ type Annotation struct {
 
 type Prefix struct {
 	XMLName xml.Name `xml:"Prefix"`
-	Name    string   `xml:"Name"`
-	IRI     string   `xml:"IRI"`
+	Name    string   `xml:"name,attr"`
+	IRI     string   `xml:"IRI,attr"`
 }
 
 type Import struct {
