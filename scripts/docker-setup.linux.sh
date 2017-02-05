@@ -1,2 +1,6 @@
 #!/bin/bash
-sudo usermod -aG docker root && sudo service docker start
+
+sudo service docker stop
+sudo groupadd docker
+sudo gpasswd -a ${USER} docker
+sudo service docker start
