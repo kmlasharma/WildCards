@@ -25,11 +25,11 @@ Once the Docker stack has been installed (see above), building the project is si
 ## Running PEOS:
 
 1. Run `docker-compose run peos` to enter the Docker container for PEOS
-3. Run `peos/pml/check/pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
+2. Run `peos/pml/check/pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
    * Note that `test.pml` does not pass pmlcheck and it should not
    * `test.pml` should be used to verify that the pmlcheck tool works
-4. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
-5. Run `exit` to get out of the Docker container
+3. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
+4. Run `exit` to get out of the Docker container
 
 ## Running DINTO:
 
