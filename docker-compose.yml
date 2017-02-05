@@ -5,5 +5,9 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - .:/workdir
+     - .:/workdirgit
+  dinto:
+    build: ./dinto
+    command: go test
+
 
