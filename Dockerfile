@@ -11,4 +11,5 @@ WORKDIR /root
 COPY PEOS/install_peos.sh install_peos.sh
 
 RUN ./install_peos.sh
+RUN rm ./install_peos.sh
 
