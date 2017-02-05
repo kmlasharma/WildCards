@@ -20,7 +20,10 @@ Once the Docker stack has been installed (see above), building the project is si
 
 ### Mac
 
-1. TODO
+1. Run `docker-machine create --driver virtualbox default` unless a docker machine already exists.
+2. Run `eval $(docker-machine env default)` to setup the new docker machine.
+1. Run `docker-machine start default` to make sure it is running.
+2. Run `docker-compose up --build`
 
 ## Running PEOS:
 
