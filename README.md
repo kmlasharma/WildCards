@@ -5,25 +5,17 @@
 
 All that is required to run the project is Docker:
 
-1. Run `./Scripts/install_docker_stack.sh`
-   * This installs Docker, Docker Engine and Docker Compose if it is not already installed.
+1. Running `make install` will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed.
 
-## Building Project:
+## Setting up the Project:
 
-Once the Docker stack has been installed (see above), building the project is simple.
+Once the Docker stack has been installed (see above), running `make setup` will ensure your computer is setup to run the project. On Linux, this will start the docker service. Mac, on the other hand, doesn’t have the kernel features required to run Docker containers natively, so we use virtualbox to provision a Docker machine VM. This will all be handled using `make setup` (Including using a VM if it's already provisioned).
 
-### Ubuntu
+**Note**: If you are on Linux, at this point you need to physically restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps with ease.
 
-1. Run the following commands as root - `sudo su` to change to root user
-2. Run `sudo usermod -aG docker root && sudo service docker start`
-3. Run `docker-compose up --build`
+**Also Note on Linux**, If any of the following steps fail with a "Couldn't connect to Docker daemon..." error then run `sudo service docker start`. 
 
-### Mac
-
-1. Run `docker-machine create --driver virtualbox default` unless a docker machine already exists.
-2. Run `eval $(docker-machine env default)` to setup the new docker machine.
-1. Run `docker-machine start default` to make sure it is running.
-2. Run `docker-compose up --build`
+Finally, whether you are on Mac or Linux, run `docker-compose up --build` to build the project.
 
 ## Running PEOS:
 
@@ -36,8 +28,8 @@ Once the Docker stack has been installed (see above), building the project is si
 
 ## Running DINTO:
 
-1. Run `docker-compose run dinto` to run our DINTO tests found in `./dinto/main_test.go`
-2. Run `dinto` to run the project which will output analysis on the dinto file.
+1. Run `docker-compose run dinto-tests` to run our DINTO tests found in `./dinto/main_test.go`
+2. Run `docker-compose run dinto` to run the project which will output analysis on the dinto file.
 
 ## Tearing down the Docker container
 
