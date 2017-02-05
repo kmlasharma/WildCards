@@ -39,7 +39,3 @@ Once the Docker stack has been installed (see above), building the project is si
 ## Tearing down the Docker container
 
 1. Run `docker-compose stop` to completely tear down the Docker container
-
-## Running GO Test:
-
-1. From within the dinto directory, run `go test`. 
