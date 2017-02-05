@@ -37,6 +37,14 @@ func TestImport(t *testing.T) {
 	if actualImportLength != expectedImportLength {
 		t.Error("Ontology Imports amount is incorrect, expected",  expectedImportLength, ", but got", actualImportLength)
 	}
+
+	var expectedImportsValue = "http://purl.obolibrary.org/obo/MF/external/ontology-metadata-slim.owl"
+	var imports = ontology.Imports[0]
+	var actualImportsValue = imports.Value
+	if actualImportsValue != expectedImportsValue {
+		t.Error("Ontology Import value is incorrect, expected",  expectedImportsValue, ", but got", actualImportsValue)
+	}
+
 }
 
 func TestAnnotations(t *testing.T) {
@@ -46,6 +54,16 @@ func TestAnnotations(t *testing.T) {
 	if actualAnnotationsLength != expectedAnnotationsLength {
 		t.Error("Ontology Annotations amount is incorrect, expected",  expectedAnnotationsLength, ", but got", actualAnnotationsLength)
 	}
+
+	var annotation = ontology.Annotations[2]
+	var literal = annotation.Literal
+	var actualIRIString = literal.Value
+	var expectedIRIString = "This ontology has been created and is maintained by the Department of Computer Science at University Carlos III of Madrid."
+
+	if actualIRIString != expectedIRIString {
+		t.Error("Ontology Annotation Value string is incorrect, expected",  expectedIRIString, ", but got", actualIRIString)
+	}
+
 }
 
 func TestDeclarations(t *testing.T) {
