@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 )
+//code to test main's ontology object
 
 var ontology = GenerateOntology("./data/test.xml")
 
