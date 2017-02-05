@@ -13,7 +13,7 @@ Once the Docker stack has been installed (see above), running `make setup` will 
 
 **Note**: If you are on Linux, at this point you need to physically restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps with ease.
 
-**Note**, If you are on Linux and if any of the following steps fail with a "Couldn't connect to Docker daemon..." error then run `sudo service docker start`. 
+**Also Note on Linux**, If any of the following steps fail with a "Couldn't connect to Docker daemon..." error then run `sudo service docker start`. 
 
 Finally, whether you are on Mac or Linux, run `docker-compose up --build` to build the project.
 
@@ -28,8 +28,8 @@ Finally, whether you are on Mac or Linux, run `docker-compose up --build` to bui
 
 ## Running DINTO:
 
-1. Run `docker-compose run dinto` to run our DINTO tests found in `./dinto/main_test.go`
-2. Run `dinto` to run the project which will output analysis on the dinto file.
+1. Run `docker-compose run dinto-tests` to run our DINTO tests found in `./dinto/main_test.go`
+2. Run `docker-compose run dinto` to run the project which will output analysis on the dinto file.
 
 ## Tearing down the Docker container
 
