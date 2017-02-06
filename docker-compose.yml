@@ -9,5 +9,5 @@ services:
     command: go test
   dinto:
     build: ./dinto
-    command: dinto
+    command: app
 
