@@ -10,14 +10,11 @@ All that is required to run the project is Docker:
 ## Setting up the Project:
 
 1. Run `make setup` to ensure your computer is setup to run the project.
-
 2. If running on Linux:
  * This will start the docker service. 
  * Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps with ease.
-
 3. If running on Mac:
   * Mac does not have the kernel features required to run Docker containers natively, so we use virtualbox to provision a Docker machine VM. This will all be handled using `make setup` (Including using a VM if it's already provisioned).
-
 4. Run `docker-compose up --build` to build the project, whether on Linux or Mac.
 
 ## Running PEOS:
