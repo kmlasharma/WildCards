@@ -20,7 +20,7 @@ All that is required to run the project is Docker:
 ## Running PEOS:
 
 1. Run `docker-compose run peos` to enter the Docker container for PEOS
-2. Run `peos/pml/check/pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
+2. Run `pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
    * Note that `test.pml` does not pass pmlcheck and it should not
    * `test.pml` should be used to verify that the pmlcheck tool works
 3. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
