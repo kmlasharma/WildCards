@@ -38,3 +38,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get update
 cd $HOME/peos
 make
 
+echo 'ln -s -f $HOME/peos/pml/check/pmlcheck /usr/bin/pmlcheck' >> ~/.bashrc
+echo 'ln -s -f $HOME/peos/os/kernel/peos /usr/bin/peos' >> ~/.bashrc
+
