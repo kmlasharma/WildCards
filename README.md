@@ -5,11 +5,13 @@
 
 All that is required to run the project is Docker:
 
-1. Running `make install` will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed.
+1. Running `make install` will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed. Accept any prompts during installation.
 
 ## Setting up the Project:
 
-1. Run `make setup` to ensure your computer is setup to run the project.
+1. To ensure your computer is setup to run the project, run one of the following:
+ * `make clean` then `make setup` if you are outside of the Trinity College network
+ * `make clean` then `make setuptrinity` if you are inside of the Trinity College network
 2. If running on Linux:
  * This will start the docker service. 
  * Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps with ease.
