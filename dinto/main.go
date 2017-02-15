@@ -1,4 +1,4 @@
-package dinto
+package main
 
 import (
 	"bytes"
