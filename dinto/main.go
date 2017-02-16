@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	ontology := GenerateOntology("./data/test.owl")
+	ontology := GenerateOntology("/go/src/app/data/test.owl")
 	fmt.Println("Number of Prefixes:", len(ontology.Prefixes))
 	fmt.Println("Number of Imports:", len(ontology.Imports))
 	fmt.Println("Number of Annotations:", len(ontology.Annotations))
