@@ -9,29 +9,43 @@ All that is required to run the project is Docker:
 
 ## Setting up the Project:
 
-1. To ensure your computer is setup to run the project, run one of the following:
+1. To ensure your computer is setup to run the project, run one of the following (to start the docker service):
  * `make clean` then `make setup` if you are outside of the Trinity College network
  * `make clean` then `make setuptrinity` if you are inside of the Trinity College network
-2. If running on Linux:
- * This will start the docker service. 
- * Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps with ease.
-3. If running on Mac:
-  * Mac does not have the kernel features required to run Docker containers natively, so we use virtualbox to provision a Docker machine VM. This will all be handled using `make setup` (Including using a VM if it's already provisioned).
-4. Run `docker-compose up --build` to build the project, whether on Linux or Mac.
+2. Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps. If you do not restart your machine you will run into issues.
+3. Run `docker-compose build` to build the project.
 
-## Running PEOS:
+The project is now set up and ready for use.
 
-1. Run `docker-compose run peos` to enter the Docker container for PEOS
-2. Run `pmlcheck peos/xpml/test.pml` to test PEOS on a sample pml file
-   * Note that `test.pml` does not pass pmlcheck and it should not
-   * `test.pml` should be used to verify that the pmlcheck tool works
-3. Create your own `.pml` file and run pmlcheck on the file to run it through PEOS
-4. Run `exit` to get out of the Docker container
+## Running the project:
 
-## Running DINTO:
+1. Run `docker-compose run project` to enter the Docker container.
+2. Verify that the project is set up properly:
+ * Run `app`
+ * Run `cd /go/src/app` followed by `go test`
+ * Run `cd` followed by `pmlcheck peos/xpml/test.pml`
 
-1. Run `docker-compose run dinto-tests` to run our DINTO tests found in `./dinto/main_test.go`
-2. Run `docker-compose run dinto` to run the project which will output analysis on the dinto file.
+## Features:
+
+### PML File Selection
+
+* Status: In Progress
+* Testing instructions:
+
+### PML File Loading
+
+* Status: In Progress
+* Testing Instructions:
+
+### Select Specific OWL Ontology
+
+* Status: In Progress
+* Testing Instructions:
+
+### Load Selected Ontology
+
+* Status: In Progress
+* Testing Instructions:
 
 ## Tearing down the Docker container
 
