@@ -1,13 +1,6 @@
 version: '2'
 services:
   peos:
-    build: ./PEOS
+    build: .
     ports:
      - "8080:8080"
-  dinto-tests:
-    build: ./dinto
-    command: go test
-  dinto:
-    build: ./dinto
-    command: app
-
