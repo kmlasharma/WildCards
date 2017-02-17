@@ -2,7 +2,7 @@
 FROM golang:1.6
 
 # Build dinto components
-COPY ./dinto /go/src/app
+COPY ./main.go /go/src/app
 WORKDIR /go/src/app
 RUN ls -al
 RUN go get -d -v
