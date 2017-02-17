@@ -22,8 +22,7 @@ The project is now set up and ready for use.
 1. Run `docker-compose run project` to enter the Docker container.
 2. Verify that the project is set up properly:
  * Run `app`
- * Run `cd /go/src/app` followed by `go test`
- * Run `cd` followed by `pmlcheck peos/xpml/test.pml`
+ * Run `pmlcheck $HOME/peos/xpml/test.pml`
 
 ## Features:
 

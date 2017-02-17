@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/KmlaSharma/WildCards/dinto"
 	"os"
 	"os/exec"
 	"strings"

@@ -2,9 +2,8 @@
 FROM golang:1.6
 
 # Build dinto components
-COPY ./main.go /go/src/app
-WORKDIR /go/src/app
-RUN ls -al
+COPY ./src/ /go/src/app
+WORKDIR /go/src/app/
 RUN go get -d -v
 RUN go install -v
 
@@ -24,7 +23,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 # Has to be /root as $HOME is set to /root
 # This is a restriction in place by PEOS
 WORKDIR /root
-COPY ./peos/install_peos.sh install_peos.sh
+COPY ./src/peos/install_peos.sh install_peos.sh
 RUN ./install_peos.sh
 RUN rm ./install_peos.sh
 
