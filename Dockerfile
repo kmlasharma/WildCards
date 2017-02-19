@@ -17,7 +17,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo git
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
 # Install Python 3
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-pip
+RUN pip3 install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
 # Has to be /root as $HOME is set to /root
