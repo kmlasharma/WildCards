@@ -1,0 +1,6 @@
+version: '2'
+services:
+  project:
+    build: .
+    ports:
+     - "8080:8080"
