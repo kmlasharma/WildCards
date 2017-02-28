@@ -20,31 +20,33 @@ The project is now set up and ready for use.
 ## Running the project:
 
 1. Run `docker-compose run project` to enter the Docker container.
-2. Verify that the project is set up properly:
- * Run `app`
- * Run `pmlcheck $HOME/peos/xpml/test.pml`
+2. Run `app` to start the application.
 
 ## Features:
 
 ### PML File Selection
 
-* Status: In Progress
+* Status: Complete
 * Testing instructions:
+   * Enter `test.pml` at the prompt
 
 ### PML File Loading
 
-* Status: In Progress
+* Status: Complete
 * Testing Instructions:
+   * By doing the previous step, the PML file will automatically be loaded
 
 ### Select Specific OWL Ontology
 
-* Status: In Progress
+* Status: Complete
 * Testing Instructions:
+   * Enter `test.owl` at the prompt
 
 ### Load Selected Ontology
 
-* Status: In Progress
+* Status: Complete
 * Testing Instructions:
+   * By doing the previous step, the OWL Ontology will automatically be loaded
 
 ## Tearing down the Docker container
 
