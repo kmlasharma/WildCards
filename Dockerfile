@@ -31,3 +31,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN pip install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
+RUN echo 'ln -s -f $HOME/peos/xpml/test.pml $HOME/test.pml' >> ~/.bashrc
+RUN echo 'ln -s -f /go/src/app/dinto/data/test.owl $HOME/test.owl' >> ~/.bashrc
+
