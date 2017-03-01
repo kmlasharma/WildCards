@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/kmlasharma/cs4098/src/pml"
 	"os"
 	"os/exec"
 	"strings"
@@ -31,12 +32,18 @@ func checkExtension(path string, extension string) {
 		fmt.Println("Invalid file type.")
 		os.Exit(0)
 	}
+	_, err := os.Open(path)
+	if err != nil {
+		fmt.Println("Cannot open file")
+		os.Exit(0)
+	}
 }
 
 func PEOS(path string) {
-	cmd := "pmlcheck " + path
-	out, _ := exec.Command("sh", "-c", cmd).Output()
-	fmt.Println(string(out))
+	reader, _ := os.Open(path)
+	parser := pml.NewParser(reader)
+	process := parser.Parse()
+	fmt.Println("Process: ", process)
 }
 
 func Ontology(path string) {
