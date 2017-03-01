@@ -26,9 +26,9 @@ RUN rm ./install_peos.sh
 
 
 # Install Python 3
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python2.7 python2.7-dev python-pip
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-dev python3-pip
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN pip install ontospy
+RUN pip3 install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
 RUN echo 'ln -s -f $HOME/peos/xpml/test.pml $HOME/test.pml' >> ~/.bashrc

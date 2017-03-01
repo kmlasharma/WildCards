@@ -40,7 +40,7 @@ func PEOS(path string) {
 }
 
 func Ontology(path string) {
-	cmd := "python dinto/ontology.py " + path
+	cmd := "python3 /go/src/app/dinto/ontology.py " + path
 	out, _ := exec.Command("sh", "-c", cmd).Output()
 	fmt.Println(string(out))
 }
