@@ -63,7 +63,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the Selecct Specific OWL Ontology feature step
+   * You have completed the Select Specific OWL Ontology feature step
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded
 
