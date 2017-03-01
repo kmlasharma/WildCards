@@ -1,21 +1,30 @@
 # CS4098 Group Project
 ## Team Name: Wildcards
 
+If you are cloning this repo for the first time:
+
+1. Run the steps in `Installation`.
+2. Run the steps in `Setting Up The Project`.
+3. Run the steps in `Running The Project`.
+
+If you have already cloned the repo, and would like the most up to date version:
+
+1. Run the steps in `Setting Up The Project`.
+2. Run the steps in `Running The Project`.
+
 ## Installation:
 
-All that is required to run the project is Docker:
+Docker is all you need for the project. To install Docker:
 
-1. Running `make install` will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed. Accept any prompts during installation.
-2. Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps. If you do not restart your machine you will run into issues.
+1. Run `make install` (this will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed. Accept any prompts during installation.
+2. Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps. If you do not restart your machine you will run into issues. You need to restart your machine to apply user group changes.
 
 ## Setting up the Project:
 
-1. To ensure your computer is setup to run the project, run one of the following (to start the docker service):
- * `make setup` if you are outside of the Trinity College network
- * `make setuptrinity` if you are inside of the Trinity College network
-2. Run `docker-compose build --no-cache` to build the project.
-
-The project is now set up and ready for use.
+1. To ensure your computer is setup to run the project, run one of the following:
+ * `make setup` if you are outside of the Trinity College network.
+ * `make setuptrinity` if you are inside of the Trinity College network.
+2. Run `docker-compose build --no-cache` to build the project (the no-cache flag ensures a clean build).
 
 ## Running the project:
 
@@ -24,27 +33,37 @@ The project is now set up and ready for use.
 
 ## Features:
 
+It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context.
+
 ### PML File Selection
 
-* Status: Complete
+* Status: **Complete**
+* Starting context:
+   * You are in the container and have run `app`
 * Testing instructions:
    * Enter `test.pml` at the prompt
 
 ### PML File Loading
 
-* Status: Complete
+* Status: **Complete**
+* Starting context:
+   * You have completed the PML File Selection feature step
 * Testing Instructions:
    * By doing the previous step, the PML file will automatically be loaded
 
 ### Select Specific OWL Ontology
 
-* Status: Complete
+* Status: **Complete**
+* Starting context:
+   * You have completed the PML File Selection feature step
 * Testing Instructions:
    * Enter `test.owl` at the prompt
 
 ### Load Selected Ontology
 
-* Status: Complete
+* Status: **Complete**
+* Starting context:
+   * You have completed the Selecct Specific OWL Ontology feature step
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded
 
