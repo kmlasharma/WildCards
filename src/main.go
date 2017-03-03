@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/kmlasharma/cs4098/src/pml"
+	"github.com/kmlasharma/wildcards/src/pml"
 	"os"
 	"os/exec"
 	"strings"
