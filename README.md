@@ -67,6 +67,54 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded
 
+### On Screen PML Reporting
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO
+
+### PML Log File Generation
+
+* Status: **OIn Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO
+
+### PML Error Warning and Highlighting
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO
+
+### On Screen Dinto Reporting
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO
+
+### Dinto Log File Generation
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO
+
+### Dinto Error Warning and Highlighting
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO
+
 ## Tearing down the Docker container
 
 1. Run `docker-compose stop` to completely tear down the Docker container
