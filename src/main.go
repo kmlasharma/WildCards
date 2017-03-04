@@ -13,20 +13,20 @@ func main() {
 	var pmlFilePath string
 	var owlFilePath string
 
-	fmt.Print("Welcome to the app\n")
-	fmt.Print("Here is how it works:")
-	fmt.Print("\t* You will choose a PML file")
-	fmt.Print("\t* You will choose a OWL file")
-	fmt.Print("\t* The app will generate the following:")
-	fmt.Print("\t\t1) Analysis based on your files")
-	fmt.Print("\t\t2) A log file for you to read called analysis.log")
-	fmt.Print("\t\t3) An error output file called analysis.err")
-	fmt.Print("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
+	fmt.Println("Welcome to the app\n")
+	fmt.Println("Here is how it works:")
+	fmt.Println("\t* You will choose a PML file")
+	fmt.Println("\t* You will choose a OWL file")
+	fmt.Println("\t* The app will generate the following:")
+	fmt.Println("\t\t1) Analysis based on your files")
+	fmt.Println("\t\t2) A log file for you to read called analysis.log")
+	fmt.Println("\t\t3) An error output file called analysis.err")
+	fmt.Println("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
 
-	fmt.Print("Enter path to PML File: [default is test.pml]")
+	fmt.Println("\nEnter path to PML File: [default is test.pml]")
 	fmt.Scanln(&pmlFilePath)
 
-	fmt.Print("Enter path to OWL File: [default is test.owl]")
+	fmt.Println("Enter path to OWL File: [default is test.owl]")
 	fmt.Scanln(&owlFilePath)
 
 	if strings.Compare(pmlFilePath, "") == 0 {
