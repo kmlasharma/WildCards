@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "3+MICOCWkIctVZGhBM++E9+Gz0o=",
+			"path": "github.com/kmlasharma/WildCards/src/pml",
+			"revision": "6e1ec73b3c7985aa7c85c50aff9ef13c12d71659",
+			"revisionTime": "2017-03-04T17:48:04Z"
+		}
+	],
+	"rootPath": "github.com/kmlasharma/wildcards/src"
+}
