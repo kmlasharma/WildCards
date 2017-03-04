@@ -33,7 +33,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 \
 			libxslt1.1 \
 			libxslt1-dev \
 			expect \
-			expect-dev
+			expect-dev \
+			vim \
+			tmux
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN pip3 install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
