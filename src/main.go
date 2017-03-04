@@ -23,10 +23,10 @@ func main() {
 	fmt.Println("\t\t3) An error output file called analysis.err")
 	fmt.Println("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
 
-	fmt.Println("\nEnter path to PML File: [default is test.pml]")
+	fmt.Print("\nEnter path to PML File: [default is test.pml]")
 	fmt.Scanln(&pmlFilePath)
 
-	fmt.Println("Enter path to OWL File: [default is test.owl]")
+	fmt.Print("Enter path to OWL File: [default is test.owl]")
 	fmt.Scanln(&owlFilePath)
 
 	if strings.Compare(pmlFilePath, "") == 0 {
@@ -45,13 +45,14 @@ func main() {
 
 func checkExtension(path string, extension string) {
 	list := strings.Split(path, ".")
-	if len(list) < 2 || list[len(list)-1] != extension { // If there is a dot and the last one is not equal to the extension
+	if len(list) < 2 || list[len(list) - 1] != extension { // If there is a dot and the last one is not equal to the extension
 		fmt.Println("Invalid file type.")
 		os.Exit(0)
 	}
 	_, err := os.Open(path)
 	if err != nil {
 		fmt.Println("Cannot open file")
+		fmt.Println(err)
 		os.Exit(0)
 	}
 }
