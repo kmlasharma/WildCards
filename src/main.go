@@ -65,7 +65,8 @@ func PEOS(path string) {
 	reader, _ := os.Open(path)
 	parser := pml.NewParser(reader)
 	process := parser.Parse()
-	logger.Println("Process: ", process)
+	logger.Println("Process: ", process.Name)
+	logger.Println("Drugs in Process:\n", strings.Join(process.AllDrugs(), "\n"))
 }
 
 func Ontology(path string) {

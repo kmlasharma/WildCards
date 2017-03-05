@@ -3,22 +3,36 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "DZNfoftMfrkd0t7wdETIWDsWRhc=",
+			"checksumSHA1": "hiuOt2XbJiAGnNHyfGoujs+ZA2U=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "79f1e9d489b42892066dec1b407f86a1fc30d1b2",
-			"revisionTime": "2017-03-05T14:44:12Z"
+			"revision": "3eb1c74eb57a293a063719ffc57c824545bb6447",
+			"revisionTime": "2017-03-05T15:50:38Z"
 		},
 		{
-			"checksumSHA1": "wSmrS+KeBlg/cDJugcNoUCFmlLk=",
+			"checksumSHA1": "1CW+cYwy3GolYihqlcp4IRID9z0=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "79f1e9d489b42892066dec1b407f86a1fc30d1b2",
-			"revisionTime": "2017-03-05T14:44:12Z"
+			"revision": "3eb1c74eb57a293a063719ffc57c824545bb6447",
+			"revisionTime": "2017-03-05T15:50:38Z"
 		},
 		{
-			"checksumSHA1": "3+MICOCWkIctVZGhBM++E9+Gz0o=",
-			"path": "github.com/kmlasharma/WildCards/src/pml",
-			"revision": "6e1ec73b3c7985aa7c85c50aff9ef13c12d71659",
-			"revisionTime": "2017-03-04T17:48:04Z"
+			"checksumSHA1": "u96Yhuie6/kM/eDMsVdoVoex4SE=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/progressbar",
+			"revision": "3eb1c74eb57a293a063719ffc57c824545bb6447",
+			"revisionTime": "2017-03-05T15:50:38Z"
+		},
+		{
+			"checksumSHA1": "MNkKJyk2TazKMJYbal5wFHybpyA=",
+			"origin": "github.com/kmlasharma/WildCards/pkgs/progressbar/vendor/github.com/mattn/go-runewidth",
+			"path": "github.com/mattn/go-runewidth",
+			"revision": "3eb1c74eb57a293a063719ffc57c824545bb6447",
+			"revisionTime": "2017-03-05T15:50:38Z"
+		},
+		{
+			"checksumSHA1": "mj71zOfqkkSk7YwAQHY1AiiEUmU=",
+			"origin": "github.com/kmlasharma/WildCards/pkgs/progressbar/vendor/gopkg.in/cheggaaa/pb.v1",
+			"path": "gopkg.in/cheggaaa/pb.v1",
+			"revision": "3eb1c74eb57a293a063719ffc57c824545bb6447",
+			"revisionTime": "2017-03-05T15:50:38Z"
 		}
 	],
 	"rootPath": "github.com/kmlasharma/wildcards/src"
