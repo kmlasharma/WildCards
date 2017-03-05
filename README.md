@@ -35,7 +35,7 @@ Docker is all you need for the project. To install Docker:
 
 It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context.
 
-### PML File Selection
+### ✅ PML File Selection
 
 * Status: **Complete**
 * Starting context:
@@ -43,7 +43,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing instructions:
    * Enter `test.pml` at the prompt
 
-### PML File Loading
+### ✅ PML File Loading
 
 * Status: **Complete**
 * Starting context:
@@ -51,7 +51,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * By doing the previous step, the PML file will automatically be loaded 
 
-### Select Specific OWL Ontology
+### ✅ Select Specific OWL Ontology
 
 * Status: **Complete**
 * Starting context:
@@ -59,7 +59,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Enter `test.owl` at the prompt
 
-### Load Selected Ontology
+### ✅ Load Selected Ontology
 
 * Status: **Complete**
 * Starting context:
@@ -67,14 +67,14 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded
 
-### Running PML Analysis 
+### ✅ Running PML Analysis 
 * Status: **Complete**
 * Starting context:
    * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
    * PML Analysis will automatically be run, and will output the process name along with all drugs in the process.
 
-### On Screen PML Reporting
+### ✅ On Screen PML Reporting
 
 * Status: **Complete**
 * Starting context:
@@ -82,7 +82,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Any issues with the PML file will be reported on screen automatically at this point.
 
-### PML Log File Generation
+### ✅ PML Log File Generation
 
 * Status: **Complete**
 * Starting context:
@@ -90,7 +90,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * The PML reporting will also be logged to the log/output.log file.
 
-### PML Error Warning and Highlighting
+### ⏳ PML Error Warning and Highlighting
 
 * Status: **In Progress**
 * Starting context:
@@ -98,7 +98,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * TODO: Planned for Iteration 4
 
-### On Screen Dinto Reporting
+### ✅ On Screen Dinto Reporting
 
 * Status: **Complete**
 * Starting context:
@@ -106,7 +106,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Any issues with the OWL file will be reported on screen automatically at this point.
 
-### Dinto Log File Generation
+### ✅ Dinto Log File Generation
 
 * Status: **Complete**
 * Starting context:
@@ -114,7 +114,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * The OWL reporting will also be logged to the log/output.log file.
 
-### Dinto Error Warning and Highlighting
+### ⏳ Dinto Error Warning and Highlighting
 
 * Status: **In Progress**
 * Starting context:
