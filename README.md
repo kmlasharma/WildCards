@@ -19,7 +19,7 @@ Docker is all you need for the project. To install Docker:
 
 1. Run `make install` (this will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed. Accept any prompts during installation. When the command completes you should see the following:
 
-![](http://imgur.com/OaLaivJ)
+![](http://i.imgur.com/OaLaivJ.png)
 
 2. Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps. If you do not restart your machine you will run into issues. You need to restart your machine to apply user group changes.
 
@@ -29,24 +29,24 @@ Docker is all you need for the project. To install Docker:
 1. To ensure your computer is setup to run the project, run one of the following:
  * `make setup` if you are outside of the Trinity College network.
 
-![](http://imgur.com/DUNCMhy)
+![](http://i.imgur.com/DUNCMhy.png)
 
  * `make setuptrinity` if you are inside of the Trinity College network.
 
 2. Run `docker-compose build --no-cache` to build the project (the no-cache flag ensures a clean build).
 
-![](http://imgur.com/GqkHsLI)
+![](http://i.imgur.com/GqkHsLI.png)
 
 
 ## Running the project:
 
 1. Run `docker-compose run project` to enter the Docker container.
 
-![](http://imgur.com/5ittEkl)
+![](http://i.imgur.com/5ittEkl.png)
 
 2. Run `app` to start the application.
 
-![](http://imgur.com/HFsNKtK)
+![](http://i.imgur.com/HFsNKtK.png)
 
 ## Features:
 
@@ -60,7 +60,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing instructions:
    * Hit enter at the prompt
 
-![](http://imgur.com/HFsNKtK)
+![](http://i.imgur.com/HFsNKtK.png)
 
 ### ✅ PML File Loading
 
@@ -78,7 +78,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Hit enter at the prompt
 
-![](http://imgur.com/BBfmUdO)
+![](http://i.imgur.com/BBfmUdO.png)
 
 ### ✅ Load Selected Ontology
 
@@ -95,7 +95,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * PML Analysis will automatically be run, and will output the process name along with all drugs in the process.
 
-![](http://imgur.com/HWhIMMi)
+![](http://i.imgur.com/HWhIMMi.png)
 
 ### ✅ On Screen PML Reporting
 
@@ -105,7 +105,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Any issues with the PML file will be reported on screen automatically at this point.
 
-![](http://imgur.com/HWhIMMi)
+![](http://i.imgur.com/HWhIMMi.png)
 
 ### ✅ PML Log File Generation
 
@@ -131,7 +131,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Any issues with the OWL file will be reported on screen automatically at this point.
 
-![]('./res/images/app_analysis_complete.png)
+![](http://i.imgur.com/HWhIMMi.png)
 
 ### ✅ Dinto Log File Generation
 
@@ -153,7 +153,4 @@ It is assumed that you have followed the instructions above before testing the f
 ## Tearing down the Docker container
 
 1. Run `docker-compose stop` to completely tear down the Docker container
-
-![]('./res/images/docker_compose_stop_success.png')
-
 
