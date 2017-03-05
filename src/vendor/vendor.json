@@ -3,6 +3,18 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "DZNfoftMfrkd0t7wdETIWDsWRhc=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
+			"revision": "79f1e9d489b42892066dec1b407f86a1fc30d1b2",
+			"revisionTime": "2017-03-05T14:44:12Z"
+		},
+		{
+			"checksumSHA1": "wSmrS+KeBlg/cDJugcNoUCFmlLk=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
+			"revision": "79f1e9d489b42892066dec1b407f86a1fc30d1b2",
+			"revisionTime": "2017-03-05T14:44:12Z"
+		},
+		{
 			"checksumSHA1": "3+MICOCWkIctVZGhBM++E9+Gz0o=",
 			"path": "github.com/kmlasharma/WildCards/src/pml",
 			"revision": "6e1ec73b3c7985aa7c85c50aff9ef13c12d71659",
