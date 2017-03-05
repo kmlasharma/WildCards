@@ -31,13 +31,14 @@ func main() {
 
 	fmt.Print("Enter path to OWL File: [default is test.owl] ")
 	fmt.Scanln(&owlFilePath)
+
 	owlFilePath = strings.TrimRight(owlFilePath, "\n")
 
 	if pmlFilePath == "" {
-		pmlFilePath = "test.pml"
+		pmlFilePath = "/root/test.pml"
 	}
 	if owlFilePath == "" {
-		owlFilePath = "test.owl"
+		owlFilePath = "/root/test.owl"
 	}
 
 	checkExtension(pmlFilePath, "pml")
