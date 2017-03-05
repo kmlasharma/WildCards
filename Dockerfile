@@ -44,5 +44,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN echo 'ln -s -f /go/src/app/res/test.pml $HOME/test.pml' >> $HOME/.bashrc
 RUN echo 'ln -s -f /go/src/app/res/test.owl $HOME/test.owl' >> $HOME/.bashrc
 
+RUN mkdir /root/log
+RUN touch /root/log/output.log
+
 WORKDIR /root/
 

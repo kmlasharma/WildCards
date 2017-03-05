@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	defaultLogFile = "../log/output.log"
+	defaultLogFile = "/root/log/output.log"
 	outputToStdout = true
 )
 
