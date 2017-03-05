@@ -2,7 +2,7 @@ package pml
 
 import (
 	"encoding/json"
-	"fmt"
+	"github.com/kmlasharma/WildCards/pkgs/logger"
 	"io"
 	"os"
 )
@@ -55,7 +55,7 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 func (p *Parser) ensureNextTokenType(tok Token) string {
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
-		fmt.Println("found ", lit, ", expected ", token)
+		logger.Println("found ", lit, ", expected ", token)
 		os.Exit(1)
 	}
 	return lit
@@ -96,7 +96,6 @@ func (p *Parser) Parse() *Process {
 }
 
 func decodeActionJSON(str string) Action {
-	fmt.Println(str)
 	action := Action{}
 	if err := json.Unmarshal([]byte(str), &action); err != nil {
 		panic(err)
