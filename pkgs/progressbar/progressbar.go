@@ -10,7 +10,7 @@ import (
 )
 
 func DisplayProgressBarForOwlFile(filepath string) {
-	fmt.Println("Analysing OWL file")
+	fmt.Println("Analysing OWL file..")
 	f, _ := os.OpenFile(filepath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	numberOfLines := lineCount(f)
 	numberOfSeconds := numberOfLines / 600
