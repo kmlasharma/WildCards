@@ -3,7 +3,7 @@ FROM golang:1.6
 
 # Build dinto components
 COPY ./src/ /go/src/app
-COPY ./tests/ /go/src/app/tests
+COPY ./res/ /go/src/app/res
 WORKDIR /go/src/app/
 RUN go get -d -v
 RUN go install -v
@@ -41,8 +41,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN pip3 install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
-RUN echo 'ln -s -f /go/src/app/tests/test.pml $HOME/test.pml' >> $HOME/.bashrc
-RUN echo 'ln -s -f /go/src/app/tests/test.owl $HOME/test.owl' >> $HOME/.bashrc
+RUN echo 'ln -s -f /go/src/app/res/test.pml $HOME/test.pml' >> $HOME/.bashrc
+RUN echo 'ln -s -f /go/src/app/res/test.owl $HOME/test.owl' >> $HOME/.bashrc
 
 WORKDIR /root/
 

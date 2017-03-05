@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/kmlasharma/WildCards/pkgs/logger"
 	"github.com/kmlasharma/WildCards/pkgs/pml"
+	"github.com/kmlasharma/WildCards/pkgs/progressbar"
 	"os"
 	"os/exec"
 	"strings"
@@ -68,6 +69,7 @@ func PEOS(path string) {
 }
 
 func Ontology(path string) {
+	progressbar.DisplayProgressBarForOwlFile(path)
 	cmd := "python3 /go/src/app/dinto/ontology.py " + path
 	out, _ := exec.Command("sh", "-c", cmd).Output()
 	logger.Println(string(out))
