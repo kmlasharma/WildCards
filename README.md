@@ -19,7 +19,7 @@ Docker is all you need for the project. To install Docker:
 
 1. Run `make install` (this will ensure that all docker components needed (Docker, Docker Engine and Docker Compose) are installed. Accept any prompts during installation. When the command completes you should see the following:
 
-![]('./res/images/make_install_success.png')
+![](http://imgur.com/OaLaivJ)
 
 2. Restart your machine. This will apply the changes in the above steps properly and will allow you to run the following steps. If you do not restart your machine you will run into issues. You need to restart your machine to apply user group changes.
 
@@ -29,24 +29,24 @@ Docker is all you need for the project. To install Docker:
 1. To ensure your computer is setup to run the project, run one of the following:
  * `make setup` if you are outside of the Trinity College network.
 
-![]('./res/images/make_setup_success.png')
+![](http://imgur.com/DUNCMhy)
 
  * `make setuptrinity` if you are inside of the Trinity College network.
 
 2. Run `docker-compose build --no-cache` to build the project (the no-cache flag ensures a clean build).
 
-![]('./res/images/docker_compose_build_success.png')
+![](http://imgur.com/GqkHsLI)
 
 
 ## Running the project:
 
 1. Run `docker-compose run project` to enter the Docker container.
 
-![]('./res/images/docer_compose_run_success.png')
+![](http://imgur.com/5ittEkl)
 
 2. Run `app` to start the application.
 
-![]('./res/images/app_success.png')
+![](http://imgur.com/HFsNKtK)
 
 ## Features:
 
@@ -60,7 +60,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing instructions:
    * Hit enter at the prompt
 
-![]('./res/images/app_prompt_pml_file_selection.png')
+![](http://imgur.com/HFsNKtK)
 
 ### ✅ PML File Loading
 
@@ -78,7 +78,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Hit enter at the prompt
 
-![]('./res/images/app_prompt_owl_file_selection.png')
+![](http://imgur.com/BBfmUdO)
 
 ### ✅ Load Selected Ontology
 
@@ -95,7 +95,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * PML Analysis will automatically be run, and will output the process name along with all drugs in the process.
 
-![]('./res/images/app_analysis_complete.png)
+![](http://imgur.com/HWhIMMi)
 
 ### ✅ On Screen PML Reporting
 
@@ -105,7 +105,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Any issues with the PML file will be reported on screen automatically at this point.
 
-![]('./res/images/app_analysis_complete.png)
+![](http://imgur.com/HWhIMMi)
 
 ### ✅ PML Log File Generation
 
