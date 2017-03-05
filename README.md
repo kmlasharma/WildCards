@@ -39,7 +39,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You are in the container and have run `app`
+   * You are in the container having run `docker-compose run project`
 * Testing instructions:
    * Enter `test.pml` at the prompt
 
@@ -49,7 +49,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You have completed the PML File Selection feature step
 * Testing Instructions:
-   * By doing the previous step, the PML file will automatically be loaded
+   * By doing the previous step, the PML file will automatically be loaded 
 
 ### Select Specific OWL Ontology
 
@@ -67,21 +67,28 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded
 
+### Running PML Analysis 
+* Status: **Complete**
+* Starting context:
+   * You have completed the PML File Selection and Select Specific OWL Ontology
+* Testing Instructions:
+   * PML Analysis will automatically be run, and will output the process name along with all drugs in the process.
+
 ### On Screen PML Reporting
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * TODO
+   * Any issues with the PML file will be reported on screen automatically at this point.
 
 ### PML Log File Generation
 
-* Status: **OIn Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * TODO
+   * The PML reporting will also be logged to the log/output.log file.
 
 ### PML Error Warning and Highlighting
 
@@ -93,19 +100,19 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### On Screen Dinto Reporting
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * TODO
+   * Any issues with the OWL file will be reported on screen automatically at this point.
 
 ### Dinto Log File Generation
 
 * Status: **In Progress**
 * Starting context:
-   * TODO
+   * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * TODO
+   * The OWL reporting will also be logged to the log/output.log file.
 
 ### Dinto Error Warning and Highlighting
 
