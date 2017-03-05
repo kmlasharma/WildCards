@@ -96,7 +96,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * TODO
 * Testing Instructions:
-   * TODO
+   * TODO: Planned for Iteration 4
 
 ### On Screen Dinto Reporting
 
@@ -108,7 +108,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### Dinto Log File Generation
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
    * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
@@ -120,7 +120,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * TODO
 * Testing Instructions:
-   * TODO
+   * TODO: Planned for Iteration 4
 
 ## Tearing down the Docker container
 
