@@ -23,6 +23,18 @@ func encodeSequence(seq Sequence) string {
 	return fmt.Sprintf("sequence %s {\n\t%s\n}", seq.Name, encodeActions(seq.Actions))
 }
 
+func encodeIterations(iterations []Iteration) string {
+	arr := []string{}
+	for _, iter := range iterations {
+		arr = append(arr, encodeIteration(iter))
+	}
+	return strings.Join(arr, "\n")
+}
+
+func encodeIteration(iter Iteration) string {
+	return fmt.Sprintf("iteration %s {\n\t%s\n}", iter.Name, encodeActions(iter.Actions))
+}
+
 func encodeActions(actions []Action) string {
 	arr := []string{}
 	for _, action := range actions {

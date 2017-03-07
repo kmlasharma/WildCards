@@ -17,8 +17,9 @@ const (
 	RBRACE = "}"
 
 	// Keywords
-	PROCESS  = "process"
-	SEQUENCE = "sequence"
-	ACTION   = "action"
-	SCRIPT   = "script"
+	PROCESS   = "process"
+	SEQUENCE  = "sequence"
+	ITERATION = "iteration"
+	ACTION    = "action"
+	SCRIPT    = "script"
 )

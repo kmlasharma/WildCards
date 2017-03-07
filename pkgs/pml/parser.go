@@ -62,15 +62,48 @@ func (p *Parser) ensureNextTokenType(tok Token) string {
 }
 
 func (p *Parser) Parse() *Process {
-	actions := []Action{}
-
+	sequences := []Sequence{}
+	iterations := []Iteration{}
 	p.ensureNextTokenType(PROCESS)
 	processName := p.ensureNextTokenType(IDENT)
 	p.ensureNextTokenType(LBRACE)
+
+	for {
+		tok, _ := p.scanIgnoreWhitespace()
+		p.unscan() // Put it back for cleaniness.
+		if tok == SEQUENCE {
+			seq := p.parseSequence()
+			sequences = append(sequences, seq)
+		} else if tok == ITERATION {
+			iter := p.parseIteration()
+			iterations = append(iterations, iter)
+		} else {
+			break
+		}
+	}
+	p.ensureNextTokenType(RBRACE)
+	return &Process{Name: processName, Sequences: sequences, Iterations: iterations}
+}
+
+func (p *Parser) parseSequence() *Sequence {
 	p.ensureNextTokenType(SEQUENCE)
 	sequenceName := p.ensureNextTokenType(IDENT)
 	p.ensureNextTokenType(LBRACE)
+	actions := p.parseActions()
+	p.ensureNextTokenType(RBRACE)
+	return &Sequence{Name: sequenceName, Actions: actions}
+}
 
+func (p *Parser) parseIteration() *Iteration {
+	p.ensureNextTokenType(ITERATION)
+	iterationName := p.ensureNextTokenType(IDENT)
+	p.ensureNextTokenType(LBRACE)
+	actions := p.parseActions()
+	p.ensureNextTokenType(RBRACE)
+	return &Iteration{Name: iterationName, Actions: actions}
+}
+
+func (p *Parser) parseActions() (actions []Action) {
 	for {
 		if tok, _ := p.scanIgnoreWhitespace(); tok == ACTION {
 			actionName := p.ensureNextTokenType(IDENT)
@@ -89,10 +122,7 @@ func (p *Parser) Parse() *Process {
 			break
 		}
 	}
-	p.ensureNextTokenType(RBRACE)
-	p.ensureNextTokenType(RBRACE)
-	sequence := Sequence{Name: sequenceName, Actions: actions}
-	return &Process{Name: processName, Sequences: []Sequence{sequence}}
+	return
 }
 
 func decodeActionJSON(str string) Action {
