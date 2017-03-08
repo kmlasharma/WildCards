@@ -50,14 +50,18 @@ func main() {
 
 func checkExtension(path string, extension string) {
 	list := strings.Split(path, ".")
-	if len(list) < 2 || list[len(list)-1] != extension { // If there is a dot and the last one is not equal to the extension
-		logger.Println("Invalid file type.")
+	if len(list) < 2 || list[len(list)-1] != extension { // If there's a dot and the last one is not equal to the extension
+		logger.Error("Invalid file type.")
 		os.Exit(0)
 	}
 	_, err := os.Open(path)
 	if err != nil {
+<<<<<<< HEAD
 		logger.Println("ERROR: Cannot open file")
 		logger.Println(err)
+=======
+		logger.Error(err)
+>>>>>>> 6b4451c0b1c6277a1e5e0c923715ea8449c30028
 		os.Exit(0)
 	}
 }
