@@ -4,38 +4,33 @@
 	"package": [
 		{
 			"checksumSHA1": "hiuOt2XbJiAGnNHyfGoujs+ZA2U=",
-			"origin": "github.com/kmlasharma/wildcards/vendor/github.com/kmlasharma/WildCards/pkgs/logger",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "2d00f98e7b5f27441ca1ad419335007d0ec40ef1",
-			"revisionTime": "2017-03-08T11:36:46Z"
+			"revision": "c2b7ce2dd23344196d20579fa1e1aeb90137c151",
+			"revisionTime": "2017-03-08T11:42:50Z"
 		},
 		{
 			"checksumSHA1": "4ZU8oC1NZ1+JDWL/fGY60uEbVIM=",
-			"origin": "github.com/kmlasharma/wildcards/vendor/github.com/kmlasharma/WildCards/pkgs/pml",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "2d00f98e7b5f27441ca1ad419335007d0ec40ef1",
-			"revisionTime": "2017-03-08T11:36:46Z"
+			"revision": "c2b7ce2dd23344196d20579fa1e1aeb90137c151",
+			"revisionTime": "2017-03-08T11:42:50Z"
 		},
 		{
 			"checksumSHA1": "u96Yhuie6/kM/eDMsVdoVoex4SE=",
-			"origin": "github.com/kmlasharma/wildcards/vendor/github.com/kmlasharma/WildCards/pkgs/progressbar",
 			"path": "github.com/kmlasharma/WildCards/pkgs/progressbar",
-			"revision": "2d00f98e7b5f27441ca1ad419335007d0ec40ef1",
-			"revisionTime": "2017-03-08T11:36:46Z"
+			"revision": "c2b7ce2dd23344196d20579fa1e1aeb90137c151",
+			"revisionTime": "2017-03-08T11:42:50Z"
 		},
 		{
 			"checksumSHA1": "MNkKJyk2TazKMJYbal5wFHybpyA=",
-			"origin": "github.com/kmlasharma/wildcards/vendor/github.com/mattn/go-runewidth",
 			"path": "github.com/mattn/go-runewidth",
-			"revision": "2d00f98e7b5f27441ca1ad419335007d0ec40ef1",
-			"revisionTime": "2017-03-08T11:36:46Z"
+			"revision": "14207d285c6c197daabb5c9793d63e7af9ab2d50",
+			"revisionTime": "2017-02-01T02:35:40Z"
 		},
 		{
 			"checksumSHA1": "mj71zOfqkkSk7YwAQHY1AiiEUmU=",
-			"origin": "github.com/kmlasharma/wildcards/vendor/gopkg.in/cheggaaa/pb.v1",
 			"path": "gopkg.in/cheggaaa/pb.v1",
-			"revision": "2d00f98e7b5f27441ca1ad419335007d0ec40ef1",
-			"revisionTime": "2017-03-08T11:36:46Z"
+			"revision": "d7e6ca3010b6f084d8056847f55d7f572f180678",
+			"revisionTime": "2016-11-21T09:29:06Z"
 		}
 	],
 	"rootPath": "github.com/kmlasharma/wildcards/src"
