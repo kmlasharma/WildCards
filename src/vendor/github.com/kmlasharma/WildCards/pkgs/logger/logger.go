@@ -7,14 +7,17 @@ import (
 )
 
 const (
-	defaultLogFile = "../log/output.log"
-	outputToStdout = true
+	defaultLogFile        = "/root/log/output.log"
+	defaultErrorFile      = "/root/log/error.log"
+	outputErrorsToLogFile = true
+	outputToStdout        = true
 )
 
-var f, _ = os.OpenFile(defaultLogFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+var logFile = createLogFile(defaultLogFile)
+var errorFile = createLogFile(defaultErrorFile)
 
 func Println(a ...interface{}) {
-	log.SetOutput(f)
+	log.SetOutput(logFile)
 	log.Println(a...)
 
 	if outputToStdout {
@@ -23,10 +26,30 @@ func Println(a ...interface{}) {
 }
 
 func Print(a ...interface{}) {
-	log.SetOutput(f)
+	log.SetOutput(logFile)
 	log.Print(a...)
 
 	if outputToStdout {
 		fmt.Print(a...)
 	}
+}
+
+func Error(a ...interface{}) {
+	log.SetOutput(errorFile)
+	log.Println(a...)
+
+	if outputErrorsToLogFile {
+		log.SetOutput(logFile)
+		log.Println(a...)
+	}
+
+	if outputToStdout {
+		fmt.Println(a...)
+	}
+}
+
+func createLogFile(path string) *os.File {
+	os.MkdirAll("/root/log", os.ModePerm) // Ensure log folder is created.
+	f, _ := os.Create(path)
+	return f
 }

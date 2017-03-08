@@ -55,7 +55,7 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 func (p *Parser) ensureNextTokenType(tok Token) string {
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
-		logger.Println("found ", lit, ", expected ", token)
+		logger.Error("found '", lit, "', expected ", token)
 		os.Exit(1)
 	}
 	return lit
