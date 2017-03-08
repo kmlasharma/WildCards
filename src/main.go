@@ -56,7 +56,7 @@ func checkExtension(path string, extension string) {
 	}
 	_, err := os.Open(path)
 	if err != nil {
-		logger.Println("Cannot open file")
+		logger.Println("ERROR: Cannot open file")
 		logger.Println(err)
 		os.Exit(0)
 	}

@@ -13,31 +13,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 \
 			python3-dev \
 			python3-pip \
-			build-essential \
-			bison \
-			check \
-			flex \
 			libncurses5 \
 			libncurses5-dev \
-			make \
-			openssl \
-			libssl-dev \
 			readline-common \
 			libreadline6 \
 			libreadline6-dev \
-			libxml2 \
-			libxml2-dev \
-			libxml2-doc \
-			util-linux \
-			tcl \
-			tcl-dev \
-			libxslt1.1 \
-			libxslt1-dev \
-			expect \
-			expect-dev \
-			vim \
-			tmux
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
+			vim 
 RUN pip3 install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
