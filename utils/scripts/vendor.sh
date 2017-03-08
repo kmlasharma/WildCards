@@ -2,7 +2,9 @@
 
 for dir in `ls pkgs/`;
 do
-    (cd pkgs/$dir && go build)
+    cd pkgs/$dir
+    go build
+    cd ../..
 done
 
 cd src
