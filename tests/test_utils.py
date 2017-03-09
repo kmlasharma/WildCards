@@ -8,7 +8,7 @@ class Application:
 
     def __init__(self):
         self.log = ''
-        self.app = Popen(['../src/src'], stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=False)
+        self.app = Popen(['app'], stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=False)
         flags = fcntl(self.app.stdout, F_GETFL)
         fcntl(self.app.stdout, F_SETFL, flags | O_NONBLOCK) # set nonblocking flag so we can access output on the fly
 
@@ -20,19 +20,20 @@ class Application:
         try:
             while not output.endswith(expected):
                 try:
-                    line = read(self.app.stdout.fileno(), 1024)
+                    line = read(self.app.stdout.fileno(), 1024).decode('utf-8')
                     output += line
                     self.log += line
                 except OSError as e:
                     time.sleep(0.5) # output is not readable yet
         except Exception as e:
-            print 'Timed out waiting for ' + expected  + ', actual: ' + output
+            print('Timed out waiting for ' + expected  + ', actual: ' + output)
             assert False
         finally:
             signal.alarm(0)
 
     def command(self, cmd):
-        self.app.stdin.write(cmd + '\n')
+        self.app.stdin.write(bytearray(cmd + '\n', 'ascii'))
+        self.app.stdin.flush()
 
     def input_pml_file(self, name):
         self.wait_for_line('Enter path to PML File: [default is test.pml] ') 
