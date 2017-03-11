@@ -154,3 +154,11 @@ It is assumed that you have followed the instructions above before testing the f
 
 1. Run `docker-compose stop` to completely tear down the Docker container
 
+
+## Automated Testing Instructions
+
+When inside the container, the automated tests can be run to test each of the above features automatically. 
+
+1. cd to the 'tests' directory
+2. Run the 'nosetests' command
+
