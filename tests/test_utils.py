@@ -35,6 +35,23 @@ class Application:
         self.app.stdin.write(bytearray(cmd + '\n', 'ascii'))
         self.app.stdin.flush()
 
+    def get_process_start(self):
+        signal.signal(signal.SIGALRM, handle_timeout)
+        signal.alarm(5)
+        line = self.app.stdout.readline()
+        while 'Drugs in Process' not in line.decode('utf-8'):
+            line = self.app.stdout.readline()
+
+    def get_process_drugs(self):
+        self.get_process_start()
+        drugs = []
+        line = self.app.stdout.readline()
+        while 'Analysing OWL file' not in line.decode('utf-8'):
+            print(line.decode('utf-8'))
+            drugs.insert(len(drugs), line.decode('utf-8').strip())
+            line = self.app.stdout.readline()
+        return drugs
+
     def input_pml_file(self, name):
         self.wait_for_line('Enter path to PML File: [default is test.pml] ') 
         self.command(name)
