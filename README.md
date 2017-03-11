@@ -145,9 +145,10 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection and Select Specific OWL Ontology
+   * You have completed the PML File Selection
 * Testing Instructions:
-   * If there is an error in the OWL file, the details will be logged and an error message will show up on screen
+   * Enter "errortest.owl" at the prompt for the OWL Ontology file
+   * If there is an error in the OWL file, the details will be logged and an error message will show up on screen automatically
 
 
 ## Tearing down the Docker container
