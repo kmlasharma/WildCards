@@ -129,7 +129,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * Any issues with the OWL file will be reported on screen automatically at this point.
+   * Details of the OWL file will be reported on screen automatically at this point.
 
 ![](http://i.imgur.com/HWhIMMi.png)
 
@@ -141,13 +141,13 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * The OWL reporting will also be logged to the log/output.log file.
 
-### ⏳ Dinto Error Warning and Highlighting
+### ✅ Dinto Error Warning and Highlighting
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * TODO: Planned for Iteration 4
+   * If there is an error in the OWL file, the details will be logged and an error message will show up on screen
 
 
 ## Tearing down the Docker container
