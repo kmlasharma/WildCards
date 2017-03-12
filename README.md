@@ -153,7 +153,8 @@ It is assumed that you have followed the instructions above before testing the f
 
 ## Tearing down the Docker container
 
-1. Run `docker-compose stop` to completely tear down the Docker container
+1. Make sure you have exited the container by typing `exit` ("Your prompt will change from `root@<some code>:~#` to your normal prompt).
+2. Run `docker-compose stop` to completely tear down the Docker container (run this command from outside of the container).
 
 
 ## Automated Testing Instructions
