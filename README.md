@@ -129,7 +129,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You have completed the PML File Selection and Select Specific OWL Ontology
 * Testing Instructions:
-   * Any issues with the OWL file will be reported on screen automatically at this point.
+   * Details of the OWL file will be reported on screen automatically at this point.
 
 ![](http://i.imgur.com/HWhIMMi.png)
 
@@ -141,16 +141,25 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * The OWL reporting will also be logged to the log/output.log file.
 
-### ⏳ Dinto Error Warning and Highlighting
+### ✅ Dinto Error Warning and Highlighting
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You have completed the PML File Selection
 * Testing Instructions:
-   * TODO: Planned for Iteration 4
+   * Enter "errortest.owl" at the prompt for the OWL Ontology file
+   * If there is an error in the OWL file, the details will be logged and an error message will show up on screen automatically
 
 
 ## Tearing down the Docker container
 
 1. Run `docker-compose stop` to completely tear down the Docker container
+
+
+## Automated Testing Instructions
+
+When inside the container, the automated tests can be run to test each of the above features automatically. 
+
+1. cd to the 'tests' directory
+2. Run the 'nosetests' command
 

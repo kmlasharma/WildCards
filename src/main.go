@@ -72,8 +72,12 @@ func PEOS(path string) {
 
 func Ontology(path string) {
 	progressbar.DisplayProgressBarForOwlFile(path)
-	cmd := "python3 /go/src/app/dinto/ontology.py " + path
+	cmd := "python3 /go/src/app/dinto/owl_moderator.py " + path
 	out, _ := exec.Command("sh", "-c", cmd).Output()
-	logger.Println(string(out))
 	progressbar.FinishCurrentBar()
+	if string(out)[:5] == "Error" {
+		logger.Error(string(out))
+	} else {
+		logger.Println(string(out))
+	}
 }

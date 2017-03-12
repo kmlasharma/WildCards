@@ -22,11 +22,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 \
 RUN pip3 install ontospy
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
+# testing
+WORKDIR /root/
+COPY ./tests/ /root/tests/
+RUN pip3 install nose
+
 RUN echo 'ln -s -f /go/src/app/res/test.pml $HOME/test.pml' >> $HOME/.bashrc
 RUN echo 'ln -s -f /go/src/app/res/test.owl $HOME/test.owl' >> $HOME/.bashrc
-
-RUN mkdir /root/log
-RUN touch /root/log/output.log
+RUN echo 'ln -s -f /go/src/app/res/errortest.owl $HOME/errortest.owl' >> $HOME/.bashrc
 
 WORKDIR /root/
 
