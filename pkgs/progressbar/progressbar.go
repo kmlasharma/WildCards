@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var CurrentBar pb.ProgressBar
+
 func DisplayProgressBarForOwlFile(filepath string) {
 	fmt.Println("Analysing OWL file..")
 	f, _ := os.OpenFile(filepath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
@@ -17,11 +19,15 @@ func DisplayProgressBarForOwlFile(filepath string) {
 	go displayProgressBarFor(numberOfLines, numberOfSeconds)
 }
 
+func FinishCurrentBar() {
+	CurrentBar.Finish()
+}
+
 func displayProgressBarFor(numberOfLines, numberOfSeconds int) {
-	bar := pb.StartNew(numberOfSeconds)
-	bar.ShowCounters = false
+	CurrentBar := pb.StartNew(numberOfSeconds)
+	CurrentBar.ShowCounters = false
 	for i := 0; i < numberOfSeconds; i++ {
-		bar.Increment()
+		CurrentBar.Increment()
 		time.Sleep(1 * time.Second)
 	}
 }

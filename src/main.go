@@ -75,4 +75,5 @@ func Ontology(path string) {
 	cmd := "python3 /go/src/app/dinto/ontology.py " + path
 	out, _ := exec.Command("sh", "-c", cmd).Output()
 	logger.Println(string(out))
+	progressbar.FinishCurrentBar()
 }
