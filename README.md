@@ -57,7 +57,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You are in the container having run `docker-compose run project`
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing instructions:
    * Hit enter at the prompt to select the default PML file
 
@@ -97,14 +97,23 @@ It is assumed that you have followed the instructions above before testing the f
    * You have completed the On Screen PML Reporting step.
 * Testing Instructions:
    * The PML reporting will also be logged to the `/log/output.log` file.
+   
+### ✅ Identify drugs in PML
 
-### ⏳ PML Error and Warning Highlights
-
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You have completed the PML Log File Generation step.
 * Testing Instructions:
-   * TODO: Planned for Iteration 4
+   * By doing the previous step, the drugs in the PML file will automatically be identified and printed
+
+### ✅ PML Error and Warning Highlights
+
+* Status: **Complete**
+* Starting context:
+   * You are in the container having run `docker-compose run project` and have run `app`
+* Testing Instructions:
+   * Enter 'error.pml' at the prompt to select the use a sample PML file with syntax errors.
+   * If there is an error in the OWL file, the details will be logged to the `log/error.log` file, and an error message will show up on screen automatically.
 
 ### ✅ Select Specific OWL Ontology
 
@@ -124,14 +133,6 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded.
    
-### ⏳ Identify drugs in PML
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 4
-
 ### ✅ On Screen Dinto Reporting
 
 * Status: **Complete**
@@ -157,7 +158,7 @@ It is assumed that you have followed the instructions above before testing the f
    * You have completed the PML File Selection step.
 * Testing Instructions:
    * Enter `errortest.owl` at the prompt for the OWL Ontology file. `errortest.owl` is an incorrectly structured OWL Ontology file which will cause errors when parsed.
-   * If there is an error in the OWL file, the details will be logged to the `log/output.log` file, and an error message will show up on screen automatically.
+   * If there is an error in the OWL file, the details will be logged to the `log/error.log` file, and an error message will show up on screen automatically.
 
 
 ## Tearing down the Docker container
