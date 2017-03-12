@@ -88,7 +88,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Any issues with the PML file will be reported on screen automatically at this point.
 
-![](http://i.imgur.com/HWhIMMi.png)
+![](http://imgur.com/GUBevCH.png)
 
 ### ✅ PML Log File Generation
 
