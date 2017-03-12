@@ -138,6 +138,8 @@ It is assumed that you have followed the instructions above before testing the f
    * By doing the previous step, the OWL Ontology will automatically be loaded.
    
 ![](http://imgur.com/UPaZMbB.png)
+
+> **Note:** The loading bar displayed is not 100% accurate in forecasting the actual time to load the ontology. The ontology may load before the loading bar reaches 100%, or even a few seconds after the loading bar reaches 100%.
    
 ### ✅ On Screen Dinto Reporting
 
