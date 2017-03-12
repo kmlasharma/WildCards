@@ -29,22 +29,22 @@ func main() {
 	fmt.Scanln(&pmlFilePath)
 	pmlFilePath = strings.TrimRight(pmlFilePath, "\n")
 
-	fmt.Print("Enter path to OWL File: [default is test.owl] ")
-	fmt.Scanln(&owlFilePath)
-
-	owlFilePath = strings.TrimRight(owlFilePath, "\n")
-
 	if pmlFilePath == "" {
 		pmlFilePath = "/root/test.pml"
 	}
+
+	checkExtension(pmlFilePath, "pml")
+	PML(pmlFilePath)
+
+	fmt.Print("Enter path to OWL File: [default is test.owl] ")
+	fmt.Scanln(&owlFilePath)
+	owlFilePath = strings.TrimRight(owlFilePath, "\n")
+
 	if owlFilePath == "" {
 		owlFilePath = "/root/test.owl"
 	}
 
-	checkExtension(pmlFilePath, "pml")
 	checkExtension(owlFilePath, "owl")
-
-	PEOS(pmlFilePath)
 	Ontology(owlFilePath)
 }
 
@@ -62,7 +62,7 @@ func checkExtension(path string, extension string) {
 	}
 }
 
-func PEOS(path string) {
+func PML(path string) {
 	reader, _ := os.Open(path)
 	parser := pml.NewParser(reader)
 	process := parser.Parse()
