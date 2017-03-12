@@ -1,0 +1,37 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "HItaHANob79AVDRYLWmOZX+wqg8=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
+			"revision": "5784bbd8ac40221954244cc34acd5c59c887d227",
+			"revisionTime": "2017-03-12T15:22:25Z"
+		},
+		{
+			"checksumSHA1": "mgdAsMkBddgT6NSduknmALXDFlw=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
+			"revision": "5784bbd8ac40221954244cc34acd5c59c887d227",
+			"revisionTime": "2017-03-12T15:22:25Z"
+		},
+		{
+			"checksumSHA1": "kkva04p7qgiW0VwQBWqm0+QxU9E=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/progressbar",
+			"revision": "5784bbd8ac40221954244cc34acd5c59c887d227",
+			"revisionTime": "2017-03-12T15:22:25Z"
+		},
+		{
+			"checksumSHA1": "MNkKJyk2TazKMJYbal5wFHybpyA=",
+			"path": "github.com/mattn/go-runewidth",
+			"revision": "14207d285c6c197daabb5c9793d63e7af9ab2d50",
+			"revisionTime": "2017-02-01T02:35:40Z"
+		},
+		{
+			"checksumSHA1": "mj71zOfqkkSk7YwAQHY1AiiEUmU=",
+			"path": "gopkg.in/cheggaaa/pb.v1",
+			"revision": "d7e6ca3010b6f084d8056847f55d7f572f180678",
+			"revisionTime": "2016-11-21T09:29:06Z"
+		}
+	],
+	"rootPath": "github.com/kmlasharma/wildcards/src"
+}
