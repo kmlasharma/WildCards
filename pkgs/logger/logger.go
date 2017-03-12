@@ -9,7 +9,7 @@ import (
 const (
 	defaultLogFile        = "/root/log/output.log"
 	defaultErrorFile      = "/root/log/error.log"
-	outputErrorsToLogFile = true
+	outputErrorsToLogFile = false
 	outputToStdout        = true
 )
 
@@ -35,6 +35,7 @@ func Print(a ...interface{}) {
 }
 
 func Error(a ...interface{}) {
+	outputToStdout = false
 	log.SetOutput(errorFile)
 	log.Println(a...)
 
@@ -46,6 +47,7 @@ func Error(a ...interface{}) {
 	if outputToStdout {
 		fmt.Println("\nAn error occured: see error log for details.")
 	}
+	outputToStdout = true
 }
 
 func createLogFile(path string) *os.File {
