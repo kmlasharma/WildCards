@@ -114,9 +114,11 @@ func (p *Parser) parseActions() (actions []Action) {
 			p.ensureNextTokenType(RBRACE)
 			p.ensureNextTokenType(RBRACE)
 
-			action := decodeActionJSON(stringifiedJSON)
-			action.Name = actionName
-			actions = append(actions, action)
+			action, err := decodeActionJSON(stringifiedJSON)
+			if err == nil { // Skip if non JSON script
+				action.Name = actionName
+				actions = append(actions, action)
+			}
 		} else {
 			p.unscan() // Put final one back so it's used below.
 			break
@@ -125,10 +127,10 @@ func (p *Parser) parseActions() (actions []Action) {
 	return
 }
 
-func decodeActionJSON(str string) Action {
+func decodeActionJSON(str string) (Action, error) {
 	action := Action{}
 	if err := json.Unmarshal([]byte(str), &action); err != nil {
-		panic(err)
+		return action, errors.New("Non JSON script")
 	}
-	return action
+	return action, nil
 }
