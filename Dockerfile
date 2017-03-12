@@ -29,6 +29,7 @@ RUN pip3 install nose
 
 RUN echo 'ln -s -f /go/src/app/res/test.pml $HOME/test.pml' >> $HOME/.bashrc
 RUN echo 'ln -s -f /go/src/app/res/test.owl $HOME/test.owl' >> $HOME/.bashrc
+RUN echo 'ln -s -f /go/src/app/res/errortest.pml $HOME/errortest.pml' >> $HOME/.bashrc
 RUN echo 'ln -s -f /go/src/app/res/errortest.owl $HOME/errortest.owl' >> $HOME/.bashrc
 
 WORKDIR /root/
