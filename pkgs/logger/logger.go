@@ -44,7 +44,7 @@ func Error(a ...interface{}) {
 	}
 
 	if outputToStdout {
-		fmt.Println(a...)
+		fmt.Println("\nAn error occured: see error log for details.")
 	}
 }
 
