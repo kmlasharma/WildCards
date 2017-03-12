@@ -78,7 +78,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * PML Analysis will automatically be run, and will output the process name along with all drugs in the process.
 
-![](http://i.imgur.com/HWhIMMi.png)
+![](http://imgur.com/GUBevCH.png)
 
 ### ✅ On Screen PML Reporting
 
@@ -123,7 +123,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Hit enter at the prompt to select the default OWL file.
 
-![](http://i.imgur.com/BBfmUdO.png)
+![](http://imgur.com/UPaZMbB.png)
 
 ### ✅ Load Selected Ontology
 
@@ -133,6 +133,8 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * By doing the previous step, the OWL Ontology will automatically be loaded.
    
+![](http://imgur.com/UPaZMbB.png)
+   
 ### ✅ On Screen Dinto Reporting
 
 * Status: **Complete**
@@ -141,7 +143,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Details of the OWL file will be reported on screen automatically at this point.
 
-![](http://i.imgur.com/HWhIMMi.png)
+![](http://imgur.com/8w7FaNJ.png)
 
 ### ✅ Dinto Log File Generation
 
@@ -160,6 +162,7 @@ It is assumed that you have followed the instructions above before testing the f
    * Enter `errortest.owl` at the prompt for the OWL Ontology file. `errortest.owl` is an incorrectly structured OWL Ontology file which will cause errors when parsed.
    * If there is an error in the OWL file, the details will be logged to the `/root/log/error.log` file, and an error message will show up on screen automatically.
 
+![](http://imgur.com/8w7FaNJ.png)
 
 ## Tearing down the Docker container
 
