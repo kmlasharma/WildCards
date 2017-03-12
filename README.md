@@ -115,7 +115,7 @@ It is assumed that you have followed the instructions above before testing the f
    * You are in the container having run `docker-compose run project` and have run `app`
 * Testing Instructions:
    * Enter `errortest.pml` at the prompt to select the use a sample PML file with syntax errors.
-   * If there is an error in the PML file, the details will be logged to the `/root/log/error.log` file, and an error message will show up on screen automatically.
+   * If there is an error in the PML file, the details will be logged to the `/root/log/output.log` file, and an error message will show up on screen automatically.
    
 ![](http://imgur.com/sbWeBlf.png)
 
@@ -166,7 +166,7 @@ It is assumed that you have followed the instructions above before testing the f
    * You have completed the PML File Selection step.
 * Testing Instructions:
    * Enter `errortest.owl` at the prompt for the OWL Ontology file. `errortest.owl` is an incorrectly structured OWL Ontology file which will cause errors when parsed.
-   * If there is an error in the OWL file, the details will be logged to the `/root/log/error.log` file, and an error message will show up on screen automatically.
+   * If there is an error in the OWL file, the details will be logged to the `/root/log/output.log` file, and an error message will show up on screen automatically.
 
 ![](http://imgur.com/8w7FaNJ.png)
 
