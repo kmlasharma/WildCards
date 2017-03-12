@@ -112,7 +112,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project` and have run `app`
 * Testing Instructions:
-   * Enter 'error.pml' at the prompt to select the use a sample PML file with syntax errors.
+   * Enter `errortest.pml` at the prompt to select the use a sample PML file with syntax errors.
    * If there is an error in the OWL file, the details will be logged to the `log/error.log` file, and an error message will show up on screen automatically.
 
 ### ✅ Select Specific OWL Ontology
