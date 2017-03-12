@@ -116,6 +116,8 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Enter `errortest.pml` at the prompt to select the use a sample PML file with syntax errors.
    * If there is an error in the PML file, the details will be logged to the `/root/log/error.log` file, and an error message will show up on screen automatically.
+   
+![](http://imgur.com/sbWeBlf.png)
 
 ### ✅ Select Specific OWL Ontology
 
