@@ -18,7 +18,7 @@ class Application:
         signal.alarm(timeout)
         output = ''
         try:
-            while not output.endswith(expected):
+            while not self.log.endswith(expected):
                 try:
                     line = read(self.app.stdout.fileno(), 1024).decode('utf-8')
                     output += line
@@ -39,17 +39,18 @@ class Application:
         signal.signal(signal.SIGALRM, handle_timeout)
         signal.alarm(5)
         line = self.app.stdout.readline()
-        while 'Drugs in Process' not in line.decode('utf-8'):
+        while 'Enter path' not in line.decode('utf-8'):
             line = self.app.stdout.readline()
 
     def get_process_drugs(self):
-        self.get_process_start()
         drugs = []
-        line = self.app.stdout.readline()
-        while 'Analysing OWL file' not in line.decode('utf-8'):
-            print(line.decode('utf-8'))
-            drugs.insert(len(drugs), line.decode('utf-8').strip())
-            line = self.app.stdout.readline()
+        self.wait_for_line('Enter path to OWL File: [default is test.owl] ')
+        print(self.log)
+        drugstrings = self.log.split('Drugs in Process:')[1].split('\n')
+        for line in drugstrings:
+            if('Enter path' not in line and len(line) > 0):
+                drugs.append(line.strip())
+        print(drugs)
         return drugs
 
     def input_pml_file(self, name):

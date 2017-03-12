@@ -19,7 +19,8 @@ class Test(unittest.TestCase):
     # test for running PML analyis
     def test_pml_analysis(self):
         self.app.input_pml_file('../test.pml')
-        self.app.input_owl_file('../test.owl')
         res = self.app.get_process_drugs()
-        print(res)
+        #print(res)
         assert res == ['Plavix', 'Lipitor', 'Nexium']
+        self.app.input_owl_file('../test.owl')
+        
