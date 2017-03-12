@@ -105,6 +105,8 @@ It is assumed that you have followed the instructions above before testing the f
    * You have completed the PML Log File Generation step.
 * Testing Instructions:
    * By doing the previous step, the drugs in the PML file will automatically be identified and printed
+   
+![](http://imgur.com/GUBevCH.png)
 
 ### ✅ PML Error and Warning Highlights
 
@@ -143,7 +145,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * Details of the OWL file will be reported on screen automatically at this point.
 
-![](http://imgur.com/8w7FaNJ.png)
+![](http://imgur.com/UPaZMbB.png)
 
 ### ✅ Dinto Log File Generation
 
