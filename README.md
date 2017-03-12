@@ -1,7 +1,7 @@
 # CS4098 Group Project
 ## Team Name: Wildcards
 
-If you are cloning this repo for the first time:
+If you are cloning this repo for the first time, after cloning the repo:
 
 1. Run the steps in `Installation`.
 2. Run the steps in `Setting Up The Project`.
@@ -48,6 +48,7 @@ Docker is all you need for the project. To install Docker:
 
 ![](http://i.imgur.com/HFsNKtK.png)
 
+
 ## Features:
 
 It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context.
@@ -58,7 +59,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`
 * Testing instructions:
-   * Hit enter at the prompt
+   * Hit enter at the prompt to select the default PML file
 
 ![](http://i.imgur.com/HFsNKtK.png)
 
@@ -66,32 +67,14 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection feature step
+   * You have completed the PML File Selection feature step.
 * Testing Instructions:
-   * By doing the previous step, the PML file will automatically be loaded 
-
-### ✅ Select Specific OWL Ontology
-
-* Status: **Complete**
-* Starting context:
-   * You have completed the PML File Selection feature step
-* Testing Instructions:
-   * Hit enter at the prompt
-
-![](http://i.imgur.com/BBfmUdO.png)
-
-### ✅ Load Selected Ontology
-
-* Status: **Complete**
-* Starting context:
-   * You have completed the Select Specific OWL Ontology feature step
-* Testing Instructions:
-   * By doing the previous step, the OWL Ontology will automatically be loaded
-
+   * By doing the previous step, the PML file will automatically be loaded.
+   
 ### ✅ Running PML Analysis 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection and Select Specific OWL Ontology
+   * You have completed the PML File Selection and PML File Loading steps.
 * Testing Instructions:
    * PML Analysis will automatically be run, and will output the process name along with all drugs in the process.
 
@@ -101,7 +84,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection and Select Specific OWL Ontology
+   * You have completed the Running PML Analysis step.
 * Testing Instructions:
    * Any issues with the PML file will be reported on screen automatically at this point.
 
@@ -111,11 +94,37 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection and Select Specific OWL Ontology
+   * You have completed the On Screen PML Reporting step.
 * Testing Instructions:
-   * The PML reporting will also be logged to the log/output.log file.
+   * The PML reporting will also be logged to the `/log/output.log` file.
 
-### ⏳ PML Error Warning and Highlighting
+### ⏳ PML Error and Warning Highlights
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 4
+
+### ✅ Select Specific OWL Ontology
+
+* Status: **Complete**
+* Starting context:
+   * You have completed the PML Error and Warning Highlights step.
+* Testing Instructions:
+   * Hit enter at the prompt to select the default OWL file.
+
+![](http://i.imgur.com/BBfmUdO.png)
+
+### ✅ Load Selected Ontology
+
+* Status: **Complete**
+* Starting context:
+   * You have completed the Select Specific OWL Ontology step.
+* Testing Instructions:
+   * By doing the previous step, the OWL Ontology will automatically be loaded.
+   
+### ⏳ Identify drugs in PML
 
 * Status: **In Progress**
 * Starting context:
@@ -127,7 +136,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection and Select Specific OWL Ontology
+   * You have completed the PML File Selection and Select Specific OWL Ontology steps.
 * Testing Instructions:
    * Details of the OWL file will be reported on screen automatically at this point.
 
@@ -137,17 +146,17 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection and Select Specific OWL Ontology
+   * You have completed the PML File Selection and Select Specific OWL Ontology steps.
 * Testing Instructions:
-   * The OWL reporting will also be logged to the log/output.log file.
+   * The OWL reporting will also be logged to the `/log/output.log` file.
 
 ### ✅ Dinto Error Warning and Highlighting
 
 * Status: **Complete**
 * Starting context:
-   * You have completed the PML File Selection
+   * You have completed the PML File Selection step.
 * Testing Instructions:
-   * Enter "errortest.owl" at the prompt for the OWL Ontology file
+   * Enter `errortest.owl` at the prompt for the OWL Ontology file. `errortest.owl` is an OWL file with errors.
    * If there is an error in the OWL file, the details will be logged and an error message will show up on screen automatically
 
 
