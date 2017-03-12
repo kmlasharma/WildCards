@@ -156,7 +156,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You have completed the PML File Selection step.
 * Testing Instructions:
-   * Enter `errortest.owl` at the prompt for the OWL Ontology file. `errortest.owl` is an incorrectly structured OWL Ontology file.
+   * Enter `errortest.owl` at the prompt for the OWL Ontology file. `errortest.owl` is an incorrectly structured OWL Ontology file which will cause errors when parsed.
    * If there is an error in the OWL file, the details will be logged to the `log/output.log` file, and an error message will show up on screen automatically.
 
 
