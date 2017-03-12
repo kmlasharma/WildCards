@@ -74,7 +74,6 @@ func Ontology(path string) {
 	progressbar.DisplayProgressBarForOwlFile(path)
 	cmd := "python3 /go/src/app/dinto/owl_moderator.py " + path
 	out, _ := exec.Command("sh", "-c", cmd).Output()
-	progressbar.FinishCurrentBar()
 	if string(out)[:5] == "Error" {
 		logger.Error(string(out))
 	} else {

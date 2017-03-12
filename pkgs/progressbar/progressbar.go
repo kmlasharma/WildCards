@@ -19,10 +19,6 @@ func DisplayProgressBarForOwlFile(filepath string) {
 	go displayProgressBarFor(numberOfLines, numberOfSeconds)
 }
 
-func FinishCurrentBar() {
-	CurrentBar.Finish()
-}
-
 func displayProgressBarFor(numberOfLines, numberOfSeconds int) {
 	CurrentBar := pb.StartNew(numberOfSeconds)
 	CurrentBar.ShowCounters = false
