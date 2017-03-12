@@ -96,7 +96,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You have completed the On Screen PML Reporting step.
 * Testing Instructions:
-   * The PML reporting will also be logged to the `/log/output.log` file.
+   * The PML reporting will also be logged to the `/root/log/output.log` file.
    
 ### ✅ Identify drugs in PML
 
