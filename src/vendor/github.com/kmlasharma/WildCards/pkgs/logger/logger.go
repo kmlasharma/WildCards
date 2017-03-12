@@ -9,7 +9,7 @@ import (
 const (
 	defaultLogFile        = "/root/log/output.log"
 	defaultErrorFile      = "/root/log/error.log"
-	outputErrorsToLogFile = true
+	outputErrorsToLogFile = false
 	outputToStdout        = true
 )
 
@@ -41,10 +41,6 @@ func Error(a ...interface{}) {
 	if outputErrorsToLogFile {
 		log.SetOutput(logFile)
 		log.Println(a...)
-	}
-
-	if outputToStdout {
-		fmt.Println(a...)
 	}
 }
 

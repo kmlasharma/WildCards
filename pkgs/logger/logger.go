@@ -35,7 +35,6 @@ func Print(a ...interface{}) {
 }
 
 func Error(a ...interface{}) {
-	outputToStdout = false
 	log.SetOutput(errorFile)
 	log.Println(a...)
 
@@ -43,11 +42,6 @@ func Error(a ...interface{}) {
 		log.SetOutput(logFile)
 		log.Println(a...)
 	}
-
-	if outputToStdout {
-		fmt.Println("\nAn error occured: see error log for details.")
-	}
-	outputToStdout = true
 }
 
 func createLogFile(path string) *os.File {
