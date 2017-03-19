@@ -3,28 +3,46 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "XE2X1MMd0PeiumddciUx4f1RupQ=",
+			"checksumSHA1": "3UX1AVY5hpgCm2679zk34bMLc5A=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/dinto",
+			"revision": "1a32dabc73faed0c2a0896224e1b5bf5126aa510",
+			"revisionTime": "2017-03-19T12:16:26Z"
+		},
+		{
+			"checksumSHA1": "0dBNl8Dz1NcwP34z+rq/Qq2vaWM=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "4283066fdff02862d4d2666c73f210ece77cac0a",
-			"revisionTime": "2017-03-12T23:22:18Z"
+			"revision": "1a32dabc73faed0c2a0896224e1b5bf5126aa510",
+			"revisionTime": "2017-03-19T12:16:26Z"
 		},
 		{
 			"checksumSHA1": "mgdAsMkBddgT6NSduknmALXDFlw=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "4283066fdff02862d4d2666c73f210ece77cac0a",
-			"revisionTime": "2017-03-12T23:22:18Z"
+			"revision": "1a32dabc73faed0c2a0896224e1b5bf5126aa510",
+			"revisionTime": "2017-03-19T12:16:26Z"
 		},
 		{
 			"checksumSHA1": "yMSyXCA+mDPf67+g5q7It+Tttd4=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/progressbar",
-			"revision": "4283066fdff02862d4d2666c73f210ece77cac0a",
-			"revisionTime": "2017-03-12T23:22:18Z"
+			"revision": "1a32dabc73faed0c2a0896224e1b5bf5126aa510",
+			"revisionTime": "2017-03-19T12:16:26Z"
 		},
 		{
 			"checksumSHA1": "MNkKJyk2TazKMJYbal5wFHybpyA=",
 			"path": "github.com/mattn/go-runewidth",
 			"revision": "14207d285c6c197daabb5c9793d63e7af9ab2d50",
 			"revisionTime": "2017-02-01T02:35:40Z"
+		},
+		{
+			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
+			"path": "github.com/mattn/go-sqlite3",
+			"revision": "eac1dfa2a61ebccaa117538a5bb12044f6700cd0",
+			"revisionTime": "2017-03-05T14:02:06Z"
+		},
+		{
+			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
+			"path": "golang.org/x/net/context",
+			"revision": "007e530097ad7f954752df63046b4036f98ba6a6",
+			"revisionTime": "2017-02-01T22:13:12Z"
 		},
 		{
 			"checksumSHA1": "mj71zOfqkkSk7YwAQHY1AiiEUmU=",

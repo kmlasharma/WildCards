@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/kmlasharma/WildCards/pkgs/dinto"
 	"github.com/kmlasharma/WildCards/pkgs/logger"
 	"github.com/kmlasharma/WildCards/pkgs/pml"
 	"github.com/kmlasharma/WildCards/pkgs/progressbar"
@@ -11,6 +12,20 @@ import (
 )
 
 func main() {
+
+	db := dinto.NewDinto()
+	db.Clear()
+	interaction := dinto.Interaction{
+		DrugA:   "Plavix",
+		DrugB:   "Lipitor",
+		Adverse: true,
+	}
+	err := db.Populate([]dinto.Interaction{interaction})
+	fmt.Println("error:", err)
+	interactions, err := db.FindInteractions([]string{"Lipitor", "Plavix"})
+	fmt.Println("error:", err)
+	fmt.Println(interactions)
+	db.Close()
 
 	var pmlFilePath string
 	var owlFilePath string
