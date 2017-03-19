@@ -42,6 +42,10 @@ func Error(a ...interface{}) {
 		log.SetOutput(logFile)
 		log.Println(a...)
 	}
+	
+	if outputToStdout {
+		fmt.Print(a...)
+	}
 }
 
 func createLogFile(path string) *os.File {
