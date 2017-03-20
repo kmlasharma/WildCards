@@ -35,12 +35,11 @@ func NewDinto() *Dinto {
 func (dinto *Dinto) Populate(interactions []Interaction) error {
 	strs := []string{"INSERT INTO interactions ('DrugA', 'DrugB', 'Adverse') VALUES"}
 	for _, interaction := range interactions {
-		var x = 0
+		var integer = 0
 		if interaction.Adverse {
-			x = 1
+			integer = 1
 		}
-		line := fmt.Sprintf("('%s', '%s', '%d'),", interaction.DrugA, interaction.DrugB, x)
-		fmt.Println(line)
+		line := fmt.Sprintf("('%s', '%s', '%d'),", interaction.DrugA, interaction.DrugB, integer)
 		strs = append(strs, line)
 	}
 	concatenatedString := strings.Join(strs, "\n")
@@ -50,17 +49,15 @@ func (dinto *Dinto) Populate(interactions []Interaction) error {
 }
 
 func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction, err error) {
-	//query := "SELECT DrugA, DrugB, Adverse FROM interactions WHERE DrugA IN (?) AND DrugB IN (?);"
-	//drugsString := "'" + strings.Join(drugs, "','") + "'"
-	//rows, err := dinto.db.Query(query, drugsString, drugsString)
-	rows, err := dinto.db.Query("SELECT * FROM interactions;")
+	query := "SELECT DrugA, DrugB, Adverse FROM interactions WHERE DrugA IN (?) AND DrugB IN (?);"
+	drugsString := "'" + strings.Join(drugs, "','") + "'"
+	rows, err := dinto.db.Query(query, drugsString, drugsString)
 	var drugA, drugB string
 	var adverse bool
 	if err == nil {
 		for rows.Next() {
 			err := rows.Scan(&drugA, &drugB, &adverse)
 			if err == nil {
-				fmt.Println("Here Interaction")
 				interaction := Interaction{
 					DrugA:   drugA,
 					DrugB:   drugB,

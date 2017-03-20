@@ -49,10 +49,9 @@ func (dinto *Dinto) Populate(interactions []Interaction) error {
 }
 
 func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction, err error) {
-	//query := "SELECT DrugA, DrugB, Adverse FROM interactions WHERE DrugA IN (?) AND DrugB IN (?);"
-	//drugsString := "'" + strings.Join(drugs, "','") + "'"
-	//rows, err := dinto.db.Query(query, drugsString, drugsString)
-	rows, err := dinto.db.Query("SELECT * FROM interactions;")
+	query := "SELECT DrugA, DrugB, Adverse FROM interactions WHERE DrugA IN (?) AND DrugB IN (?);"
+	drugsString := "'" + strings.Join(drugs, "','") + "'"
+	rows, err := dinto.db.Query(query, drugsString, drugsString)
 	var drugA, drugB string
 	var adverse bool
 	if err == nil {
