@@ -27,6 +27,7 @@ class Application:
                     time.sleep(0.5) # output is not readable yet
         except Exception as e:
             print('Timed out waiting for ' + expected  + ', actual: ' + output)
+            print("\n\nFull log: \n" + self.log)
             assert False
         finally:
             signal.alarm(0)
