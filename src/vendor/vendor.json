@@ -3,28 +3,28 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "9JZGb2Av+VsYrpbUx86BepPP5E8=",
+			"checksumSHA1": "9gn/kMEwTKTUmu117Wj74l1NDxg=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/dinto",
-			"revision": "c1c7572d7642501b14cc9c508ecaf36c3c022eb2",
-			"revisionTime": "2017-03-19T22:25:56Z"
+			"revision": "88f24e91d42b41558ad7359070f0df56d72d2584",
+			"revisionTime": "2017-03-20T10:17:51Z"
 		},
 		{
 			"checksumSHA1": "0dBNl8Dz1NcwP34z+rq/Qq2vaWM=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "c1c7572d7642501b14cc9c508ecaf36c3c022eb2",
-			"revisionTime": "2017-03-19T22:25:56Z"
+			"revision": "88f24e91d42b41558ad7359070f0df56d72d2584",
+			"revisionTime": "2017-03-20T10:17:51Z"
 		},
 		{
 			"checksumSHA1": "mgdAsMkBddgT6NSduknmALXDFlw=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "c1c7572d7642501b14cc9c508ecaf36c3c022eb2",
-			"revisionTime": "2017-03-19T22:25:56Z"
+			"revision": "88f24e91d42b41558ad7359070f0df56d72d2584",
+			"revisionTime": "2017-03-20T10:17:51Z"
 		},
 		{
 			"checksumSHA1": "yMSyXCA+mDPf67+g5q7It+Tttd4=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/progressbar",
-			"revision": "c1c7572d7642501b14cc9c508ecaf36c3c022eb2",
-			"revisionTime": "2017-03-19T22:25:56Z"
+			"revision": "88f24e91d42b41558ad7359070f0df56d72d2584",
+			"revisionTime": "2017-03-20T10:17:51Z"
 		},
 		{
 			"checksumSHA1": "MNkKJyk2TazKMJYbal5wFHybpyA=",
@@ -33,16 +33,16 @@
 			"revisionTime": "2017-02-01T02:35:40Z"
 		},
 		{
-			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
+			"checksumSHA1": "HuW5g535PhU4F2sN5J2o5GL459c=",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "eac1dfa2a61ebccaa117538a5bb12044f6700cd0",
-			"revisionTime": "2017-03-05T14:02:06Z"
+			"revision": "866c3293d9a76aa491e56cc978d0d7fb0e63e121",
+			"revisionTime": "2017-03-21T00:14:48Z"
 		},
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"path": "golang.org/x/net/context",
-			"revision": "007e530097ad7f954752df63046b4036f98ba6a6",
-			"revisionTime": "2017-02-01T22:13:12Z"
+			"revision": "41bba8d80bbfab43231ffdf4c210037baae5f6a3",
+			"revisionTime": "2017-01-27T14:21:26Z"
 		},
 		{
 			"checksumSHA1": "mj71zOfqkkSk7YwAQHY1AiiEUmU=",
@@ -51,5 +51,5 @@
 			"revisionTime": "2016-11-21T09:29:06Z"
 		}
 	],
-	"rootPath": "github.com/kmlasharma/wildcards/src"
+	"rootPath": "github.com/KmlaSharma/WildCards/src"
 }

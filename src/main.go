@@ -15,17 +15,20 @@ func main() {
 
 	db := dinto.NewDinto()
 	db.Clear()
-	interaction := dinto.Interaction{
-		DrugA:   "Plavix",
-		DrugB:   "Lipitor",
-		Adverse: true,
+
+	interactions, err := dinto.ReadInteractionsFromFile("../res/ddi.csv")
+	if err != nil {
+		fmt.Println("An error occured:", err)
+	} else {
+		err := db.Populate(interactions)
+		interactions, err := db.FindInteractions([]string{"coke", "7up"})
+		if err != nil {
+			fmt.Println("Error:", err)
+		} else {
+			fmt.Println(interactions)
+		}
+		db.Close()
 	}
-	err := db.Populate([]dinto.Interaction{interaction})
-	fmt.Println("error:", err)
-	interactions, err := db.FindInteractions([]string{"Lipitor", "Plavix"})
-	fmt.Println("error:", err)
-	fmt.Println(interactions)
-	db.Close()
 
 	var pmlFilePath string
 	var owlFilePath string
