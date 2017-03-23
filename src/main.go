@@ -19,16 +19,22 @@ func main() {
 	interactions, err := dinto.ReadInteractionsFromFile("../res/ddi.csv")
 	if err != nil {
 		fmt.Println("An error occured:", err)
+		os.Exit(0)
+	} 
+
+	err = db.Populate(interactions)
+	if err != nil {
+		fmt.Println("An error occured:", err)
+		os.Exit(0)
+	} 
+
+	ddiinteractions, err := db.FindInteractions([]string{"coke", "7up"})
+	if err != nil {
+		fmt.Println("Error:", err)
 	} else {
-		err := db.Populate(interactions)
-		interactions, err := db.FindInteractions([]string{"coke", "7up"})
-		if err != nil {
-			fmt.Println("Error:", err)
-		} else {
-			fmt.Println(interactions)
-		}
-		db.Close()
+		fmt.Println(ddiinteractions)
 	}
+	db.Close()
 
 	var pmlFilePath string
 	var owlFilePath string
