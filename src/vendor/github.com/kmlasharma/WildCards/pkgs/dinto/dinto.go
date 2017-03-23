@@ -52,11 +52,7 @@ func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction
 	template := "SELECT * FROM interactions WHERE DrugA IN ('%s') AND DrugB IN ('%s');"
 	drugsString := strings.Join(drugs, "','")
 	query := fmt.Sprintf(template, drugsString, drugsString)
-	fmt.Println(query)
 	rows, err := dinto.db.Query(query)
-
-	//rows, err := dinto.db.Query("SELECT DrugA, DrugB, Adverse FROM interactions WHERE DrugA IN (?, ?) AND DrugB IN ('coke','7up');")
-	//fmt.Println(drugsString)
 	var drugA, drugB string
 	var adverse bool
 	if err == nil {
