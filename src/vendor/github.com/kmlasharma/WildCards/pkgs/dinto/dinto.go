@@ -16,6 +16,7 @@ type Interaction struct {
 	DrugA   string
 	DrugB   string
 	Adverse bool
+	Time int
 }
 
 func NewDinto() *Dinto {
@@ -33,13 +34,13 @@ func NewDinto() *Dinto {
 }
 
 func (dinto *Dinto) Populate(interactions []Interaction) error {
-	strs := []string{"INSERT INTO interactions ('DrugA', 'DrugB', 'Adverse') VALUES"}
+	strs := []string{"INSERT INTO interactions ('DrugA', 'DrugB', 'Adverse', 'Time') VALUES"}
 	for _, interaction := range interactions {
 		var integer = 0
 		if interaction.Adverse {
 			integer = 1
 		}
-		line := fmt.Sprintf("('%s', '%s', '%d'),", interaction.DrugA, interaction.DrugB, integer)
+		line := fmt.Sprintf("('%s', '%s', '%d', '%d'),", interaction.DrugA, interaction.DrugB, integer, interaction.Time)
 		strs = append(strs, line)
 	}
 	concatenatedString := strings.Join(strs, "\n")
@@ -55,14 +56,16 @@ func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction
 	rows, err := dinto.db.Query(query)
 	var drugA, drugB string
 	var adverse bool
+	var time int
 	if err == nil {
 		for rows.Next() {
-			err := rows.Scan(&drugA, &drugB, &adverse)
+			err := rows.Scan(&drugA, &drugB, &adverse, &time)
 			if err == nil {
 				interaction := Interaction{
 					DrugA:   drugA,
 					DrugB:   drugB,
 					Adverse: adverse,
+					Time: time,
 				}
 				interactions = append(interactions, interaction)
 			}
@@ -86,7 +89,8 @@ func (dinto *Dinto) createTableIfNotExists() {
   CREATE TABLE IF NOT EXISTS interactions(
     DrugA TEXT,
     DrugB TEXT,
-    Adverse INTEGER
+    Adverse INTEGER,
+    Time INTEGER
   );`
 	_, err := dinto.db.Exec(command)
 	if err != nil {
