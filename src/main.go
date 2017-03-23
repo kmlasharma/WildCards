@@ -16,7 +16,7 @@ func main() {
 	db := dinto.NewDinto()
 	db.Clear()
 
-	interactions, err := dinto.ReadInteractionsFromFile("../res/ddi.csv")
+	interactions, err := dinto.ReadInteractionsFromFile("/go/src/app/res/ddi.csv")
 	if err != nil {
 		fmt.Println("An error occured:", err)
 		os.Exit(0)
