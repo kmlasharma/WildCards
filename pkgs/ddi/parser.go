@@ -20,7 +20,7 @@ const DDI_TYPE = "DDI Type"
 const TIME = "Time"
 const UNIT = "Unit"
 
-func ReadInteractionsFromFile(filepath string) (interactions []Interaction, err error) {
+func readInteractionsFromFile(filepath string) (interactions []Interaction, err error) {
 	f, err := os.Open(filepath)
 	if err != nil {
 		return nil, err

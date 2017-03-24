@@ -15,3 +15,6 @@ setuptrinity:
 
 govendor:
 	@chmod +x utils/scripts/vendor.sh && ./utils/scripts/vendor.sh
+
+test:
+	@chmod +x utils/scripts/test.sh && ./utils/scripts/test.sh
