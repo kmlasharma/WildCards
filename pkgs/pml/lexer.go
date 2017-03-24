@@ -20,6 +20,9 @@ const (
 	PROCESS   = "process"
 	SEQUENCE  = "sequence"
 	ITERATION = "iteration"
+	TASK      = "task"
 	ACTION    = "action"
 	SCRIPT    = "script"
+	REQUIRES  = "requires"
+	PROVIDES  = "provides"
 )

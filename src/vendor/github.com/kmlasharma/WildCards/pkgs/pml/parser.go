@@ -21,6 +21,125 @@ func NewParser(r io.Reader) *Parser {
 	return &Parser{s: NewScanner(r)}
 }
 
+func (p *Parser) Parse() *Process {
+	p.ensureNextTokenType(PROCESS)
+	processName := p.ensureNextTokenType(IDENT)
+	p.ensureNextTokenType(LBRACE)
+	baseElement := p.parseBaseElement()
+	p.ensureNextTokenType(RBRACE)
+	return &Process{Name: processName, baseElement: baseElement}
+}
+
+func (p *Parser) parseSequence() Sequence {
+	p.ensureNextTokenType(SEQUENCE)
+	sequenceName := p.ensureNextTokenType(IDENT)
+	p.ensureNextTokenType(LBRACE)
+	baseElement, actions := p.parseBaseElementAndActions()
+	p.ensureNextTokenType(RBRACE)
+	return Sequence{Name: sequenceName, baseElement: baseElement, Actions: actions}
+}
+
+func (p *Parser) parseIteration() Iteration {
+	p.ensureNextTokenType(ITERATION)
+	iterationName := p.ensureNextTokenType(IDENT)
+	p.ensureNextTokenType(LBRACE)
+	baseElement, actions := p.parseBaseElementAndActions()
+	p.ensureNextTokenType(RBRACE)
+	return Iteration{Name: iterationName, baseElement: baseElement, Actions: actions}
+}
+
+func (p *Parser) parseTask() Task {
+	p.ensureNextTokenType(TASK)
+	taskName := p.ensureNextTokenType(IDENT)
+	p.ensureNextTokenType(LBRACE)
+	baseElement, actions := p.parseBaseElementAndActions()
+	p.ensureNextTokenType(RBRACE)
+	return Task{Name: taskName, baseElement: baseElement, Actions: actions}
+}
+
+func (p *Parser) parseAction() (Action, error) {
+	p.ensureNextTokenType(ACTION)
+	actionName := p.ensureNextTokenType(IDENT)
+	p.ensureNextTokenType(LBRACE)
+
+	var stringifiedJSON string
+
+	for {
+		tok, _ := p.scanIgnoreWhitespace()
+		if tok == SCRIPT {
+			p.ensureNextTokenType(LBRACE)
+			stringifiedJSON = p.ensureNextTokenType(IDENT)
+			p.ensureNextTokenType(RBRACE)
+		} else if tok == REQUIRES || tok == PROVIDES {
+			// Wait till we reach RBRACE.
+			for tok != RBRACE {
+				tok, _ = p.scanIgnoreWhitespace()
+			}
+		} else if tok == RBRACE {
+			// Wait for final RBRACE
+			break
+		}
+	}
+
+	if stringifiedJSON != "" {
+		return decodeActionJSON(stringifiedJSON, actionName)
+	}
+	return Action{}, errors.New("No Script tag")
+}
+
+func (p *Parser) parseBaseElement() (baseElement BaseElement) {
+	for {
+		tok, _ := p.scanIgnoreWhitespace()
+		p.unscan() // Put it back for cleaniness.
+		if tok == SEQUENCE {
+			seq := p.parseSequence()
+			baseElement.Sequences = append(baseElement.Sequences, seq)
+		} else if tok == ITERATION {
+			iter := p.parseIteration()
+			baseElement.Itertions = append(baseElement.Itertions, iter)
+		} else if tok == TASK {
+			task := p.parseTask()
+			baseElement.Tasks = append(baseElement.Tasks, task)
+		} else {
+			break
+		}
+	}
+	return
+}
+
+func (p *Parser) parseBaseElementAndActions() (baseElement BaseElement, actions []Action) {
+	for {
+		tok, _ := p.scanIgnoreWhitespace()
+		p.unscan() // Put it back for cleaniness.
+		if tok == ACTION {
+			action, err := p.parseAction()
+			if err == nil { // Skip if non JSON script
+				actions = append(actions, action)
+			}
+		} else if tok == SEQUENCE {
+			seq := p.parseSequence()
+			baseElement.Sequences = append(baseElement.Sequences, seq)
+		} else if tok == ITERATION {
+			iter := p.parseIteration()
+			baseElement.Itertions = append(baseElement.Itertions, iter)
+		} else if tok == TASK {
+			task := p.parseTask()
+			baseElement.Tasks = append(baseElement.Tasks, task)
+		} else {
+			break
+		}
+	}
+	return
+}
+
+func decodeActionJSON(str string, name string) (Action, error) {
+	action := Action{Name: name}
+	if err := json.Unmarshal([]byte(str), &action); err != nil {
+		return action, errors.New("Non JSON script")
+	}
+	return action, nil
+}
+
 // scan returns the next token from the underlying scanner.
 // If a token has been unscanned then read that instead.
 func (p *Parser) scan() (tok Token, lit string) {
@@ -56,82 +175,8 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 func (p *Parser) ensureNextTokenType(tok Token) string {
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
-		logger.Error("found '", lit, "', expected ", token)
+		logger.Error("found '", lit, "', expected ", tok)
 		os.Exit(1)
 	}
 	return lit
-}
-
-func (p *Parser) Parse() *Process {
-	sequences := []Sequence{}
-	iterations := []Iteration{}
-	p.ensureNextTokenType(PROCESS)
-	processName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-
-	for {
-		tok, _ := p.scanIgnoreWhitespace()
-		p.unscan() // Put it back for cleaniness.
-		if tok == SEQUENCE {
-			seq := p.parseSequence()
-			sequences = append(sequences, seq)
-		} else if tok == ITERATION {
-			iter := p.parseIteration()
-			iterations = append(iterations, iter)
-		} else {
-			break
-		}
-	}
-	p.ensureNextTokenType(RBRACE)
-	return &Process{Name: processName, Sequences: sequences, Iterations: iterations}
-}
-
-func (p *Parser) parseSequence() Sequence {
-	p.ensureNextTokenType(SEQUENCE)
-	sequenceName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-	actions := p.parseActions()
-	p.ensureNextTokenType(RBRACE)
-	return Sequence{Name: sequenceName, Actions: actions}
-}
-
-func (p *Parser) parseIteration() Iteration {
-	p.ensureNextTokenType(ITERATION)
-	iterationName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-	actions := p.parseActions()
-	p.ensureNextTokenType(RBRACE)
-	return Iteration{Name: iterationName, Actions: actions}
-}
-
-func (p *Parser) parseActions() (actions []Action) {
-	for {
-		if tok, _ := p.scanIgnoreWhitespace(); tok == ACTION {
-			actionName := p.ensureNextTokenType(IDENT)
-			p.ensureNextTokenType(LBRACE)
-			p.ensureNextTokenType(SCRIPT)
-			p.ensureNextTokenType(LBRACE)
-			stringifiedJSON := p.ensureNextTokenType(IDENT)
-			p.ensureNextTokenType(RBRACE)
-			p.ensureNextTokenType(RBRACE)
-
-			action, err := decodeActionJSON(stringifiedJSON)
-			if err == nil { // Skip if non JSON script
-				action.Name = actionName
-				actions = append(actions, action)
-			}
-		} else {
-			p.unscan() // Put final one back so it's used below.
-			break
-		}
-	}
-	return
-}
-
-func decodeActionJSON(str string) (Action, error) {
-	action := Action{}
-	if err := json.Unmarshal([]byte(str), &action); err != nil {
-		return action, errors.New("Non JSON script")
-	}
-	return action, nil
 }

@@ -124,10 +124,18 @@ func (s *Scanner) scanIdent() (tok Token, lit string) {
 		return PROCESS, buf.String()
 	case "SEQUENCE":
 		return SEQUENCE, buf.String()
+	case "ITERATION":
+		return ITERATION, buf.String()
+	case "TASK":
+		return TASK, buf.String()
 	case "ACTION":
 		return ACTION, buf.String()
 	case "SCRIPT":
 		return SCRIPT, buf.String()
+	case "REQUIRES":
+		return REQUIRES, buf.String()
+	case "PROVIDES":
+		return PROVIDES, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

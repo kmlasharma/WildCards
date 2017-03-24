@@ -399,13 +399,9 @@ func (c *SQLiteConn) AutoCommit() bool {
 	return int(C.sqlite3_get_autocommit(c.db)) != 0
 }
 
-func (c *SQLiteConn) lastError() error {
-	rv := C.sqlite3_errcode(c.db)
-	if rv == C.SQLITE_OK {
-		return nil
-	}
+func (c *SQLiteConn) lastError() Error {
 	return Error{
-		Code:         ErrNo(rv),
+		Code:         ErrNo(C.sqlite3_errcode(c.db)),
 		ExtendedCode: ErrNoExtended(C.sqlite3_extended_errcode(c.db)),
 		err:          C.GoString(C.sqlite3_errmsg(c.db)),
 	}

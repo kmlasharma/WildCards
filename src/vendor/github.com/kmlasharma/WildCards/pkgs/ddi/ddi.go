@@ -1,39 +1,40 @@
-package dinto
+package ddi
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"github.com/kmlasharma/WildCards/pkgs/logger"
 	_ "github.com/mattn/go-sqlite3"
 	"strings"
 )
 
-type Dinto struct {
-	db *sql.DB
+type Database struct {
+	conn *sql.DB
 }
 
 type Interaction struct {
 	DrugA   string
 	DrugB   string
 	Adverse bool
-	Time int
+	Time    int
 }
 
-func NewDinto() *Dinto {
-	db, err := sql.Open("sqlite3", "./dinto.db")
+func NewDatabase() *Database {
+	conn, err := sql.Open("sqlite3", "./dinto.db")
 	if err != nil {
 		logger.Fatal(err)
 	}
-	err = db.Ping()
+	err = conn.Ping()
 	if err != nil {
 		logger.Fatal(err)
 	}
-	dinto := &Dinto{db: db}
-	dinto.createTableIfNotExists()
-	return dinto
+	db := &Database{conn: conn}
+	db.createTableIfNotExists()
+	return db
 }
 
-func (dinto *Dinto) Populate(interactions []Interaction) error {
+func (db *Database) Populate(interactions []Interaction) error {
 	strs := []string{"INSERT INTO interactions ('DrugA', 'DrugB', 'Adverse', 'Time') VALUES"}
 	for _, interaction := range interactions {
 		var integer = 0
@@ -45,15 +46,28 @@ func (dinto *Dinto) Populate(interactions []Interaction) error {
 	}
 	concatenatedString := strings.Join(strs, "\n")
 	command := strings.TrimSuffix(concatenatedString, ",") + ";" // Tidy up by removing last comma, and add semi colon
-	_, err := dinto.db.Exec(command)
+	_, err := db.conn.Exec(command)
 	return err
 }
 
-func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction, err error) {
+func (db *Database) PopulateFromFile(filepath string) error {
+	interactions, err := readInteractionsFromFile(filepath)
+	if err != nil {
+		return err
+	}
+
+	err = db.Populate(interactions)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *Database) FindInteractions(drugs []string) (interactions []Interaction, err error) {
 	template := "SELECT * FROM interactions WHERE DrugA IN ('%s') AND DrugB IN ('%s');"
 	drugsString := strings.Join(drugs, "','")
 	query := fmt.Sprintf(template, drugsString, drugsString)
-	rows, err := dinto.db.Query(query)
+	rows, err := db.conn.Query(query)
 	var drugA, drugB string
 	var adverse bool
 	var time int
@@ -65,7 +79,7 @@ func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction
 					DrugA:   drugA,
 					DrugB:   drugB,
 					Adverse: adverse,
-					Time: time,
+					Time:    time,
 				}
 				interactions = append(interactions, interaction)
 			}
@@ -76,15 +90,24 @@ func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction
 	return
 }
 
-func (dinto *Dinto) Clear() {
-	dinto.db.Exec("DELETE from interactions")
+func (db *Database) FindInteraction(drugA, drugB string) (Interaction, error) {
+	interactions, err := db.FindInteractions([]string{drugA, drugB})
+	if err == nil && len(interactions) > 0 {
+		return interactions[0], nil
+	} else {
+		return Interaction{}, errors.New("Not Found")
+	}
 }
 
-func (dinto *Dinto) Close() {
-	dinto.db.Close()
+func (db *Database) Clear() {
+	db.conn.Exec("DELETE from interactions")
 }
 
-func (dinto *Dinto) createTableIfNotExists() {
+func (db *Database) Close() {
+	db.conn.Close()
+}
+
+func (db *Database) createTableIfNotExists() {
 	command := `
   CREATE TABLE IF NOT EXISTS interactions(
     DrugA TEXT,
@@ -92,7 +115,7 @@ func (dinto *Dinto) createTableIfNotExists() {
     Adverse INTEGER,
     Time INTEGER
   );`
-	_, err := dinto.db.Exec(command)
+	_, err := db.conn.Exec(command)
 	if err != nil {
 		logger.Fatal(err)
 	}

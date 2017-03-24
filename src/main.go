@@ -16,23 +16,18 @@ func main() {
 	db := ddi.NewDatabase()
 	db.Clear()
 
-	interactions, err := ddi.ReadInteractionsFromFile("/go/src/app/res/ddi.csv")
+	err := db.PopulateFromFile("/go/src/app/res/ddi.csv")
+
 	if err != nil {
 		fmt.Println("An error occured:", err)
 		os.Exit(0)
 	}
 
-	err = db.Populate(interactions)
-	if err != nil {
-		fmt.Println("An error occured:", err)
-		os.Exit(0)
-	}
-
-	ddiinteractions, err := db.FindInteractions([]string{"coke", "7up"})
+	interactions, err := db.FindInteractions([]string{"coke", "7up"})
 	if err != nil {
 		fmt.Println("Error:", err)
 	} else {
-		fmt.Println(ddiinteractions)
+		fmt.Println(interactions)
 	}
 	db.Close()
 
