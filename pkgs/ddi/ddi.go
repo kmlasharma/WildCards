@@ -1,4 +1,4 @@
-package dinto
+package ddi
 
 import (
 	"database/sql"
@@ -8,19 +8,19 @@ import (
 	"strings"
 )
 
-type Dinto struct {
-	db *sql.DB
+type Database struct {
+	conn *sql.DB
 }
 
 type Interaction struct {
 	DrugA   string
 	DrugB   string
 	Adverse bool
-	Time int
+	Time    int
 }
 
-func NewDinto() *Dinto {
-	db, err := sql.Open("sqlite3", "./dinto.db")
+func NewDatabase() *Database {
+	conn, err := sql.Open("sqlite3", "./dinto.db")
 	if err != nil {
 		logger.Fatal(err)
 	}
@@ -28,12 +28,12 @@ func NewDinto() *Dinto {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	dinto := &Dinto{db: db}
-	dinto.createTableIfNotExists()
-	return dinto
+	db := &Database{conn: conn}
+	db.createTableIfNotExists()
+	return db
 }
 
-func (dinto *Dinto) Populate(interactions []Interaction) error {
+func (db *Database) Populate(interactions []Interaction) error {
 	strs := []string{"INSERT INTO interactions ('DrugA', 'DrugB', 'Adverse', 'Time') VALUES"}
 	for _, interaction := range interactions {
 		var integer = 0
@@ -45,7 +45,7 @@ func (dinto *Dinto) Populate(interactions []Interaction) error {
 	}
 	concatenatedString := strings.Join(strs, "\n")
 	command := strings.TrimSuffix(concatenatedString, ",") + ";" // Tidy up by removing last comma, and add semi colon
-	_, err := dinto.db.Exec(command)
+	_, err := db.conn.Exec(command)
 	return err
 }
 
@@ -65,7 +65,7 @@ func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction
 					DrugA:   drugA,
 					DrugB:   drugB,
 					Adverse: adverse,
-					Time: time,
+					Time:    time,
 				}
 				interactions = append(interactions, interaction)
 			}
@@ -76,12 +76,12 @@ func (dinto *Dinto) FindInteractions(drugs []string) (interactions []Interaction
 	return
 }
 
-func (dinto *Dinto) Clear() {
-	dinto.db.Exec("DELETE from interactions")
+func (db *Database) Clear() {
+	db.conn.Exec("DELETE from interactions")
 }
 
-func (dinto *Dinto) Close() {
-	dinto.db.Close()
+func (db *Database) Close() {
+	db.conn.Close()
 }
 
 func (dinto *Dinto) createTableIfNotExists() {
@@ -92,7 +92,7 @@ func (dinto *Dinto) createTableIfNotExists() {
     Adverse INTEGER,
     Time INTEGER
   );`
-	_, err := dinto.db.Exec(command)
+	_, err := db.conn.Exec(command)
 	if err != nil {
 		logger.Fatal(err)
 	}
