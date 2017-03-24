@@ -5,39 +5,18 @@ import (
 	"github.com/kmlasharma/WildCards/pkgs/ddi"
 	"github.com/kmlasharma/WildCards/pkgs/logger"
 	"github.com/kmlasharma/WildCards/pkgs/pml"
-	"github.com/kmlasharma/WildCards/pkgs/progressbar"
 	"os"
-	"os/exec"
 	"strings"
 )
 
 func main() {
-
-	db := ddi.NewDatabase()
-	db.Clear()
-
-	err := db.PopulateFromFile("/go/src/app/res/ddi.csv")
-
-	if err != nil {
-		fmt.Println("An error occured:", err)
-		os.Exit(0)
-	}
-
-	interactions, err := db.FindInteractions([]string{"coke", "7up"})
-	if err != nil {
-		fmt.Println("Error:", err)
-	} else {
-		fmt.Println(interactions)
-	}
-	db.Close()
-
 	var pmlFilePath string
-	var owlFilePath string
+	var csvFilePath string
 
 	fmt.Println("Welcome to the app")
 	fmt.Println("\nHere is how it works:")
 	fmt.Println("\t* You will choose a PML file")
-	fmt.Println("\t* You will choose a OWL file")
+	fmt.Println("\t* You will choose a CSV file for DDI's")
 	fmt.Println("\t* The app will generate the following:")
 	fmt.Println("\t\t1) Analysis based on your files")
 	fmt.Println("\t\t2) A log file for you to read called analysis.log")
@@ -53,18 +32,28 @@ func main() {
 	}
 
 	checkExtension(pmlFilePath, "pml")
-	PML(pmlFilePath)
+	process := processFromFile(pmlFilePath)
 
-	fmt.Print("Enter path to OWL File: [default is test.owl] ")
-	fmt.Scanln(&owlFilePath)
-	owlFilePath = strings.TrimRight(owlFilePath, "\n")
+	fmt.Print("Enter path to CSV File: [default is ddi.csv] ")
+	fmt.Scanln(&csvFilePath)
+	csvFilePath = strings.TrimRight(csvFilePath, "\n")
 
-	if owlFilePath == "" {
-		owlFilePath = "/root/test.owl"
+	if csvFilePath == "" {
+		csvFilePath = "/root/ddi.csv"
 	}
 
-	checkExtension(owlFilePath, "owl")
-	Ontology(owlFilePath)
+	checkExtension(csvFilePath, "csv")
+
+	db := ddi.NewDatabase()
+	db.PopulateFromFile(csvFilePath)
+	interactions, err := db.FindInteractions(process.AllDrugs())
+
+	if err != nil {
+		fmt.Println("Couldn't find any DDI's")
+		os.Exit(1)
+	}
+
+	fmt.Println("DDI's for this PML File:", interactions)
 }
 
 func checkExtension(path string, extension string) {
@@ -81,21 +70,13 @@ func checkExtension(path string, extension string) {
 	}
 }
 
-func PML(path string) {
+func processFromFile(path string) *pml.Process {
 	reader, _ := os.Open(path)
 	parser := pml.NewParser(reader)
 	process := parser.Parse()
-	logger.Println("Process: ", process.Name)
-	logger.Println("Drugs in Process:\n", strings.Join(process.AllDrugs(), "\n"))
+	return process
 }
 
 func Ontology(path string) {
-	progressbar.DisplayProgressBarForOwlFile(path)
-	cmd := "python3 /go/src/app/dinto/owl_moderator.py " + path
-	out, _ := exec.Command("sh", "-c", cmd).Output()
-	if string(out)[:5] == "Error" {
-		logger.Error(string(out))
-	} else {
-		logger.Println(string(out))
-	}
+
 }
