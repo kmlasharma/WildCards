@@ -6,9 +6,11 @@ import (
 	"os"
 )
 
+var logDir = os.Getenv("LOG_DIR")
+var defaultLogFile = logDir + "/analysis.log"
+var defaultErrorFile = logDir + "/analysis.err"
+
 const (
-	defaultLogFile        = "/root/log/output.log"
-	defaultErrorFile      = "/root/log/error.log"
 	outputErrorsToLogFile = false
 	outputToStdout        = true
 )
@@ -54,7 +56,8 @@ func Fatal(a ...interface{}) {
 }
 
 func createLogFile(path string) *os.File {
-	os.MkdirAll("/root/log", os.ModePerm) // Ensure log folder is created.
+	os.MkdirAll(logDir, os.ModePerm) // Ensure log folder is created.
 	f, _ := os.Create(path)
 	return f
 }
+
