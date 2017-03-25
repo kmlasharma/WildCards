@@ -1,12 +1,11 @@
 process test {
-  sequence mySeq {
-    action act_4 {
+  sequence Andy {
+    action Mary {
       script { "{\"drugs\": [\"Plavix\", \"Lipitor\", \"Nexium\"]}" }
     }
   }
-  sequence mySeq {
-    action act_5 {
-
-    }
+  sequence Andy {
+    action Mary {}
   }
+  sequence John {}
 }
