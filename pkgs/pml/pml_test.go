@@ -7,6 +7,10 @@ import (
 	"testing"
 )
 
+const (
+	resDir = os.Getenv("RES_DIR")
+)
+
 func TestNoProcesses(t *testing.T) {
 	// we use os.exit so it's not really possible to test this at the moment
 
@@ -67,7 +71,7 @@ func TestValidateClashes(t * testing.T) {
 	// Or overlapping action names over different sequences?
 	// Or processes with overlapping names?
 	fmt.Println("* Testing that PML files with task name clashes are rejected")
-	reader, _ := os.Open("/root/sequence_clashes.pml") // empty file
+	reader, _ := os.Open(resDir + "/sequence_clashes.pml") // empty file
 	parser := NewParser(reader)
 	process := parser.Parse()
 	err := process.Validate()
@@ -81,7 +85,7 @@ func TestValidateNoClashes(t * testing.T) {
 	// What about a process that contains tasks with overlapping names?
 	// Or overlapping task names over different processes?
 	fmt.Println("* Testing that PML files with no task name clashes are not rejected")
-	reader, _ := os.Open("/root/no_sequence_clashes.pml") // empty file
+	reader, _ := os.Open(resDir + "/no_sequence_clashes.pml") // empty file
 	parser := NewParser(reader)
 	process := parser.Parse()
 	if(assert.Nil(t, process.Validate(), "There should be no task name clashes detected")) {
