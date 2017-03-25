@@ -32,62 +32,76 @@ func TestMultipleProcesses(t * testing.T) {
 }
 
 func TestNoSequences(t *testing.T) {
-	//TODO
 	fmt.Println("* Testing analysing process with no sequences")
-
-
-	fmt.Println("Unimplemented...")
+	path := os.Getenv("RES_DIR")
+	reader , _ := os.Open(path + "/no_sequences.pml")
+	parser := NewParser(reader)
+	process := parser.Parse()
+	drugs := process.AllDrugs()
+	tasks := process.AllTasks()
+	assert.Equal(t, len(drugs), 0, "Process should have no drugs")
+	if (assert.Equal(t, len(tasks), 0, "Process should have no subtasks")) {
+		fmt.Println("SUCCESS!")
+	}
 }
 
 func TestNoDrugs(t * testing.T) {
-	//TODO
-	fmt.Println("* Testing analysing process with a sequence & action that contains no drugs")
-
-
-	fmt.Println("Unimplemented...")
+	fmt.Println("* Testing analysing process with a script with no drugs")
+	path := os.Getenv("RES_DIR")
+	reader , _ := os.Open(path + "/no_drugs.pml")
+	parser := NewParser(reader)
+	process := parser.Parse()
+	drugs := process.AllDrugs()
+	if(assert.Equal(t, len(drugs), 0, "Process should have no drugs")) {
+		fmt.Println("SUCCESS!")
+	}
 }
 
 func TestMultipleDrugs(t *testing.T) {
-	//TODO
-	fmt.Println("* Testing analysing process with actions that contain drugs")
-
-
-	fmt.Println("Unimplemented...")
+	fmt.Println("* Testing analysing process with multiple sequences and actions containing drugs")
+	path := os.Getenv("RES_DIR")
+	reader , _ := os.Open(path + "/multi_drugs.pml")
+	parser := NewParser(reader)
+	process := parser.Parse()
+	drugs := process.AllDrugs()
+	expected := []string{"coke", "7up", "pepsi", "fanta", "dr pepper"}
+	if(assert.Equal(t, drugs, expected, "Drugs should include exactly coke, 7up, pepsi, fanta and dr pepper")) {
+		fmt.Println("SUCCESS!")
+	}
 }
 
-func TestMultipleTasksDrugs(t *testing.T) {
-	//TODO
-	fmt.Println("* Testing loading PML file with multiple tasks with multiple drugs")
-
-
-	fmt.Println("Unimplemented...")
-}
-
-func TestValidateClashes(t * testing.T) {
-	// Need clarification here: are we checking only for clashes in sequence names?
-	// What about a sequence that contains actions with overlapping names?
-	// Or overlapping action names over different sequences?
-	// Or processes with overlapping names?
-	fmt.Println("* Testing that PML files with task name clashes are rejected")
-	reader, _ := os.Open(resDir + "/sequence_clashes.pml") // empty file
+func TestValidateSameType(t * testing.T) {
+	fmt.Println("* Testing that PML files with name clashes among items of the same type are rejected")
+	reader, _ := os.Open(resDir + "/sequence_clashes.pml")
 	parser := NewParser(reader)
 	process := parser.Parse()
 	err := process.Validate()
-	fmt.Println(err)
-	//if(assert.Equal(t, err.Error(), "Multiply defined sequence: mySeq")) {
-	//	fmt.Println("PASSED!")
-	//}
+	if(assert.NotNil(t, err, "Error should be raised due to mutiply defined identifiers")) {
+		if(assert.Equal(t, err.Error(), "Multiply defined identifiers: Andy, Mary", "Andy and Mary should be defined multiple times")) {
+			fmt.Println("PASSED!")
+		}
+	}
+}
+
+func TestValidateDifferentTypes(t * testing.T) {
+	fmt.Println("* Testing that PML files with name clashes among items of different types are rejected")
+	reader, _ := os.Open(resDir + "/multilevel_clashes.pml")
+	parser := NewParser(reader)
+	process := parser.Parse()
+	err := process.Validate()
+	if(assert.NotNil(t, err, "Error should be raised due to mutiply defined identifiers")) {
+		if(assert.Equal(t, err.Error(), "Multiply defined identifiers: Mary, Andy, John", "Mary, Andy and John should be defined multiple times")) {
+			fmt.Println("PASSED!")
+		}
+	}
 }
 
 func TestValidateNoClashes(t * testing.T) {
-	// Need clarification here: are we checking only for clashes in process names?
-	// What about a process that contains tasks with overlapping names?
-	// Or overlapping task names over different processes?
-	fmt.Println("* Testing that PML files with no task name clashes are not rejected")
-	reader, _ := os.Open(resDir + "/no_sequence_clashes.pml") // empty file
+	fmt.Println("* Testing that PML files with no name clashes are not rejected")
+	reader, _ := os.Open(resDir + "/no_clashes.pml") 
 	parser := NewParser(reader)
 	process := parser.Parse()
-	if(assert.Nil(t, process.Validate(), "There should be no task name clashes detected")) {
+	if(assert.Nil(t, process.Validate(), "There should be no name clashes detected")) {
 		fmt.Println("PASSED!")
 	}
 }
