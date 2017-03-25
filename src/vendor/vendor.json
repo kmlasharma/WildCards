@@ -3,22 +3,22 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "qhjOUqehPZ/dC2Xpf4dytqzxS8U=",
+			"checksumSHA1": "asUqtI8lhji78F6GH01jtL/SXZY=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/ddi",
-			"revision": "4f5d5e7cf408ebca437ffd19bfa5b68fb35ed595",
-			"revisionTime": "2017-03-25T18:26:47Z"
+			"revision": "24d6bae964fdf8e571bfb0072687f92b8423d08d",
+			"revisionTime": "2017-03-25T18:39:34Z"
 		},
 		{
 			"checksumSHA1": "N3icPjPqcB3PGn4B3cGPjrMyPDQ=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "4f5d5e7cf408ebca437ffd19bfa5b68fb35ed595",
-			"revisionTime": "2017-03-25T18:26:47Z"
+			"revision": "24d6bae964fdf8e571bfb0072687f92b8423d08d",
+			"revisionTime": "2017-03-25T18:39:34Z"
 		},
 		{
 			"checksumSHA1": "6rDdLcqzyME+rELTL2OXtekCpGM=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "4f5d5e7cf408ebca437ffd19bfa5b68fb35ed595",
-			"revisionTime": "2017-03-25T18:26:47Z"
+			"revision": "24d6bae964fdf8e571bfb0072687f92b8423d08d",
+			"revisionTime": "2017-03-25T18:39:34Z"
 		},
 		{
 			"checksumSHA1": "Ef3+gi97QEvLS9VonbjOF/cZnDQ=",
