@@ -13,6 +13,10 @@ func main() {
 	var pmlFilePath string
 	var csvFilePath string
 
+	resDir := os.Getenv("RES_DIR")
+	testPMLFile := resDir + "/test.pml"
+	testDDIFile := resDir + "/ddi.csv"
+
 	fmt.Println("Welcome to the app")
 	fmt.Println("\nHere is how it works:")
 	fmt.Println("\t* You will choose a PML file")
@@ -28,7 +32,8 @@ func main() {
 	pmlFilePath = strings.TrimRight(pmlFilePath, "\n")
 
 	if pmlFilePath == "" {
-		pmlFilePath = "/root/test.pml"
+		fmt.Println("### Using the default PML file " + testPMLFile + " ###")
+		pmlFilePath = testPMLFile
 	}
 
 	checkExtension(pmlFilePath, "pml")
@@ -39,7 +44,8 @@ func main() {
 	csvFilePath = strings.TrimRight(csvFilePath, "\n")
 
 	if csvFilePath == "" {
-		csvFilePath = "/root/ddi.csv"
+		fmt.Println("### Using the default DDI file " + testDDIFile + " ###")
+		csvFilePath = testDDIFile
 	}
 
 	checkExtension(csvFilePath, "csv")
@@ -80,3 +86,4 @@ func processFromFile(path string) *pml.Process {
 func Ontology(path string) {
 
 }
+
