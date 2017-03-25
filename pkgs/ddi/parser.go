@@ -100,3 +100,4 @@ func rowToInteractionObject(row []string, headerToIndex map[string]int) (interac
 	interaction = Interaction{DrugA: drugA, DrugB: drugB, Adverse: adverse, Time: time}
 	return interaction, nil
 }
+

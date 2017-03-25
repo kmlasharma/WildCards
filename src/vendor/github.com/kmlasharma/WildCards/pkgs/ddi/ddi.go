@@ -31,6 +31,7 @@ func NewDatabase() *Database {
 	}
 	db := &Database{conn: conn}
 	db.createTableIfNotExists()
+	db.Clear()
 	return db
 }
 

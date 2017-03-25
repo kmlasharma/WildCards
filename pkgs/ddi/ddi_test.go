@@ -1,6 +1,7 @@
 package ddi
 
 import (
+	"os"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -70,6 +71,7 @@ func TestEnsureCorrectTimingForInteraction(t *testing.T) {
 
 func setup(t *testing.T) *assert.Assertions {
 	db.Clear()
-	db.PopulateFromFile("../../res/ddi.csv")
+	db.PopulateFromFile(os.Getenv("RES_DIR") + "/ddi.csv")
 	return assert.New(t)
 }
+

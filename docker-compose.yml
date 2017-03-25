@@ -1,7 +1,9 @@
 version: '2'
 services:
   project:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
      - "8080:8080"
-   
+  
