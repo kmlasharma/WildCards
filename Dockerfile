@@ -1,14 +1,13 @@
 # Image rooted at debian:jessie
 FROM golang:1.6
 
-# Build dinto components
-COPY ./src/ /go/src/app
-COPY ./res/ /go/src/app/res
-WORKDIR /go/src/app/
-RUN go get -d -v
-RUN go install -v
+# Set environment variables
+ENV RES_DIR /go/src/app/res
+ENV LOG_DIR /go/src/app/log
 
-# Install Python 3
+WORKDIR /go/src/app
+
+# Install testing dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 \
 			python3-dev \
@@ -19,18 +18,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 \
 			libreadline6 \
 			libreadline6-dev \
 			vim 
-RUN pip3 install ontospy
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-
-# testing
-WORKDIR /root/
-COPY ./tests/ /root/tests/
 RUN pip3 install nose
 
-RUN echo 'ln -s -f /go/src/app/res/test.pml $HOME/test.pml' >> $HOME/.bashrc
-RUN echo 'ln -s -f /go/src/app/res/test.owl $HOME/test.owl' >> $HOME/.bashrc
-RUN echo 'ln -s -f /go/src/app/res/errortest.pml $HOME/errortest.pml' >> $HOME/.bashrc
-RUN echo 'ln -s -f /go/src/app/res/errortest.owl $HOME/errortest.owl' >> $HOME/.bashrc
+# Copy app assets
+COPY ./src/ /go/src/app
+COPY ./res/ /go/src/app/res
+COPY ./tests/ /go/src/app/tests
 
-WORKDIR /root/
+# Install app dependencies
+RUN go get -d -v
+RUN go install -v
+
+# Working directory of the project is where all resources are
+WORKDIR /go/src/app/res
 
