@@ -170,6 +170,157 @@ It is assumed that you have followed the instructions above before testing the f
 
 ![](http://imgur.com/8w7FaNJ.png)
 
+
+
+RELEASE 2:
+
+### ⏳ Mock DDI Characterisation Data
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 6
+   
+### ✅ Identify drugs in PML
+
+* Status: **Complete**
+* Starting context:
+   * You have completed the PML Log File Generation step.
+* Testing Instructions:
+   * By doing the previous step, the drugs in the PML file will automatically be identified and printed
+   
+![](http://imgur.com/GUBevCH.png)
+   
+### ⏳ Lookup Drugs in Mock Data File
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 6
+   
+### ⏳ Identify DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 6
+   
+### ⏳ Report Un-named PML Construct
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 6
+
+### ⏳ Report PML Construct Name-Clash
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 6
+
+### ⏳ Report Use Of Task Construct
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Identify Sequential DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Identify Parallel DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+### ⏳ Report Alternative Non-DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+### ⏳ Report Repeated Alternative DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Specify Pereodic Drug Use
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+   
+### ⏳ Specify a Delay
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+   
+### ⏳ Specify a Time Interval Offset
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Identify DDI Closest Approach
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Merging Clinical Pathways Written In PML
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+   
+### ⏳ PML-TX Save PML To File
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
 ## Tearing down the Docker container
 
 1. Make sure you have exited the container by typing `exit` ("Your prompt will change from `root@<some code>:~#` to your normal prompt).
