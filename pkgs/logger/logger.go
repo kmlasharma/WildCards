@@ -6,10 +6,11 @@ import (
 	"os"
 )
 
+var logDir = os.Getenv("LOG_DIR")
+var defaultLogFile = logDir + "/analysis.log"
+var defaultErrorFile = logDir + "/analysis.err"
+
 const (
-	logDir                = os.Getenv("LOG_DIR")
-	defaultLogFile        = logDir + "/analysis.log"
-	defaultErrorFile      = logDir + "/analysis.err"
 	outputErrorsToLogFile = false
 	outputToStdout        = true
 )
