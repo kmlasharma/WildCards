@@ -82,8 +82,3 @@ func processFromFile(path string) *pml.Process {
 	process := parser.Parse()
 	return process
 }
-
-func Ontology(path string) {
-
-}
-
