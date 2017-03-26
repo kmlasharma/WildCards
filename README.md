@@ -68,7 +68,7 @@ It is assumed that you have followed the instructions above before testing the f
    * Files that have no drugs include `no_drugs.pml` and `no_subtasks.pml`. These files will be parsed and will show no drugs in them. 
    * Drugs are encoded in stringified JSON format within the script tag of an action. The results of this step can be changed by changing the script tags of actions in the pml files and rerunning this test.
    
-![](http://imgur.com/GUBevCH.png)
+![](http://i.imgur.com/r5czJYf.png)
 
 ### ✅ Report Un-named PML Construct
 
@@ -76,7 +76,11 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `missing_pml_construct.pml`. An error detailing an un-named PML construct will be returned, because the file starts with `process {`. To fix this and remove this error, change line 1 to `process process_name {`.
+   * When prompted to enter a pml file, enter `missing_pml_construct.pml`. 
+   * An error detailing an un-named PML construct will be returned, because the file starts with `process {`. 
+   * To fix this and remove this error, change line 1 to `process process_name {`.
+
+![](http://i.imgur.com/iVQGo8m.png)
    
 ### ✅ Mock DDI Characterisation Data
 
@@ -85,7 +89,6 @@ It is assumed that you have followed the instructions above before testing the f
    * This feature is not directly testable, but reviewing the ddi.csv will show our defined format for DDI characterisation Data. 
    * We require a CSV with 4 columns - Drug A, Drug B, Whether the interaction is adverse, and the duration of the interactoin.
 
-   
    
 ### ✅ Lookup Drugs in Mock Data File
 
@@ -97,6 +100,8 @@ It is assumed that you have followed the instructions above before testing the f
     * Hit enter at the prompt to select the default DDI file. You can also use an alternative DDI file.
     * The program will automatically lookup the drugs from the PML file in the Mock data file.
    
+![](http://i.imgur.com/DuVHsbN.png)
+   
 ### ✅ Identify DDIs
 
 * Status: **Complete**
@@ -107,9 +112,11 @@ It is assumed that you have followed the instructions above before testing the f
    * For example, using the default files (test.pml and ddi.csv), coke and 7up will be an interaction because both are in the PML file and there is an entry in the csv file for these drugs. 
    * You can adjust the Interactions returned by changing the drugs in the DDI file or the PML file.
 
+![](http://i.imgur.com/DuVHsbN.png)
+
 ### ✅ Report PML Construct Name-Clash
 
-* Status: **Complete**
+* Status: **In Progress**
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
@@ -118,15 +125,19 @@ It is assumed that you have followed the instructions above before testing the f
    * This is because there is two sequences called 'Andy'. 
    * You can remove this error by changing one of the sequence names and rerunning this test, or recreate it by changing another pml to have clashing names within the same namespace.
 
+![](http://i.imgur.com/Advfand.png)
+
 ### ✅ Report Use Of Task Construct
 
-* Status: **Complete**
+* Status: **In Progress**
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
    * When prompted to enter a pml file, enter `subtasks.pml`. 
    * This feature has two tasks in it, so two tasks will be summarised on the screen.
    * If you add/remove a task from this file, or indeed any other file, and re run this test, you will see the results reflecting that.
+
+![](http://i.imgur.com/2CbrRvY.png)
 
 
 ### ⏳ Identify Sequential DDIs
@@ -352,7 +363,3 @@ RELEASE 1 Features:
    * If there is an error in the OWL file, the details will be logged to the `/root/log/output.log` file, and an error message will show up on screen automatically.
 
 ![](http://imgur.com/8w7FaNJ.png)
-
-
-
-
