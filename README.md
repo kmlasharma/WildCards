@@ -48,10 +48,15 @@ Docker is all you need for the project. To install Docker:
 
 ![](http://i.imgur.com/HFsNKtK.png)
 
+## Testing:
+
+A suite of automated unit tests can be run to test all features of the app. This can be done by navigating to `/go/src/app` (the default starting point of the app), and running `tests`. The test files are primarly for PML and DDI features, so are found in `/go/src/app/pkgs/pml/pml_test.go` and `/go/src/app/pkgs/ddi/ddi_test.go`. The `tests` command will automatically include these tests. The output will look like below:
+
+![](http://i.imgur.com/kmi1Pt5.png)
 
 ## Features:
 
-It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context.
+It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context. Unit and behavioural tests are also outlined for each feature.
 
 # Release 2:
 #### Release 1 features are outlined below
@@ -67,6 +72,8 @@ It is assumed that you have followed the instructions above before testing the f
    * Files that have drugs in them include `test.pml` and `multi_drugs.pml`. They will be displayed as shown.
    * Files that have no drugs include `no_drugs.pml` and `no_subtasks.pml`. These files will be parsed and will show no drugs in them. 
    * Drugs are encoded in stringified JSON format within the script tag of an action. The results of this step can be changed by changing the script tags of actions in the pml files and rerunning this test.
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
    
 ![](http://i.imgur.com/r5czJYf.png)
 
@@ -79,7 +86,9 @@ It is assumed that you have followed the instructions above before testing the f
    * When prompted to enter a pml file, enter `missing_pml_construct.pml`. 
    * An error detailing an un-named PML construct will be returned, because the file starts with `process {`. 
    * To fix this and remove this error, change line 1 to `process process_name {`.
-
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
+  
 ![](http://i.imgur.com/iVQGo8m.png)
    
 ### ✅ Mock DDI Characterisation Data
@@ -99,7 +108,9 @@ It is assumed that you have followed the instructions above before testing the f
     * Hit enter at the prompt to select the default PML file. You can also use an alternative PML file.
     * Hit enter at the prompt to select the default DDI file. You can also use an alternative DDI file.
     * The program will automatically lookup the drugs from the PML file in the Mock data file.
-   
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
+  
 ![](http://i.imgur.com/DuVHsbN.png)
    
 ### ✅ Identify DDIs
@@ -111,7 +122,9 @@ It is assumed that you have followed the instructions above before testing the f
    * After looking up the drugs from the PML file in the Mock data file, the program will return the valid interactions for this set of drugs. 
    * For example, using the default files (test.pml and ddi.csv), coke and 7up will be an interaction because both are in the PML file and there is an entry in the csv file for these drugs. 
    * You can adjust the Interactions returned by changing the drugs in the DDI file or the PML file.
-
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
+  
 ![](http://i.imgur.com/DuVHsbN.png)
 
 ### ✅ Report PML Construct Name-Clash
@@ -124,7 +137,9 @@ It is assumed that you have followed the instructions above before testing the f
    * The program will report that there is a PML Construct name clash for this PML file. 
    * This is because there is two sequences called 'Andy'. 
    * You can remove this error by changing one of the sequence names and rerunning this test, or recreate it by changing another pml to have clashing names within the same namespace.
-
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
+  
 ![](http://i.imgur.com/Advfand.png)
 
 ### ✅ Report Use Of Task Construct
@@ -136,7 +151,9 @@ It is assumed that you have followed the instructions above before testing the f
    * When prompted to enter a pml file, enter `subtasks.pml`. 
    * This feature has two tasks in it, so two tasks will be summarised on the screen.
    * If you add/remove a task from this file, or indeed any other file, and re run this test, you will see the results reflecting that.
-
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
+  
 ![](http://i.imgur.com/2CbrRvY.png)
 
 
