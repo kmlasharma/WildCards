@@ -109,7 +109,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### ✅ Report PML Construct Name-Clash
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
@@ -120,7 +120,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### ✅ Report Use Of Task Construct
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
