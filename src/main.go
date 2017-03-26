@@ -76,9 +76,12 @@ func checkExtension(path string, extension string) {
 	}
 }
 
-func processFromFile(path string) *pml.Process {
+func processFromFile(path string) *pml.Element {
 	reader, _ := os.Open(path)
 	parser := pml.NewParser(reader)
-	process := parser.Parse()
+	process, err := parser.Parse()
+	if err != nil {
+		logger.Fatal("Error: Could not parse process. Error:", err)
+	}
 	return process
 }

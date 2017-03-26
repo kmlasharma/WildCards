@@ -46,7 +46,7 @@ func Error(a ...interface{}) {
 	}
 
 	if outputToStdout {
-		fmt.Print(a...)
+		fmt.Println(a...)
 	}
 }
 
@@ -60,4 +60,3 @@ func createLogFile(path string) *os.File {
 	f, _ := os.Create(path)
 	return f
 }
-

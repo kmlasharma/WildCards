@@ -3,10 +3,23 @@ package pml
 import (
 	"encoding/json"
 	"errors"
-	"github.com/kmlasharma/WildCards/pkgs/logger"
+	"fmt"
 	"io"
-	"os"
 )
+
+type errParser struct {
+	p   *Parser
+	err error
+}
+
+func (ep *errParser) expect(tok Token) string {
+	if ep.err != nil {
+		return ""
+	}
+	lit, err := ep.p.ensureNextTokenType(tok)
+	ep.err = err
+	return lit
+}
 
 type Parser struct {
 	s   *Scanner
@@ -21,63 +34,52 @@ func NewParser(r io.Reader) *Parser {
 	return &Parser{s: NewScanner(r)}
 }
 
-func (p *Parser) Parse() *Process {
-	p.ensureNextTokenType(PROCESS)
-	processName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-	baseElement := p.parseBaseElement()
-	p.ensureNextTokenType(RBRACE)
-	return &Process{Name: processName, baseElement: baseElement}
+func (p *Parser) Parse() (*Element, error) {
+	ep := &errParser{p: p}
+	ep.expect(PROCESS)
+	processName := ep.expect(IDENT)
+	ep.expect(LBRACE)
+	element := p.parseSubElementsAndActions(ep)
+	ep.expect(RBRACE)
+	ep.expect(EOF) // There should be nothing else in the file other than the process.
+
+	if ep.err != nil {
+		return &Element{}, ep.err
+	}
+	element.Name = processName
+	return &element, nil
 }
 
-func (p *Parser) parseSequence() Sequence {
-	p.ensureNextTokenType(SEQUENCE)
-	sequenceName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-	baseElement, actions := p.parseBaseElementAndActions()
-	p.ensureNextTokenType(RBRACE)
-	return Sequence{Name: sequenceName, baseElement: baseElement, Actions: actions}
+func (p *Parser) parseElement(initialToken Token, ep *errParser) *Element {
+	ep.expect(initialToken)
+	name := ep.expect(IDENT)
+	ep.expect(LBRACE)
+	element := p.parseSubElementsAndActions(ep)
+	ep.expect(RBRACE)
+	element.Name = name
+	return &element
 }
 
-func (p *Parser) parseIteration() Iteration {
-	p.ensureNextTokenType(ITERATION)
-	iterationName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-	baseElement, actions := p.parseBaseElementAndActions()
-	p.ensureNextTokenType(RBRACE)
-	return Iteration{Name: iterationName, baseElement: baseElement, Actions: actions}
-}
-
-func (p *Parser) parseTask() Task {
-	p.ensureNextTokenType(TASK)
-	taskName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
-	baseElement, actions := p.parseBaseElementAndActions()
-	p.ensureNextTokenType(RBRACE)
-	return Task{Name: taskName, baseElement: baseElement, Actions: actions}
-}
-
-func (p *Parser) parseAction() (Action, error) {
-	p.ensureNextTokenType(ACTION)
-	actionName := p.ensureNextTokenType(IDENT)
-	p.ensureNextTokenType(LBRACE)
+func (p *Parser) parseAction(ep *errParser) (Action, error) {
+	ep.expect(ACTION)
+	actionName := ep.expect(IDENT)
+	ep.expect(LBRACE)
 
 	var stringifiedJSON string
 
 	for {
 		tok, _ := p.scanIgnoreWhitespace()
 		if tok == SCRIPT {
-			p.ensureNextTokenType(LBRACE)
-			stringifiedJSON = p.ensureNextTokenType(IDENT)
-			p.ensureNextTokenType(RBRACE)
+			ep.expect(LBRACE)
+			stringifiedJSON = ep.expect(IDENT)
+			ep.expect(RBRACE)
 		} else if tok == REQUIRES || tok == PROVIDES {
 			// Wait till we reach RBRACE.
 			for tok != RBRACE {
 				tok, _ = p.scanIgnoreWhitespace()
 			}
 		} else if tok == RBRACE {
-			// Wait for final RBRACE
-			break
+			break // Wait for final RBRACE
 		}
 	}
 
@@ -87,44 +89,24 @@ func (p *Parser) parseAction() (Action, error) {
 	return Action{}, errors.New("No Script tag")
 }
 
-func (p *Parser) parseBaseElement() (baseElement BaseElement) {
-	for {
-		tok, _ := p.scanIgnoreWhitespace()
-		p.unscan() // Put it back for cleaniness.
-		if tok == SEQUENCE {
-			seq := p.parseSequence()
-			baseElement.Sequences = append(baseElement.Sequences, seq)
-		} else if tok == ITERATION {
-			iter := p.parseIteration()
-			baseElement.Itertions = append(baseElement.Itertions, iter)
-		} else if tok == TASK {
-			task := p.parseTask()
-			baseElement.Tasks = append(baseElement.Tasks, task)
-		} else {
-			break
-		}
-	}
-	return
-}
-
-func (p *Parser) parseBaseElementAndActions() (baseElement BaseElement, actions []Action) {
+func (p *Parser) parseSubElementsAndActions(ep *errParser) (element Element) {
 	for {
 		tok, _ := p.scanIgnoreWhitespace()
 		p.unscan() // Put it back for cleaniness.
 		if tok == ACTION {
-			action, err := p.parseAction()
+			action, err := p.parseAction(ep)
 			if err == nil { // Skip if non JSON script
-				actions = append(actions, action)
+				element.Actions = append(element.Actions, action)
 			}
 		} else if tok == SEQUENCE {
-			seq := p.parseSequence()
-			baseElement.Sequences = append(baseElement.Sequences, seq)
+			seq := p.parseElement(SEQUENCE, ep)
+			element.Sequences = append(element.Sequences, seq)
 		} else if tok == ITERATION {
-			iter := p.parseIteration()
-			baseElement.Itertions = append(baseElement.Itertions, iter)
+			iter := p.parseElement(ITERATION, ep)
+			element.Iterations = append(element.Iterations, iter)
 		} else if tok == TASK {
-			task := p.parseTask()
-			baseElement.Tasks = append(baseElement.Tasks, task)
+			task := p.parseElement(TASK, ep)
+			element.Tasks = append(element.Tasks, task)
 		} else {
 			break
 		}
@@ -172,11 +154,11 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 	return
 }
 
-func (p *Parser) ensureNextTokenType(tok Token) string {
+func (p *Parser) ensureNextTokenType(tok Token) (string, error) {
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
-		logger.Error("found '", lit, "', expected ", tok)
-		os.Exit(1)
+		str := fmt.Sprintf("found '%s', expected %s", lit, tok)
+		return "", errors.New(str)
 	}
-	return lit
+	return lit, nil
 }

@@ -1,33 +1,16 @@
 package pml
 
-type BaseElement struct {
-	Sequences []Sequence
-	Itertions []Iteration
-	Tasks     []Task
-}
+import (
+	"errors"
+	"fmt"
+)
 
-type Process struct {
-	Name        string
-	baseElement BaseElement
-	Actions     []Action
-}
-
-type Sequence struct {
-	Name        string
-	baseElement BaseElement
-	Actions     []Action
-}
-
-type Iteration struct {
-	Name        string
-	baseElement BaseElement
-	Actions     []Action
-}
-
-type Task struct {
-	Name        string
-	baseElement BaseElement
-	Actions     []Action
+type Element struct {
+	Name       string
+	Sequences  []*Element
+	Iterations []*Element
+	Tasks      []*Element
+	Actions    []Action
 }
 
 type Action struct {
@@ -35,68 +18,85 @@ type Action struct {
 	Drugs []string `json:"drugs"`
 }
 
-func (p Process) AllTasks() []Task {
-	return p.baseElement.allTasks()
-}
-
-func (p Process) AllDrugs() (drugs []string) {
-	return p.baseElement.allDrugs()
-}
-
 /* Ensure there is no name clashes */
-func (p Process) Validate() error {
-	return nil
-}
+/*
+	* Check:
+		- p.Actions
+		- p.baseElement.Sequences
+		- p.baseElement.Iterations
+		- p.baseElement.Tasks
+		for seq in p.baseElement.Sequences
+			- seq.Validate()
+		etc.
+*/
+func (el Element) Validate() (errs []error) {
+	errs = append(errs, validateActions(el.Actions)...)
+	errs = append(errs, validateElements(el.Sequences)...)
+	errs = append(errs, validateElements(el.Iterations)...)
+	errs = append(errs, validateElements(el.Tasks)...)
 
-/* Helper Functions */
-
-func (baseElement BaseElement) allTasks() (tasks []Task) {
-	tasks = append(tasks, baseElement.Tasks...)
-	for _, iteration := range baseElement.Itertions {
-		tasks = append(tasks, iteration.baseElement.allTasks()...)
+	for _, iteration := range el.Iterations {
+		errs = append(errs, iteration.Validate()...)
 	}
-	for _, seq := range baseElement.Sequences {
-		tasks = append(tasks, seq.baseElement.allTasks()...)
+	for _, seq := range el.Sequences {
+		errs = append(errs, seq.Validate()...)
 	}
-	for _, task := range baseElement.Tasks {
-		tasks = append(tasks, task.baseElement.allTasks()...)
+	for _, task := range el.Tasks {
+		errs = append(errs, task.Validate()...)
 	}
 	return
 }
 
-func (baseElement BaseElement) allDrugs() (drugs []string) {
-	for _, iteration := range baseElement.Itertions {
-		drugs = append(drugs, iteration.allDrugs()...)
-	}
-	for _, seq := range baseElement.Sequences {
-		drugs = append(drugs, seq.allDrugs()...)
-	}
-	for _, task := range baseElement.Tasks {
-		drugs = append(drugs, task.allDrugs()...)
-	}
-	return
-}
-
-func (iteration Iteration) allDrugs() (drugs []string) {
-	for _, action := range iteration.Actions {
+func (el Element) AllDrugs() (drugs []string) {
+	for _, action := range el.Actions {
 		drugs = append(drugs, action.Drugs...)
 	}
-	drugs = append(drugs, iteration.baseElement.allDrugs()...)
+	for _, iteration := range el.Iterations {
+		drugs = append(drugs, iteration.AllDrugs()...)
+	}
+	for _, seq := range el.Sequences {
+		drugs = append(drugs, seq.AllDrugs()...)
+	}
+	for _, task := range el.Tasks {
+		drugs = append(drugs, task.AllDrugs()...)
+	}
 	return
 }
 
-func (seq Sequence) allDrugs() (drugs []string) {
-	for _, action := range seq.Actions {
-		drugs = append(drugs, action.Drugs...)
+func (el Element) AllTasks() (tasks []*Element) {
+	tasks = append(tasks, el.Tasks...)
+	for _, iteration := range el.Iterations {
+		tasks = append(tasks, iteration.AllTasks()...)
 	}
-	drugs = append(drugs, seq.baseElement.allDrugs()...)
+	for _, seq := range el.Sequences {
+		tasks = append(tasks, seq.AllTasks()...)
+	}
+	for _, task := range el.Tasks {
+		tasks = append(tasks, task.AllTasks()...)
+	}
 	return
 }
 
-func (task Task) allDrugs() (drugs []string) {
-	for _, action := range task.Actions {
-		drugs = append(drugs, action.Drugs...)
+func validateActions(actions []Action) (errs []error) {
+	freq := make(map[string]bool)
+	for _, action := range actions {
+		if freq[action.Name] {
+			str := fmt.Sprintf("Name clash found: %s", action.Name)
+			errs = append(errs, errors.New(str))
+		}
+		freq[action.Name] = true
 	}
-	drugs = append(drugs, task.baseElement.allDrugs()...)
+	return
+}
+
+func validateElements(elements []*Element) (errs []error) {
+	freq := make(map[string]bool)
+	for _, element := range elements {
+		if freq[element.Name] {
+			str := fmt.Sprintf("Name clash found: %s", element.Name)
+			errs = append(errs, errors.New(str))
+		}
+		freq[element.Name] = true
+	}
 	return
 }
