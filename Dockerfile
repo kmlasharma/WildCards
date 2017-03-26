@@ -24,6 +24,8 @@ RUN pip3 install nose
 COPY ./src/ /go/src/app
 COPY ./res/ /go/src/app/res
 COPY ./tests/ /go/src/app/tests
+COPY ./pkgs/ /go/src/app/pkgs
+COPY ./utils/scripts/test.sh >> /go/bin/tests
 
 # Install app dependencies
 RUN go get -d -v
