@@ -53,6 +53,180 @@ Docker is all you need for the project. To install Docker:
 
 It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context.
 
+
+RELEASE 2:
+
+### ✅ Identify drugs in PML
+
+* Status: **Complete**
+* Starting context:
+   * You are in the container having run `docker-compose run project`, and have run `app`
+* Testing instructions:
+   * Hit enter at the prompt to select the default PML file
+   
+![](http://imgur.com/GUBevCH.png)
+
+### ✅ Report Un-named PML Construct
+
+* Status: **Complete**
+* Starting context:
+   * You are in the container having run `docker-compose run project`, and have run `app`
+* Testing Instructions:
+   * When prompted to enter a pml file, enter `missing_pml_construct.pml`
+   
+### ✅ Mock DDI Characterisation Data
+
+* Status: **Complete**
+* Starting context:
+   * You have completed the Select Specific OWL Ontology step.
+* Testing Instructions:
+   * By doing the previous step, the OWL Ontology will automatically be loaded.
+
+   
+   
+### ✅ Lookup Drugs in Mock Data File
+
+* Status: **Complete**
+* Starting context:
+   * You are in the container having run `docker-compose run project`, and have run `app`
+* Testing Instructions:
+    * Hit enter at the prompt to select the default PML file
+    * Hit enter at the prompt to select the default DDI file
+   
+### ✅ Identify DDIs
+
+* Status: **Complete**
+* Starting context:
+   * You have completed the Lookup Drugs in Mock Data File step.
+* Testing Instructions:
+   * By doing the previous step, the DDIs in the default PML file will be outputted to the console.
+* Custom Testing Instructions:
+    * When promted to enter PML file, enter the name of any PML file located in the /res/ directory.      
+
+### ⏳ Report PML Construct Name-Clash
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 6
+
+### ⏳ Report Use Of Task Construct
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Identify Sequential DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Identify Parallel DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+### ⏳ Report Alternative Non-DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+### ⏳ Report Repeated Alternative DDIs
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Specify Pereodic Drug Use
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+   
+### ⏳ Specify a Delay
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+   
+### ⏳ Specify a Time Interval Offset
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Identify DDI Closest Approach
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+### ⏳ Merging Clinical Pathways Written In PML
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+   
+   
+### ⏳ PML-TX Save PML To File
+
+* Status: **In Progress**
+* Starting context:
+   * TODO
+* Testing Instructions:
+   * TODO: Planned for Iteration 7
+
+
+## Tearing down the Docker container
+
+1. Make sure you have exited the container by typing `exit` ("Your prompt will change from `root@<some code>:~#` to your normal prompt).
+2. Run `docker-compose stop` to completely tear down the Docker container (run this command from outside of the container).
+
+
+## Automated Testing Instructions
+
+When inside the container, the automated tests can be run to test each of the above features automatically. 
+
+1. cd to `/root/tests` 
+2. Run `nosetests`
+3. 
+
+
+
+
+RELEASE 1 Features:
+
 ### ✅ PML File Selection
 
 * Status: **Complete**
@@ -172,165 +346,4 @@ It is assumed that you have followed the instructions above before testing the f
 
 
 
-RELEASE 2:
-
-### ⏳ Mock DDI Characterisation Data
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 6
-   
-### ✅ Identify drugs in PML
-
-* Status: **Complete**
-* Starting context:
-   * You have completed the PML Log File Generation step.
-* Testing Instructions:
-   * By doing the previous step, the drugs in the PML file will automatically be identified and printed
-   
-![](http://imgur.com/GUBevCH.png)
-   
-### ⏳ Lookup Drugs in Mock Data File
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 6
-   
-### ⏳ Identify DDIs
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 6
-   
-### ⏳ Report Un-named PML Construct
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 6
-
-### ⏳ Report PML Construct Name-Clash
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 6
-
-### ⏳ Report Use Of Task Construct
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-
-### ⏳ Identify Sequential DDIs
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-
-### ⏳ Identify Parallel DDIs
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-   
-### ⏳ Report Alternative Non-DDIs
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-### ⏳ Report Repeated Alternative DDIs
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-
-### ⏳ Specify Pereodic Drug Use
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-   
-   
-### ⏳ Specify a Delay
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-   
-   
-### ⏳ Specify a Time Interval Offset
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-
-### ⏳ Identify DDI Closest Approach
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-
-### ⏳ Merging Clinical Pathways Written In PML
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-   
-   
-### ⏳ PML-TX Save PML To File
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 7
-
-
-## Tearing down the Docker container
-
-1. Make sure you have exited the container by typing `exit` ("Your prompt will change from `root@<some code>:~#` to your normal prompt).
-2. Run `docker-compose stop` to completely tear down the Docker container (run this command from outside of the container).
-
-
-## Automated Testing Instructions
-
-When inside the container, the automated tests can be run to test each of the above features automatically. 
-
-1. cd to `/root/tests` 
-2. Run `nosetests`
 
