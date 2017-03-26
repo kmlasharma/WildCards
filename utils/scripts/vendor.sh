@@ -4,6 +4,9 @@ for dir in `ls pkgs/`;
 do
     cd pkgs/$dir
     go build
+    rm -rf vendor
+    govendor init
+    govendor add +external
     cd ../..
 done
 
