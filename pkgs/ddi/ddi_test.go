@@ -34,7 +34,7 @@ func TestCountOfInteraction(t *testing.T) {
 	assert := setup(t)
 
 	interactions, _ := db.FindInteractions([]string{"pepsi", "flat7up"})
-	if assert.Equal(len(interactions), 1, "Pepsi + flat7up interaction should exist") {
+	if assert.Equal( 1,len(interactions), "Pepsi + flat7up interaction should exist") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -64,7 +64,7 @@ func TestEnsureCorrectTimingForInteraction(t *testing.T) {
 	assert := setup(t)
 
 	interaction, _ := db.FindInteraction("paracetamol", "alcohol")
-	if assert.Equal(interaction.Time, 24*60*60, "Paracetamol and Alcohol should have a gap of 1 day") {
+	if assert.Equal(24*60*60,interaction.Time, "Paracetamol and Alcohol should have a gap of 1 day") {
 		fmt.Println("PASSED!")
 	}
 }
