@@ -53,8 +53,8 @@ Docker is all you need for the project. To install Docker:
 
 It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context.
 
-
-RELEASE 2:
+# Release 2:
+#### Release 1 features are outlined below
 
 ### ✅ Identify drugs in PML
 
@@ -62,7 +62,11 @@ RELEASE 2:
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing instructions:
-   * Hit enter at the prompt to select the default PML file
+   * Hit enter at the prompt to select the default PML file, which is `test.pml`. 
+   * This will display the drugs in that process. 
+   * Files that have drugs in them include `test.pml` and `multi_drugs.pml`. They will be displayed as shown.
+   * Files that have no drugs include `no_drugs.pml` and `no_subtasks.pml`. These files will be parsed and will show no drugs in them. 
+   * Drugs are encoded in stringified JSON format within the script tag of an action. The results of this step can be changed by changing the script tags of actions in the pml files and rerunning this test.
    
 ![](http://imgur.com/GUBevCH.png)
 
@@ -72,15 +76,14 @@ RELEASE 2:
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `missing_pml_construct.pml`
+   * When prompted to enter a pml file, enter `missing_pml_construct.pml`. An error detailing an un-named PML construct will be returned, because the file starts with `process {`. To fix this and remove this error, change line 1 to `process process_name {`.
    
 ### ✅ Mock DDI Characterisation Data
 
 * Status: **Complete**
-* Starting context:
-   * You have completed the Select Specific OWL Ontology step.
 * Testing Instructions:
-   * By doing the previous step, the OWL Ontology will automatically be loaded.
+   * This feature is not directly testable, but reviewing the ddi.csv will show our defined format for DDI characterisation Data. 
+   * We require a CSV with 4 columns - Drug A, Drug B, Whether the interaction is adverse, and the duration of the interactoin.
 
    
    
@@ -90,8 +93,9 @@ RELEASE 2:
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-    * Hit enter at the prompt to select the default PML file
-    * Hit enter at the prompt to select the default DDI file
+    * Hit enter at the prompt to select the default PML file. You can also use an alternative PML file.
+    * Hit enter at the prompt to select the default DDI file. You can also use an alternative DDI file.
+    * The program will automatically lookup the drugs from the PML file in the Mock data file.
    
 ### ✅ Identify DDIs
 
@@ -99,25 +103,30 @@ RELEASE 2:
 * Starting context:
    * You have completed the Lookup Drugs in Mock Data File step.
 * Testing Instructions:
-   * By doing the previous step, the DDIs in the default PML file will be outputted to the console.
-* Custom Testing Instructions:
-    * When promted to enter PML file, enter the name of any PML file located in the /res/ directory.      
+   * After looking up the drugs from the PML file in the Mock data file, the program will return the valid interactions for this set of drugs. 
+   * For example, using the default files (test.pml and ddi.csv), coke and 7up will be an interaction because both are in the PML file and there is an entry in the csv file for these drugs. 
+   * You can adjust the Interactions returned by changing the drugs in the DDI file or the PML file.
 
-### ⏳ Report PML Construct Name-Clash
-
-* Status: **In Progress**
-* Starting context:
-   * TODO
-* Testing Instructions:
-   * TODO: Planned for Iteration 6
-
-### ⏳ Report Use Of Task Construct
+### ✅ Report PML Construct Name-Clash
 
 * Status: **In Progress**
 * Starting context:
-   * TODO
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * When prompted to enter a pml file, enter `sequence_clashes.pml`. 
+   * The program will report that there is a PML Construct name clash for this PML file. 
+   * This is because there is two sequences called 'Andy'. 
+   * You can remove this error by changing one of the sequence names and rerunning this test, or recreate it by changing another pml to have clashing names within the same namespace.
+
+### ✅ Report Use Of Task Construct
+
+* Status: **In Progress**
+* Starting context:
+   * You are in the container having run `docker-compose run project`, and have run `app`
+* Testing Instructions:
+   * When prompted to enter a pml file, enter `subtasks.pml`. 
+   * This feature has two tasks in it, so two tasks will be summarised on the screen.
+   * If you add/remove a task from this file, or indeed any other file, and re run this test, you will see the results reflecting that.
 
 
 ### ⏳ Identify Sequential DDIs
