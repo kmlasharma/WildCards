@@ -3,7 +3,7 @@
 for dir in `ls pkgs/`;
 do
     cd pkgs/$dir
-    go build
+    go build -i
     rm -rf vendor
     govendor init
     govendor add +external
