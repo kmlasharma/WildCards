@@ -2,7 +2,7 @@
 FROM golang:1.6
 
 # Set environment variables
-ENV RES_DIR /go/src/app/res
+ENV RES_DIR /go/src/app
 ENV LOG_DIR /go/src/app/log
 
 WORKDIR /go/src/app
@@ -22,7 +22,7 @@ RUN pip3 install nose
 
 # Copy app assets
 COPY ./src/ /go/src/app
-COPY ./res/ /go/src/app/res
+COPY ./res/ /go/src/app
 COPY ./tests/ /go/src/app/tests
 COPY ./pkgs/ /go/src/app/pkgs
 COPY ./utils/scripts/test.sh /go/bin/tests
@@ -32,5 +32,5 @@ RUN go get -d -v
 RUN go install -v
 
 # Working directory of the project is where all resources are
-WORKDIR /go/src/app/res
+WORKDIR /go/src/app
 
