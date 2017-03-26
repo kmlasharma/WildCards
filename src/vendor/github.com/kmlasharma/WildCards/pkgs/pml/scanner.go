@@ -14,7 +14,7 @@ type Scanner struct {
 
 // NewScanner returns a new instance of Scanner.
 func NewScanner(r io.Reader) *Scanner {
-	return &Scanner{r: bufio.NewReader(r), ln: 0}
+	return &Scanner{r: bufio.NewReader(r), ln: 1}
 }
 
 // read reads the next rune from the bufferred reader.

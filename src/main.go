@@ -39,6 +39,11 @@ func main() {
 	checkExtension(pmlFilePath, "pml")
 	process := processFromFile(pmlFilePath)
 
+	fmt.Println("\n")
+	fmt.Println("Drugs in this PML Process:", strings.Join(process.AllDrugs(), ", "))
+	fmt.Println("Tasks in this PML Process:", process.AllTasks())
+	fmt.Println("\n")
+
 	fmt.Print("Enter path to CSV File: [default is ddi.csv] ")
 	fmt.Scanln(&csvFilePath)
 	csvFilePath = strings.TrimRight(csvFilePath, "\n")

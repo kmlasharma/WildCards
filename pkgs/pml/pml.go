@@ -29,6 +29,27 @@ type Action struct {
 			- seq.Validate()
 		etc.
 */
+
+func (el Element) String() string {
+	return fmt.Sprintf(
+		`
+
+		Name: %s
+		Sub Sequences: [ ... ]
+		Sub Iterations: [ ... ]
+		Sub Tasks: [ ... ]
+		Actions: %s`, el.Name, el.Actions)
+}
+
+func (action Action) String() string {
+	return fmt.Sprintf(
+		`
+			Name: %s
+			Drugs: %s
+		`, action.Name, action.Drugs)
+
+}
+
 func (el Element) Validate() (errs []error) {
 	errs = append(errs, validateActions(el.Actions)...)
 	errs = append(errs, validateElements(el.Sequences)...)

@@ -46,7 +46,6 @@ func (p *Parser) Parse() (*Element, error) {
 	processName := ep.expect(IDENT)
 	ep.expect(LBRACE)
 	element := p.parseSubElementsAndActions(ep)
-	fmt.Println("Here")
 	ep.expect(RBRACE)
 	ep.expect(EOF) // There should be nothing else in the file other than the process.
 
