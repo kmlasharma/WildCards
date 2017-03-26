@@ -8,12 +8,13 @@ import (
 )
 
 type Scanner struct {
-	r *bufio.Reader
+	r  *bufio.Reader
+	ln int /* current line number */
 }
 
 // NewScanner returns a new instance of Scanner.
 func NewScanner(r io.Reader) *Scanner {
-	return &Scanner{r: bufio.NewReader(r)}
+	return &Scanner{r: bufio.NewReader(r), ln: 0}
 }
 
 // read reads the next rune from the bufferred reader.
@@ -35,6 +36,10 @@ func (s *Scanner) unread() {
 func (s *Scanner) Scan() (tok Token, lit string) {
 	// Read the next rune.
 	ch := s.read()
+
+	if ch == '\n' {
+		s.ln++
+	}
 
 	// If we see whitespace then consume all contiguous whitespace.
 	// If we see a letter then consume as an ident or reserved word.

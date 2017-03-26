@@ -157,7 +157,7 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 func (p *Parser) ensureNextTokenType(tok Token) (string, error) {
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
-		str := fmt.Sprintf("found '%s', expected %s", lit, tok)
+		str := fmt.Sprintf("found '%s', expected %s on line %d", lit, tok, p.s.ln)
 		return "", errors.New(str)
 	}
 	return lit, nil
