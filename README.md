@@ -29,7 +29,7 @@ Docker is all you need for the project. To install Docker:
 1. To ensure your computer is setup to run the project, run one of the following:
  * `make setup` if you are outside of the Trinity College network.
 
-![](http://i.imgur.com/DUNCMhy.png)
+![http://i.imgur.com/DUNCMhy.png]()
 
  * `make setuptrinity` if you are inside of the Trinity College network.
 
