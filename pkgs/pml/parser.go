@@ -17,7 +17,13 @@ func (ep *errParser) expect(tok Token) string {
 		return ""
 	}
 	lit, err := ep.p.ensureNextTokenType(tok)
-	ep.err = err
+
+	if err != nil && tok == IDENT {
+		str := fmt.Sprintf("Un-named PML construct on line %d", ep.p.currentLineNumber())
+		ep.err = errors.New(str)
+	} else {
+		ep.err = err
+	}
 	return lit
 }
 
@@ -40,6 +46,7 @@ func (p *Parser) Parse() (*Element, error) {
 	processName := ep.expect(IDENT)
 	ep.expect(LBRACE)
 	element := p.parseSubElementsAndActions(ep)
+	fmt.Println("Here")
 	ep.expect(RBRACE)
 	ep.expect(EOF) // There should be nothing else in the file other than the process.
 
@@ -90,6 +97,9 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 }
 
 func (p *Parser) parseSubElementsAndActions(ep *errParser) (element Element) {
+	if ep.err != nil {
+		return Element{} // If there's already an error, don't bother doing all this.
+	}
 	for {
 		tok, _ := p.scanIgnoreWhitespace()
 		p.unscan() // Put it back for cleaniness.
@@ -157,8 +167,12 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 func (p *Parser) ensureNextTokenType(tok Token) (string, error) {
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
-		str := fmt.Sprintf("found '%s', expected %s on line %d", lit, tok, p.s.ln)
+		str := fmt.Sprintf("found '%s', expected %s on line %d", lit, tok, p.currentLineNumber())
 		return "", errors.New(str)
 	}
 	return lit, nil
+}
+
+func (p *Parser) currentLineNumber() int {
+	return p.s.ln
 }

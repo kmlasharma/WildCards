@@ -33,6 +33,14 @@ func TestMultipleProcesses(t *testing.T) {
 	}
 }
 
+func TestMissingPMLConstruct(t *testing.T) {
+	fmt.Println("* Testing Missing PML Construct")
+	_, err := processFromFile("missing_pml_construct.pml")
+	if assert.NotNil(t, err, "Process should fail due to missing PML construct") {
+		fmt.Println("PASSED!")
+	}
+}
+
 func TestSubtasksExist(t *testing.T) {
 	fmt.Println("* Testing process with sequences")
 	process, _ := processFromFile("subtasks.pml")
