@@ -9,21 +9,11 @@ WORKDIR /go/src/app
 
 # Install testing dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 \
-			python3-dev \
-			python3-pip \
-			libncurses5 \
-			libncurses5-dev \
-			readline-common \
-			libreadline6 \
-			libreadline6-dev \
-			vim 
-RUN pip3 install nose
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim 
 
 # Copy app assets
 COPY ./src/ /go/src/app
 COPY ./res/ /go/src/app
-COPY ./tests/ /go/src/app/tests
 COPY ./pkgs/ /go/src/app/pkgs
 COPY ./utils/scripts/test.sh /go/bin/tests
 
