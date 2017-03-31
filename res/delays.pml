@@ -13,12 +13,7 @@ process test {
   }
   delay { "5 hr" }
   delay { "4 day" }
-  sequence seq2 {
-    action act_2 {
-      script { "{\"drugs\": [\"coke\", \"7up\", \"pepsi\"]}" }
-    }
-  }
-  iteration iter2 {
+  iteration iter1 {
     action act_3 {
       script { "{}" }
     }
