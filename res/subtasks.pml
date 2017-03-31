@@ -5,7 +5,7 @@ process test {
     }
   }
   task t2 {
-    action act_1 {
+    action act_2 {
       script { "{}" }
     }
   }

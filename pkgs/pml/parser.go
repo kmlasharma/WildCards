@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 type errParser struct {
@@ -24,12 +25,23 @@ func (ep *errParser) expect(tok Token) string {
 	} else {
 		ep.err = err
 	}
+
+	// Check if there is a name clash
+	if tok == IDENT {
+		if ep.p.freq[lit] {
+			str := fmt.Sprintf("Name clash found: %s on line %d", lit, ep.p.currentLineNumber())
+			ep.err = errors.New(str)
+		}
+		ep.p.freq[lit] = true
+	}
+
 	return lit
 }
 
 type Parser struct {
-	s   *Scanner
-	buf struct {
+	s    *Scanner
+	freq map[string]bool
+	buf  struct {
 		tok Token  // last read token
 		lit string // last read literal
 		n   int    // buffer size (max=1)
@@ -37,7 +49,7 @@ type Parser struct {
 }
 
 func NewParser(r io.Reader) *Parser {
-	return &Parser{s: NewScanner(r)}
+	return &Parser{s: NewScanner(r), freq: make(map[string]bool)}
 }
 
 func (p *Parser) Parse() (*Element, error) {
@@ -45,22 +57,52 @@ func (p *Parser) Parse() (*Element, error) {
 	ep.expect(PROCESS)
 	processName := ep.expect(IDENT)
 	ep.expect(LBRACE)
-	element := p.parseSubElementsAndActions(ep)
+	element := p.parseChildren(ep)
 	ep.expect(RBRACE)
 	ep.expect(EOF) // There should be nothing else in the file other than the process.
 
 	if ep.err != nil {
 		return &Element{}, ep.err
 	}
+
 	element.Name = processName
+	element.elementType = ProcessType
 	return &element, nil
+}
+
+func (p *Parser) parseChildren(ep *errParser) (element Element) {
+	if ep.err != nil {
+		return Element{} // If there's already an error, don't bother doing all this.
+	}
+	for {
+		tok, _ := p.scanIgnoreWhitespace()
+		p.unscan() // Put it back for cleaniness.
+		if tok == ACTION {
+			action, err := p.parseAction(ep)
+			if err == nil { // Skip if non JSON script
+				element.Children = append(element.Children, action)
+			}
+		} else if tok == SEQUENCE || tok == TASK || tok == ITERATION {
+			ele := p.parseElement(tok, ep)
+			ele.elementType = elementTypeForToken(tok)
+			element.Children = append(element.Children, ele)
+		} else if tok == DELAY {
+			delay := p.parseDelay(ep)
+			element.Children = append(element.Children, delay)
+		} else if tok == LOOPS {
+			element.Loops = p.parseLoops(ep)
+		} else {
+			break
+		}
+	}
+	return
 }
 
 func (p *Parser) parseElement(initialToken Token, ep *errParser) *Element {
 	ep.expect(initialToken)
 	name := ep.expect(IDENT)
 	ep.expect(LBRACE)
-	element := p.parseSubElementsAndActions(ep)
+	element := p.parseChildren(ep)
 	ep.expect(RBRACE)
 	element.Name = name
 	return &element
@@ -77,7 +119,7 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 		tok, _ := p.scanIgnoreWhitespace()
 		if tok == SCRIPT {
 			ep.expect(LBRACE)
-			stringifiedJSON = ep.expect(IDENT)
+			stringifiedJSON = ep.expect(LIT)
 			ep.expect(RBRACE)
 		} else if tok == REQUIRES || tok == PROVIDES {
 			// Wait till we reach RBRACE.
@@ -95,32 +137,23 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 	return Action{}, errors.New("No Script tag")
 }
 
-func (p *Parser) parseSubElementsAndActions(ep *errParser) (element Element) {
-	if ep.err != nil {
-		return Element{} // If there's already an error, don't bother doing all this.
-	}
-	for {
-		tok, _ := p.scanIgnoreWhitespace()
-		p.unscan() // Put it back for cleaniness.
-		if tok == ACTION {
-			action, err := p.parseAction(ep)
-			if err == nil { // Skip if non JSON script
-				element.Actions = append(element.Actions, action)
-			}
-		} else if tok == SEQUENCE {
-			seq := p.parseElement(SEQUENCE, ep)
-			element.Sequences = append(element.Sequences, seq)
-		} else if tok == ITERATION {
-			iter := p.parseElement(ITERATION, ep)
-			element.Iterations = append(element.Iterations, iter)
-		} else if tok == TASK {
-			task := p.parseElement(TASK, ep)
-			element.Tasks = append(element.Tasks, task)
-		} else {
-			break
-		}
-	}
-	return
+func (p *Parser) parseDelay(ep *errParser) Delay {
+	ep.expect(LBRACE)
+	str := ep.expect(LIT)
+	ep.expect(RBRACE)
+
+	// parse string into timestamp. TODO: Units
+	i, _ := strconv.Atoi(str)
+	return Delay(i)
+}
+
+func (p *Parser) parseLoops(ep *errParser) int {
+	ep.expect(LBRACE)
+	str := ep.expect(LIT)
+	ep.expect(RBRACE)
+
+	i, _ := strconv.Atoi(str)
+	return i
 }
 
 func decodeActionJSON(str string, name string) (Action, error) {
@@ -129,6 +162,19 @@ func decodeActionJSON(str string, name string) (Action, error) {
 		return action, errors.New("Non JSON script")
 	}
 	return action, nil
+}
+
+func elementTypeForToken(tok Token) ElementType {
+	switch tok {
+	case SEQUENCE:
+		return SequenceType
+	case ITERATION:
+		return IterationType
+	case TASK:
+		return TaskType
+	default:
+		return ProcessType
+	}
 }
 
 // scan returns the next token from the underlying scanner.
@@ -164,6 +210,9 @@ func (p *Parser) scanIgnoreWhitespace() (tok Token, lit string) {
 }
 
 func (p *Parser) ensureNextTokenType(tok Token) (string, error) {
+	if tok == LIT {
+		tok = IDENT // LIT and IDENT are treated the same here
+	}
 	token, lit := p.scanIgnoreWhitespace()
 	if tok != token {
 		str := fmt.Sprintf("found '%s', expected %s on line %d", lit, tok, p.currentLineNumber())

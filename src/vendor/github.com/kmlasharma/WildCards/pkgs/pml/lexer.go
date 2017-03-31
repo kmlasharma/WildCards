@@ -10,7 +10,8 @@ const (
 	WS            = "Whitespace"
 
 	// Literals
-	IDENT = "Ident" // names
+	IDENT = "Ident"   // names
+	LIT   = "Literal" // Literal
 
 	// Misc characters
 	LBRACE = "{"
@@ -21,6 +22,8 @@ const (
 	SEQUENCE  = "sequence"
 	ITERATION = "iteration"
 	TASK      = "task"
+	DELAY     = "delay"
+	LOOPS     = "loops"
 	ACTION    = "action"
 	SCRIPT    = "script"
 	REQUIRES  = "requires"

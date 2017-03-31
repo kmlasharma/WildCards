@@ -45,7 +45,7 @@ func TestSubtasksExist(t *testing.T) {
 	fmt.Println("* Testing process with sequences")
 	process, _ := processFromFile("subtasks.pml")
 	tasks := process.AllTasks()
-	if assert.Equal(t, len(tasks), 2, "Process should have no subtasks") {
+	if assert.Equal(t, len(tasks), 2, "Process should have two subtasks") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -80,27 +80,24 @@ func TestMultipleDrugs(t *testing.T) {
 
 func TestValidateSameType(t *testing.T) {
 	fmt.Println("* Testing that PML files with name clashes among items of the same type are rejected")
-	process, _ := processFromFile("sequence_clashes.pml")
-	errs := process.Validate()
-	if assert.NotEqual(t, len(errs), 0, "There should be name clashes that are detected") {
+	_, err := processFromFile("sequence_clashes.pml")
+	if assert.NotNil(t, err, "There should be name clashes that are detected") {
 		fmt.Println("PASSED!")
 	}
 }
 
 func TestValidateDifferentTypes(t *testing.T) {
-	fmt.Println("* Testing that PML files with name clashes in different namespaces are accepted")
-	process, _ := processFromFile("multilevel_clashes.pml")
-	errs := process.Validate()
-	if assert.Equal(t, len(errs), 0, "There should be name clashes that are detected") {
+	fmt.Println("* Testing that PML files with name clashes in different namespaces are also rejected")
+	_, err := processFromFile("multilevel_clashes.pml")
+	if assert.NotNil(t, err, "There should be name clashes that are detected") {
 		fmt.Println("PASSED!")
 	}
 }
 
 func TestValidateNoClashes(t *testing.T) {
 	fmt.Println("* Testing that PML files with no name clashes are not rejected")
-	process, _ := processFromFile("no_clashes.pml")
-	errs := process.Validate()
-	if assert.Equal(t, len(errs), 0, "There should be no name clashes detected") {
+	_, err := processFromFile("no_clashes.pml")
+	if assert.Nil(t, err, "There should be no name clashes detected") {
 		fmt.Println("PASSED!")
 	}
 }

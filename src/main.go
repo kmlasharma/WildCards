@@ -86,14 +86,7 @@ func processFromFile(path string) *pml.Element {
 	parser := pml.NewParser(reader)
 	process, err := parser.Parse()
 	if err != nil {
-		logger.Fatal("Error: Could not parse process. Error:", err)
-	}
-	errs := process.Validate()
-	if len(errs) > 0 {
-		for _, err := range errs {
-			logger.Error(err)
-		}
-		os.Exit(1)
+		logger.Fatal("Error: Could not parse process.", err)
 	}
 	return process
 }

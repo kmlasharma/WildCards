@@ -133,6 +133,10 @@ func (s *Scanner) scanIdent() (tok Token, lit string) {
 		return ITERATION, buf.String()
 	case "TASK":
 		return TASK, buf.String()
+	case "DELAY":
+		return DELAY, buf.String()
+	case "LOOPS":
+		return LOOPS, buf.String()
 	case "ACTION":
 		return ACTION, buf.String()
 	case "SCRIPT":
