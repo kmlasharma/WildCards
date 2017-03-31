@@ -45,7 +45,7 @@ func TestSubtasksExist(t *testing.T) {
 	fmt.Println("* Testing process with sequences")
 	process, _ := processFromFile("subtasks.pml")
 	tasks := process.AllTasks()
-	if assert.Equal(t, len(tasks), 2, "Process should have no subtasks") {
+	if assert.Equal(t, len(tasks), 2, "Process should have two subtasks") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -80,39 +80,26 @@ func TestMultipleDrugs(t *testing.T) {
 
 func TestValidateSameType(t *testing.T) {
 	fmt.Println("* Testing that PML files with name clashes among items of the same type are rejected")
-	process, _ := processFromFile("sequence_clashes.pml")
-	errs := process.Validate()
-	if assert.NotEqual(t, len(errs), 0, "There should be name clashes that are detected") {
+	_, err := processFromFile("sequence_clashes.pml")
+	if assert.NotNil(t, err, "There should be name clashes that are detected") {
 		fmt.Println("PASSED!")
 	}
 }
 
 func TestValidateDifferentTypes(t *testing.T) {
 	fmt.Println("* Testing that PML files with name clashes in different namespaces are accepted")
-	process, _ := processFromFile("multilevel_clashes.pml")
-	errs := process.Validate()
-	if assert.Equal(t, len(errs), 0, "There should be name clashes that are detected") {
+	_, err := processFromFile("multilevel_clashes.pml")
+	if assert.NotNil(t, err, "There should be name clashes that are detected") {
 		fmt.Println("PASSED!")
 	}
 }
 
 func TestValidateNoClashes(t *testing.T) {
 	fmt.Println("* Testing that PML files with no name clashes are not rejected")
-	process, _ := processFromFile("no_clashes.pml")
-	errs := process.Validate()
-	if assert.Equal(t, len(errs), 0, "There should be no name clashes detected") {
+	_, err := processFromFile("no_clashes.pml")
+	if assert.Nil(t, err, "There should be no name clashes detected") {
 		fmt.Println("PASSED!")
 	}
-}
-
-func processFromFile(filepath string) (*Element, error) {
-	reader, err := os.Open(resDir + "/" + filepath)
-	if err != nil {
-		return &Element{}, err
-	}
-	parser := NewParser(reader)
-	process, err := parser.Parse()
-	return process, err
 }
 
 func TestBrokenFile(t *testing.T) {
@@ -123,12 +110,40 @@ func TestBrokenFile(t *testing.T) {
 	}
 }
 
-func delayHelper(process Process) sucess bool, message string {
+func TestDelayExistence(t * testing.T) {
+        fmt.Println("* Testing that malformed PML files are rejected")
+        process, err := processFromFile("delays.pml")
+        success, message := delayHelper(process)
+        if (assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message)) {
+                fmt.Println("PASSED!")
+        }
+}
+
+func TestActionDelayFail(t * testing.T) {
+        fmt.Println("* Testing that PML files with delays inside actions are rejected")
+        _, err := processFromFile("action_delay.pml")
+        if assert.NotEqual(t, err, nil, "There should be an error raised due to delay inside action") {
+                fmt.Println("PASSED!")
+        }
+}
+
+func processFromFile(filepath string) (*Element, error) {
+        reader, err := os.Open(resDir + "/" + filepath)
+        if err != nil {
+                return &Element{}, err
+        }
+        parser := NewParser(reader)
+        process, err := parser.Parse()
+        return process, err
+}
+ 
+
+func delayHelper(process Element) (success bool, message string) {
 	proc_children := process.Children
 
 	seq1 := proc_children[0].(Element)
 	task1 := proc_children[1].(Element)
-	iter1 := proc_childre[4]-.(Element)
+	iter1 := proc_children[4].(Element)
 
 	seq1_children := seq1.Children
 	seq1_expected_delay := Delay("30 sec")
@@ -161,20 +176,9 @@ func delayHelper(process Process) sucess bool, message string {
 	return true, ""
 }
 
-func TestDelayExistence(t * testing.T) {
-	fmt.Println("* Testing that malformed PML files are rejected")
-	process, err := processFromFile("delays.pml")
-	success, message := delayHelper(process)
-	if assert.Equal(t, len(errs), 0, "There should no errors detected processing the file")
-		&& assert.Equal(t, success, true, message) {
-		fmt.Println("PASSED!")
-	}
-}
-
 
 // TODO: tests for: 	Merging clinical pathways
 //			PML-TX save to file
-//			Existance of delays should fail in action
 // 			Existance of periodic drug use = iteration with delays
 // 			Time interval offset
 

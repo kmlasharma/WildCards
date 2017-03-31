@@ -75,3 +75,8 @@ func setup(t *testing.T) *assert.Assertions {
 	return assert.New(t)
 }
 
+// TODO: tests for: 	Identifying sequential DDIs
+//			Identifying parallel DDIs
+//			Reporting alternate non-DDIs
+//			Reporting repeated alternate DDIs
+
