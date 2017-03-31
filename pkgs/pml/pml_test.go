@@ -112,4 +112,16 @@ func processFromFile(filepath string) (*Element, error) {
 	return process, err
 }
 
-// TODO: tests for broken PML files
+func TestBrokenFile(t *testing.T) {
+	fmt.Println("* Testing that malformed PML files are rejected")
+	_, err := processFromFile("errortest.pml")
+	if assert.NotNil(t, err, "An issue should be raised to syntax errors in the PML") {
+		fmt.Println("PASSED!")
+	}
+}
+
+
+// TODO: tests for: 	Merging clinical pathways
+//			PML-TX save to file
+
+	
