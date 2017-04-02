@@ -251,15 +251,6 @@ It is assumed that you have followed the instructions above before testing the f
 2. Run `docker-compose stop` to completely tear down the Docker container (run this command from outside of the container).
 
 
-## Automated Testing Instructions
-
-When inside the container, the automated tests can be run to test each of the above features automatically. 
-
-1. cd to `/root/tests` 
-2. Run `nosetests`
-3. 
-
-
 RELEASE 1 Features:
 
 ### ✅ PML File Selection
