@@ -165,6 +165,70 @@ func TestParallelDrugPair(t *testing.T) {
 	}
 }
 
+func TestBranchInSequenceDrugPair(t *testing.T) {
+	fmt.Println("* Testing that branches in sequence DDIs are registered")
+	process, err := processFromFile("multiple_branches_in_sequence.pml")
+
+	drugPairsList := process.FindDrugPairs() //actual value
+	//expected values
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+	pairB := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+
+	pairD := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "branch2"}
+	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+
+	var expectedDrugList = []DrugPair {pairA, pairB, pairC, pairD, pairE, pairF}
+	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList")) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func TestBranchInIteration(t *testing.T) {
+	fmt.Println("* Testing that branches in iteration DDIs are registered")
+	process, err := processFromFile("branch_in_iteration.pml")
+
+	drugPairsList := process.FindDrugPairs() //actual value
+	//expected values
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+
+	var expectedDrugList = []DrugPair {pairA, pairB}
+	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for branches within iterations")) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func TestSequenceInBranch(t *testing.T) {
+	fmt.Println("* Testing that sequence in branch DDIs are registered")
+	process, err := processFromFile("sequence_in_branch.pml")
+
+	drugPairsList := process.FindDrugPairs() //actual value
+	//expected values
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "seq_1"}
+	pairB := DrugPair{DrugA: "7up", DrugB: "club", delay: Delay(0), ddiType: SequentialType, parentName: "seq_2"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "7up", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
+	pairD := DrugPair{DrugA: "coke", DrugB: "club", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
+	pairE := DrugPair{DrugA: "pepsi", DrugB: "7up", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
+	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
+
+	var expectedDrugList = []DrugPair {pairA, pairB, pairC, pairD, pairE, pairF}
+	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for sequences within branches")) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func TestSelectionNoDrugPair(t * testing.T) {
+	fmt.Println("* Testing that no drug pair is registered")
+	process, err := processFromFile("selection_no_drug_pair.pml")
+
+	drugPairs := process.FindDrugPairs()
+	if (assert.Nil(t, err, err.Error()) && assert.Equal(t, len(drugPairs), 0, fmt.Sprintf("No drug pairs should be found. The length should be 0, it is %i", len(drugPairs)))) {
+		fmt.Println("PASSED!")
+	}
+}
+
 func drugPairHelper(process *Element, expectedDDITypeIn DDIType, expectedParentNameIn string) (success bool, message string) {
 	drugPair := process.FindDrugPairs()[0]
 
