@@ -33,8 +33,9 @@ func (d DDIType) String() string {
 		return "Sequential Type"
 	case ParallelType:
 		return "Parallel Type"
+	default:
+		return ""
 	}
-	return ""
 }
 
 type ElementInterface interface {
@@ -56,6 +57,10 @@ type Action struct {
 }
 
 type Delay int
+
+func (delay Delay) String() string {
+	return string(delay)
+}
 
 func (el Element) Type() ElementType {
 	return el.elementType

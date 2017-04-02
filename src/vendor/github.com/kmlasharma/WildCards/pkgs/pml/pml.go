@@ -33,8 +33,9 @@ func (d DDIType) String() string {
 		return "Sequential Type"
 	case ParallelType:
 		return "Parallel Type"
+	default:
+		return ""
 	}
-	return ""
 }
 
 type ElementInterface interface {
