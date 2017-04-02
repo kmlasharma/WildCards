@@ -15,7 +15,7 @@ const (
 type DrugPair struct {
 	DrugA      string
 	DrugB      string
-	delay      int
+	delay      Delay
 	ddiType    DDIType //parallel, sequential
 	parentName string
 }
@@ -26,6 +26,17 @@ const (
 	SequentialType DDIType = iota
 	ParallelType
 )
+
+func (d DDIType) String() string {
+	switch d {
+	case SequentialType:
+		return "Sequential Type"
+	case ParallelType:
+		return "Parallel Type"
+	default:
+		return ""
+	}
+}
 
 type ElementInterface interface {
 	Type() ElementType
@@ -85,10 +96,10 @@ func (dl Delay) IsSubElementType() bool {
 
 func (el Element) AllDrugs() (drugs []string) {
 	for _, child := range el.Children {
-		if !child.IsSubElementType() {
+		if child.Type() == ActionType {
 			action := child.(Action)
 			drugs = append(drugs, action.Drugs...)
-		} else {
+		} else if child.IsSubElementType() {
 			element := child.(*Element)
 			drugs = append(drugs, element.AllDrugs()...)
 		}
