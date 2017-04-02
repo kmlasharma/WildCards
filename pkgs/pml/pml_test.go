@@ -120,12 +120,12 @@ func TestDelayExistence(t * testing.T) {
         }
 }
 
-func TestActionDelayFail(t * testing.T) {
-        fmt.Println("* Testing that PML files with delays inside actions are rejected")
-        _, err := processFromFile("action_delay.pml")
-        if assert.NotEqual(t, err, nil, "There should be an error raised due to delay inside action") {
-                fmt.Println("PASSED!")
-        }
+func TestActionDelayFail(t *testing.T) {
+	fmt.Println("* Testing that PML files with delays inside actions are rejected")
+	_, err := processFromFile("action_delay.pml")
+	if assert.NotEqual(t, err, nil, "There should be an error raised due to delay inside action") {
+		fmt.Println("PASSED!")
+	}
 }
 
 func TestTimeIntervalOffset(t * testing.T) {
@@ -137,54 +137,62 @@ func TestTimeIntervalOffset(t * testing.T) {
 	}
 }
 
-
 func TestPeriodicDrugUse(t * testing.T) {
 	fmt.Println("* Testing that periodic drug use is registered")
 	process, err := processFromFile("periodic_use.pml")
 	success, message := periodicDrugUseHelper(process)
-	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
+	if assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
 }
 
-func TestSequentialDDI(t * testing.T) {
-	fmt.Println("* Testing that periodic drug use is registered")
+func TestSequentialDrugPair(t * testing.T) {
+	fmt.Println("* Testing that sequential DDIs are registered")
 	process, err := processFromFile("sequential_ddi.pml")
-	success, message := sequentialDDIHelper(process)
+	success, message := drugPairHelper(process, SequentialType, "seq1")
 	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
 		fmt.Println("PASSED!")
 	}
 }
 
-func sequentialDDIHelper(process *Element) (success bool, message string) {
-	drugPair := process.FindDrugPairs[0]
+func TestParallelDrugPair(t * testing.T) {
+	fmt.Println("* Testing that parallel DDIs are registered")
+	process, err := processFromFile("parallel_ddi.pml")
+	success, message := drugPairHelper(process, ParallelType, "branch1")
+	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func drugPairHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
+	drugPair := process.FindDrugPairs()[0]
 
 	expectedDrugA := "coke"
 	expectedDrugB := "pepsi"
 	expectedDelay := Delay("0")
-	expectedDDIType := SequentialType
-	expectedParentName := "seq1"
+	expectedDDIType := expectedDDITypeIn
+	expectedParentName := expectedParentNameIn
 
 	actualDrugA := drugPair.DrugA
 	actualDrugB := drugPair.DrugB
-	actualDelay := drugPair.Delay
+	actualDelay := drugPair.delay
 	actualDDIType := drugPair.ddiType
 	actualParentName := drugPair.parentName
 
 	if expectedDrugA != actualDrugA {
-		return false, "Expected DrugA {" + expectedDrugA + "} does not match actual DrugA {" + actualDrugA + "}"
+		return false, fmt.Sprintf("Expected DrugA { %s } does not match actual DrugA { %s }", expectedDrugA, actualDrugA)
 	}
 	if expectedDrugB != actualDrugB {
-		return false, "Expected DrugB {" + expectedDrugB + "} does not match actual DrugB {" + actualDrugB + "}"
+		return false, fmt.Sprintf("Expected DrugB { %s } does not match actual DrugB { %s }", expectedDrugB, actualDrugB)
 	}
 	if expectedDelay != actualDelay {
-		return false, "Expected delay {" + expectedDelay + "} does not match actual delay {" + actualDelay + "}"
+		return false, fmt.Sprintf("Expected delay { %i } does not match actual delay { %i }", expectedDelay, actualDelay)
 	}
 	if expectedDDIType != actualDDIType {
-		return false, "Expected DDI type {" + expectedDDIType.String() + "} does not match actual DDI {" + actualDDIType.String() + "}"
+		return false, fmt.Sprintf("Expected DDIType { %s } does not match actual type { %s }", expectedDDIType, actualDDIType)
 	}
 	if expectedParentName != actualParentName {
-		return false, "Expected parent name {" + expectedParentName + "} does not match actual parent name {" + actualParentName + "}"
+		return false, fmt.Sprintf("Expected parent name { %s } does not match actual name { %s }", expectedParentName, actualParentName)
 	}
 	return true, "success"
 }
@@ -192,69 +200,68 @@ func sequentialDDIHelper(process *Element) (success bool, message string) {
 func periodicDrugUseHelper(process *Element) (success bool, message string) {
 	iter1 := process.Children[0].(Element)
 
-	expected_loops := Loops(5)
-	expected_delay := Delay("3 days")
+	expectedLoops := 5
+	expectedDelay := NewDelay("3 days")
 
-	actual_loops := iter1.Children[0].(Loops)
-	actual_delay := iter1.Children[2].(Delay)
+	actualLoops := (iter1.Children[0]).(Element).Loops
+	actualDelay := iter1.Children[2].(Delay)
 
-	if expected_loops != actual_loops {
-		return false, "Expected loops {" + expected_loops + "} does not equal actual loops {" + actual_loops + "}"
+	if expectedLoops != actualLoops {
+		return false, fmt.Sprintf("Expected loops { %i } does not match actual loops { %i }", expectedLoops, actualLoops)
 	}
-	if expected_delay != actual_delay {
-		return false, "Expected delay {" + expected_delay + "} does not equal actual delay {" + actual_delay + "}"
+	if expectedDelay != actualDelay {
+		return false, fmt.Sprintf("Expected delay { %i } does not match actual delay { %i }", expectedDelay, actualDelay)
 	}
 	return true, "success"
 }
 
 func processFromFile(filepath string) (*Element, error) {
-        reader, err := os.Open(resDir + "/" + filepath)
-        if err != nil {
-                return &Element{}, err
-        }
-        parser := NewParser(reader)
-        process, err := parser.Parse()
-        return process, err
+	reader, err := os.Open(resDir + "/" + filepath)
+	if err != nil {
+		return &Element{}, err
+	}
+	parser := NewParser(reader)
+	process, err := parser.Parse()
+	return process, err
 }
 
 func delayHelper(process *Element) (success bool, message string) {
-	proc_children := process.Children
+	procChildren := process.Children
 
-	seq1 := proc_children[0].(Element)
-	task1 := proc_children[1].(Element)
-	iter1 := proc_children[4].(Element)
+	seq1 := procChildren[0].(Element)
+	task1 := procChildren[1].(Element)
+	iter1 := procChildren[4].(Element)
 
-	seq1_children := seq1.Children
-	seq1_expected_delay := Delay("30 sec")
-	seq1_actual_delay := seq1_children[1].(Delay)
-	if seq1_expected_delay != seq1_actual_delay {
+	seq1Children := seq1.Children
+	seq1ExpectedDelay := Delay("30 sec")
+	seq1ActualDelay := seq1Children[1].(Delay)
+	if seq1ExpectedDelay != seq1ActualDelay {
 		return false, "seq1 expected does not match actual"
 	}
-	task1_children := task1.Children
-	task1_expected_delay := Delay("20 min")
-	task1_actual_delay := task1_children[1].(Delay)
-	if task1_expected_delay != task1_actual_delay {
+	task1Children := task1.Children
+	task1ExpectedDelay := Delay("20 min")
+	task1ActualDelay := task1Children[1].(Delay)
+	if task1ExpectedDelay != task1ActualDelay {
 		return false, "task1 expected does not match actual"
 	}
-	proc_delay_one_actual := proc_children[2].(Element).(Delay)
-	proc_delay_one_expected := Delay("5 hr")
-	if proc_delay_one_expected != proc_delay_one_actual {
+	procDelayOneActual := procChildren[2].(Delay)
+	procDelayOneExpected := Delay("5 hr")
+	if procDelayOneExpected != procDelayOneActual {
 		return false, "proc delay one expected does not match actual"
 	}
-	proc_delay_two_actual := proc_children[3].(Element).(Delay)
-	proc_delay_two_expected := Delay("4 day")
-	if proc_delay_two_expected != proc_delay_two_actual {
+	procDelayTwoActual := procChildren[3].(Element).(Delay)
+	procDelayTwoExpected := Delay("4 day")
+	if procDelayTwoExpected != procDelayTwoActual {
 		return false, "proc delay two expected does not match actual"
 	}
-	iter1_children := iter1.Children
-	iter1_expected_delay := Delay("3 week")
-	iter1_actual_delay := iter1_children[1].(Delay)
-	if iter1_expected_delay != iter1_actual_delay {
+	iter1Children := iter1.Children
+	iter1ExpectedDelay := Delay("3 week")
+	iter1ActualDelay := iter1Children[1].(Delay)
+	if iter1ExpectedDelay != iter1ActualDelay {
 		return false, "iter1 expected does not match actual"
 	}
 	return true, ""
 }
-
 
 func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
 	proc_children := process.Children
@@ -269,17 +276,17 @@ func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
 	case "Mon":
 		waitLength = Delay("0 day")
 	case "Tue":
-		waitLength = Delay("1 day")
-	case "Wed":
-		waitLength = Delay("2 day")
-	case "Thu":
-		waitLength = Delay("3 day")
-	case "Fri":
-		waitLength = Delay("4 day")
-	case "Sat":
-		waitLength = Delay("5 day")
-	case "Sun":
 		waitLength = Delay("6 day")
+	case "Wed":
+		waitLength = Delay("5 day")
+	case "Thu":
+		waitLength = Delay("4 day")
+	case "Fri":
+		waitLength = Delay("3 day")
+	case "Sat":
+		waitLength = Delay("2 day")
+	case "Sun":
+		waitLength = Delay("1 day")
 	}
 
 	if subsequentDelay != waitLength {
@@ -287,8 +294,3 @@ func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
 	}
 	return true, ""
 }
-
-
-// TODO: tests for: 	Merging clinical pathways
-//			PML-TX save to file
-

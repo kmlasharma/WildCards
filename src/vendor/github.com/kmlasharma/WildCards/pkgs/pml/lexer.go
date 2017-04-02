@@ -22,6 +22,7 @@ const (
 	SEQUENCE  = "sequence"
 	ITERATION = "iteration"
 	TASK      = "task"
+	BRANCH    = "branch"
 	DELAY     = "delay"
 	LOOPS     = "loops"
 	ACTION    = "action"

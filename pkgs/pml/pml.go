@@ -58,9 +58,14 @@ type Action struct {
 
 type Delay int
 
+<<<<<<< HEAD
 func NewDelay(delayStr string) Delay{
 	seconds := convertToSeconds(delayStr)
 	return Delay(seconds)
+=======
+func (delay Delay) String() string {
+	return string(delay)
+>>>>>>> fd08ee7aff3f907a8b2b93aeef523fc932435fe6
 }
 
 func (el Element) Type() ElementType {
