@@ -95,8 +95,13 @@ It is assumed that you have followed the instructions above before testing the f
 
 * Status: **Complete**
 * Testing Instructions:
-   * This feature is not directly testable, but reviewing the ddi.csv will show our defined format for DDI characterisation Data. 
    * We require a CSV with 4 columns - Drug A, Drug B, Whether the interaction is adverse, and the duration of the interaction.
+   * Here is the following format and example:
+   
+| Drug 1       | Drug 2         | DDI Type | Time | Unit|
+|:------------:|:--------------:| --------:|-----:|----:|
+| alcohol      | coke           | bad      | 1    | week|
+| 7up          | pepsi          | good     | 3    | days|
 
    
 ### ✅ Lookup Drugs in Mock Data File
