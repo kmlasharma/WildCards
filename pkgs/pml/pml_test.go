@@ -172,15 +172,15 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
-	pairB := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
-	pairC := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	pairB := DrugPair{DrugA: "milk", DrugB: "oj", delay: Delay(0), ddiType: ParallelType, parentName: "branch2"}
 
-	pairD := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: ParallelType, parentName: "branch2"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	pairD := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
-	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList") {
+	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -195,7 +195,7 @@ func TestBranchInIteration(t *testing.T) {
 	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB}
-	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for branches within iterations") {
+	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for branches within iterations") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -214,7 +214,7 @@ func TestSequenceInBranch(t *testing.T) {
 	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
-	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for sequences within branches") {
+	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for sequences within branches") {
 		fmt.Println("PASSED!")
 	}
 }
