@@ -224,7 +224,7 @@ func TestSelectionNoDrugPair(t *testing.T) {
 	process, err := processFromFile("selection_no_drug_pair.pml")
 
 	drugPairs := process.FindDrugPairs()
-	if assert.Nil(t, err, err.Error()) && assert.Equal(t, len(drugPairs), 0, fmt.Sprintf("No drug pairs should be found. The length should be 0, it is %i", len(drugPairs))) {
+	if assert.Nil(t, err, "Error is not nil") && assert.Equal(t, len(drugPairs), 0, fmt.Sprintf("No drug pairs should be found. The length should be 0, it is %i", len(drugPairs))) {
 		fmt.Println("PASSED!")
 	}
 }

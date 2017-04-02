@@ -1,9 +1,5 @@
 package pml
 
-import (
-	"fmt"
-)
-
 var (
 	parentBranchName    = ""
 	parentSequenceName  = ""
@@ -44,7 +40,6 @@ func (p *Params) addAction(action Action, inIter bool) {
 	for _, wrapper := range p.sequentialActionWrappers {
 		action1 := wrapper.action
 		actionDelay := wrapper.currentDelay
-		fmt.Println("Action Delay:", actionDelay)
 		for _, drugA := range action1.Drugs {
 			for _, drugB := range action.Drugs {
 				pair := DrugPair{

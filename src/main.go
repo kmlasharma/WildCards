@@ -42,7 +42,13 @@ func main() {
 	fmt.Println("\n")
 	fmt.Println("Pairs in this PML Process:", process.FindDrugPairs())
 	fmt.Println("Drugs in this PML Process:", strings.Join(process.AllDrugs(), ", "))
-	fmt.Println("Tasks in this PML Process:", process.AllTasks())
+
+	taskNames := []string{}
+	for _, task := range process.AllTasks() {
+		taskNames = append(taskNames, task.Name)
+	}
+
+	fmt.Println("Tasks in this PML Process:", strings.join(taskNames, ", "))
 	fmt.Println("\n")
 
 	fmt.Print("Enter path to CSV File: [default is ddi.csv] ")
