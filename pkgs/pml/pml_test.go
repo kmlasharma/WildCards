@@ -170,7 +170,7 @@ func sequentialDDIHelper(process *Element) (success bool, message string) {
 		return false, "Expected delay {" + expectedDelay + "} does not match actual delay {" + actualDelay + "}"
 	}
 	if expectedDDIType != actualDDIType {
-		return false, "Expected DDI type {" + expectedDDIType + "} does not match actual DDI {" + actualDDIType + "}"
+		return false, "Expected DDI type {" + expectedDDIType.String() + "} does not match actual DDI {" + actualDDIType.String() + "}"
 	}
 	if expectedParentName != actualParentName {
 		return false, "Expected parent name {" + expectedParentName + "} does not match actual parent name {" + actualParentName + "}"
