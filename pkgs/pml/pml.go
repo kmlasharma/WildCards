@@ -30,9 +30,11 @@ const (
 func (d DDIType) String() string {
 	switch d {
 	case SequentialType:
-		"Sequential Type"
+		return "Sequential Type"
 	case ParallelType:
-		"Parallel Type"
+		return "Parallel Type"
+	default:
+		return ""
 	}
 }
 
