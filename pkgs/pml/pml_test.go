@@ -111,15 +111,6 @@ func TestBrokenFile(t *testing.T) {
 	}
 }
 
-<<<<<<< HEAD
-func TestDelayExistence(t *testing.T) {
-	fmt.Println("* Testing that malformed PML files are rejected")
-	process, err := processFromFile("delays.pml")
-	success, message := delayHelper(process)
-	if assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message) {
-		fmt.Println("PASSED!")
-	}
-=======
 func TestDelayExistence(t * testing.T) {
         fmt.Println("* Testing that delays are processed")
         process, err := processFromFile("delays.pml")
@@ -127,7 +118,6 @@ func TestDelayExistence(t * testing.T) {
         if (assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message)) {
                 fmt.Println("PASSED!")
         }
->>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 }
 
 func TestActionDelayFail(t *testing.T) {
@@ -138,9 +128,6 @@ func TestActionDelayFail(t *testing.T) {
 	}
 }
 
-<<<<<<< HEAD
-func TestPeriodicDrugUse(t *testing.T) {
-=======
 func TestTimeIntervalOffset(t * testing.T) {
         fmt.Println("* Testing that time interval offsets are processed")
         process, err := processFromFile("time_interval_offset.pml")
@@ -151,7 +138,6 @@ func TestTimeIntervalOffset(t * testing.T) {
 }
 
 func TestPeriodicDrugUse(t * testing.T) {
->>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 	fmt.Println("* Testing that periodic drug use is registered")
 	process, err := processFromFile("periodic_use.pml")
 	success, message := periodicDrugUseHelper(process)
@@ -160,33 +146,15 @@ func TestPeriodicDrugUse(t * testing.T) {
 	}
 }
 
-<<<<<<< HEAD
-func TestSequentialDDI(t *testing.T) {
-	fmt.Println("* Testing that periodic drug use is registered")
-	process, err := processFromFile("sequential_ddi.pml")
-	success, message := sequentialDDIHelper(process)
-	if assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message) {
-=======
 func TestSequentialDrugPair(t * testing.T) {
 	fmt.Println("* Testing that sequential DDIs are registered")
 	process, err := processFromFile("sequential_ddi.pml")
 	success, message := drugPairHelper(process, SequentialType, "seq1")
 	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
->>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 		fmt.Println("PASSED!")
 	}
 }
 
-<<<<<<< HEAD
-func sequentialDDIHelper(process *Element) (success bool, message string) {
-	drugPair := process.FindDrugPairs()[0]
-
-	expectedDrugA := "coke"
-	expectedDrugB := "pepsi"
-	expectedDelay := Delay(0)
-	expectedDDIType := SequentialType
-	expectedParentName := "seq1"
-=======
 func TestParallelDrugPair(t * testing.T) {
 	fmt.Println("* Testing that parallel DDIs are registered")
 	process, err := processFromFile("parallel_ddi.pml")
@@ -197,14 +165,13 @@ func TestParallelDrugPair(t * testing.T) {
 }
 
 func drugPairHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
-	drugPair := process.FindDrugPairs[0]
+	drugPair := process.FindDrugPairs()[0]
 
 	expectedDrugA := "coke"
 	expectedDrugB := "pepsi"
 	expectedDelay := Delay("0")
 	expectedDDIType := expectedDDITypeIn
 	expectedParentName := expectedParentNameIn
->>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 
 	actualDrugA := drugPair.DrugA
 	actualDrugB := drugPair.DrugB
