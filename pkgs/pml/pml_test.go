@@ -164,6 +164,16 @@ func TestParallelDrugPair(t * testing.T) {
 	}
 }
 
+func TestSelectionNoDrugPair(t * testing.T) {
+	fmt.Println("* Testing that no drug pair is registered")
+	process, err := processFromFile("selection_no_drug_pair.pml")
+
+	drugPairs := process.FindDrugPairs()
+	if assert.Equals(t, len(drugPairs), 0, "Mo drug pairs should be found. The length should be 0, it is " + len(drugPairs)) {
+		fmt.Println("PASSED!")
+	}
+}
+
 func drugPairHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
 	drugPair := process.FindDrugPairs()[0]
 
