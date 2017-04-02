@@ -33,5 +33,21 @@ func convertToSeconds(timeValue string) (timeInSeconds int) {
 	return timeInSeconds
 }
 
+func DrugPairListsEqual(listOne, listTwo []DrugPair) (equal bool) {
+	for _, x := range listOne {
+		if !DrugPairListContains(listTwo, x) {
+			return false
+		}
+	}
+	return true
+}
 
+func DrugPairListContains(drugPairs []DrugPair, elem DrugPair) (contains bool) {
+	for _, x := range drugPairs {
+		if x == elem {
+			return true
+		}
+	}
+	return false
+}
 
