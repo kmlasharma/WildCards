@@ -82,7 +82,7 @@ func (p *Parser) parseChildren(ep *errParser) (element Element) {
 			if err == nil { // Skip if non JSON script
 				element.Children = append(element.Children, action)
 			}
-		} else if tok == SEQUENCE || tok == TASK || tok == ITERATION || tok == BRANCH {
+		} else if tok == SEQUENCE || tok == TASK || tok == ITERATION || tok == BRANCH || tok == SELECTION {
 			ele := p.parseElement(tok, ep)
 			ele.elementType = elementTypeForToken(tok)
 			element.Children = append(element.Children, ele)

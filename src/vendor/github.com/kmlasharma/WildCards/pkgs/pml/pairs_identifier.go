@@ -1,111 +1,233 @@
 package pml
 
+import (
+	"fmt"
+)
+
+var (
+	parentBranchName    = ""
+	parentSequenceName  = ""
+	parentSelectionName = ""
+)
+
 type ActionWrapper struct {
 	action       Action
 	currentDelay Delay
 }
 
-func (ele *Element) FindDrugPairs() []DrugPair {
-	pairs, _, _ := ele.parsePossibleDDIs([]ActionWrapper{}, Delay(0), ele.Name)
-	return pairs
+type Params struct {
+	drugPairs                []DrugPair
+	sequentialActionWrappers []ActionWrapper
+	parallelActionWrappers   []ActionWrapper
+	selectionActionWrappers  []ActionWrapper
+	currentDelay             Delay
 }
 
-func (ele *Element) parseIterationPossibleDDIs(actions []ActionWrapper, delay Delay, parentName string) (pairs []DrugPair, newActions []ActionWrapper, newDelay Delay) {
-	newDelay = delay
-	newPairs, newActions, updatedNewDelay := ele.parsePossibleDDIs(actions, newDelay, parentName)
-	iterationDelay := updatedNewDelay - delay
-	for _, pair := range newPairs {
+func (p *Params) addAction(action Action, inIter bool) {
+	for _, wrapper := range p.parallelActionWrappers {
+		action1 := wrapper.action
+		actionDelay := wrapper.currentDelay
+		for _, drugA := range action1.Drugs {
+			for _, drugB := range action.Drugs {
+				pair := DrugPair{
+					DrugA:      drugA,
+					DrugB:      drugB,
+					delay:      p.currentDelay - actionDelay,
+					ddiType:    ParallelType,
+					parentName: parentBranchName,
+				}
+				p.drugPairs = append(p.drugPairs, pair)
+			}
+		}
+	}
+
+	for _, wrapper := range p.sequentialActionWrappers {
+		action1 := wrapper.action
+		actionDelay := wrapper.currentDelay
+		fmt.Println("Action Delay:", actionDelay)
+		for _, drugA := range action1.Drugs {
+			for _, drugB := range action.Drugs {
+				pair := DrugPair{
+					DrugA:      drugA,
+					DrugB:      drugB,
+					delay:      p.currentDelay - actionDelay,
+					ddiType:    SequentialType,
+					parentName: parentSequenceName,
+				}
+				p.drugPairs = append(p.drugPairs, pair)
+			}
+		}
+	}
+
+	if inIter {
+		for _, wrapper := range p.selectionActionWrappers {
+			action1 := wrapper.action
+			actionDelay := wrapper.currentDelay
+			for _, drugA := range action1.Drugs {
+				for _, drugB := range action.Drugs {
+					pair := DrugPair{
+						DrugA:      drugA,
+						DrugB:      drugB,
+						delay:      p.currentDelay - actionDelay,
+						ddiType:    RepeatedAlternativeDDIType,
+						parentName: parentSelectionName,
+					}
+					p.drugPairs = append(p.drugPairs, pair)
+				}
+			}
+		}
+	}
+}
+
+func newParams() Params {
+	return Params{
+		drugPairs:                []DrugPair{},
+		sequentialActionWrappers: []ActionWrapper{},
+		parallelActionWrappers:   []ActionWrapper{},
+		selectionActionWrappers:  []ActionWrapper{},
+		currentDelay:             0,
+	}
+}
+
+func (ele *Element) FindDrugPairs() []DrugPair {
+	params := ele.parseElement(newParams(), false)
+	return params.drugPairs
+}
+
+func (ele *Element) parseElement(params Params, inIter bool) Params {
+	parentSequenceName = ele.Name
+	for _, child := range ele.Children {
+		switch child.Type() {
+		case ActionType:
+			action := child.(Action)
+			params.addAction(action, inIter)
+			params.sequentialActionWrappers = append(params.sequentialActionWrappers, ActionWrapper{action: action, currentDelay: params.currentDelay})
+		case DelayType:
+			delay := child.(Delay)
+			params.currentDelay += delay
+		default:
+			var updatedParams Params
+			el := child.(*Element)
+			switch el.elementType {
+			case BranchType:
+				updatedParams = el.parseBranch(params, inIter)
+			case IterationType:
+				updatedParams = el.parseIteration(params)
+			case SelectionType:
+				updatedParams = el.parseSelection(params, inIter)
+			default:
+				updatedParams = el.parseElement(params, inIter)
+			}
+			params.drugPairs = updatedParams.drugPairs
+			params.sequentialActionWrappers = append(params.sequentialActionWrappers, updatedParams.sequentialActionWrappers...)
+			params.currentDelay += updatedParams.currentDelay
+		}
+	}
+	return params
+}
+
+func (ele *Element) parseBranch(params Params, inIter bool) Params {
+	// One element - current delay which is used for an direct delays
+	parentBranchName = ele.Name
+	delays := []Delay{params.currentDelay}
+	for _, child := range ele.Children {
+		switch child.Type() {
+		case ActionType:
+			action := child.(Action)
+			params.addAction(action, inIter)
+			params.parallelActionWrappers = append(params.parallelActionWrappers, ActionWrapper{action: action, currentDelay: params.currentDelay})
+		case DelayType:
+			delay := child.(Delay)
+			delays[0] += delay
+		default:
+			var updatedParams Params
+			el := child.(*Element)
+			switch el.elementType {
+			case BranchType:
+				updatedParams = el.parseBranch(params, inIter)
+			case IterationType:
+				updatedParams = el.parseIteration(params)
+			case SelectionType:
+				updatedParams = el.parseSelection(params, inIter)
+			default:
+				updatedParams = el.parseElement(params, inIter)
+			}
+			delays = append(delays, updatedParams.currentDelay)
+			params.drugPairs = updatedParams.drugPairs
+			params.parallelActionWrappers = append(params.parallelActionWrappers, updatedParams.sequentialActionWrappers...)
+		}
+	}
+	// Set delay as max delay
+	maxDelay := Delay(0)
+	for _, delay := range delays {
+		if delay > maxDelay {
+			maxDelay = delay
+		}
+	}
+	params.currentDelay = maxDelay
+	params.sequentialActionWrappers = append(params.sequentialActionWrappers, params.parallelActionWrappers...)
+	params.parallelActionWrappers = []ActionWrapper{}
+	return params
+}
+
+func (ele *Element) parseSelection(params Params, inIter bool) Params {
+	// One element - current delay which is used for an direct delays
+	parentSelectionName = ele.Name
+	delays := []Delay{params.currentDelay}
+	for _, child := range ele.Children {
+		switch child.Type() {
+		case ActionType:
+			action := child.(Action)
+			params.addAction(action, inIter)
+			params.selectionActionWrappers = append(params.selectionActionWrappers, ActionWrapper{action: action, currentDelay: params.currentDelay})
+		case DelayType:
+			delay := child.(Delay)
+			delays[0] += delay
+		default:
+			var updatedParams Params
+			el := child.(*Element)
+			switch el.elementType {
+			case BranchType:
+				updatedParams = el.parseBranch(params, inIter)
+			case IterationType:
+				updatedParams = el.parseIteration(params)
+			case SelectionType:
+				updatedParams = el.parseSelection(params, inIter)
+			default:
+				updatedParams = el.parseElement(params, inIter)
+			}
+			delays = append(delays, updatedParams.currentDelay)
+			params.drugPairs = append(params.drugPairs, updatedParams.drugPairs...)
+			params.selectionActionWrappers = append(params.selectionActionWrappers, updatedParams.sequentialActionWrappers...)
+		}
+	}
+
+	if !inIter {
+		// There may be alternative paths to highlight?
+	}
+
+	// Set delay as max delay
+	maxDelay := Delay(0)
+	for _, delay := range delays {
+		if delay > maxDelay {
+			maxDelay = delay
+		}
+	}
+	params.currentDelay = maxDelay
+	params.sequentialActionWrappers = append(params.sequentialActionWrappers, params.selectionActionWrappers...)
+	params.selectionActionWrappers = []ActionWrapper{}
+	return params
+}
+
+func (ele *Element) parseIteration(params Params) Params {
+	updatedParams := ele.parseElement(params, true)
+	iterationDelay := updatedParams.currentDelay - params.currentDelay
+	for _, pair := range updatedParams.drugPairs {
 		delay := iterationDelay - pair.delay
 		newPair := DrugPair{DrugA: pair.DrugB, DrugB: pair.DrugA, delay: delay, ddiType: pair.ddiType, parentName: pair.parentName}
-		pairs = append(pairs, pair)
-		pairs = append(pairs, newPair)
+		updatedParams.drugPairs = append(updatedParams.drugPairs, newPair)
 	}
-	newDelay += Delay(int(iterationDelay) * ele.Loops) // Account for loops
-	return
-}
-
-func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallelActions []ActionWrapper, delay Delay, parentName string) (pairs []DrugPair, newParallelActions []ActionWrapper, newDelay Delay) {
-	newParallelActions = oldParallelActions
-	newDelay = delay
-	for _, child := range ele.Children {
-		if child.IsSubElementType() {
-			el := child.(*Element)
-			var newPairs []DrugPair
-			if el.elementType == BranchType {
-				newPairs, newParallelActions, newDelay = el.parseBranchPossibleDDIs(actions, newParallelActions, newDelay, ele.Name)
-				pairs = append(pairs, newPairs...)
-			} else {
-				newPairs, newParallelActions, newDelay = el.parseBranchPossibleDDIs(actions, newParallelActions, newDelay, parentName)
-				pairs = append(pairs, newPairs...)
-			}
-		} else if child.Type() == ActionType {
-			action1 := child.(Action)
-			for _, wrapper := range newParallelActions {
-				action2 := wrapper.action
-				actionDelay := wrapper.currentDelay
-				for _, drugA := range action2.Drugs {
-					for _, drugB := range action1.Drugs {
-						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, ddiType: ParallelType, parentName: parentName}
-						pairs = append(pairs, pair)
-					}
-				}
-			}
-			for _, wrapper := range actions {
-				action2 := wrapper.action
-				actionDelay := wrapper.currentDelay
-				for _, drugA := range action2.Drugs {
-					for _, drugB := range action1.Drugs {
-						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, ddiType: SequentialType, parentName: parentName}
-						pairs = append(pairs, pair)
-					}
-				}
-			}
-			wrapper := ActionWrapper{action: action1, currentDelay: newDelay}
-			newParallelActions = append(newParallelActions, wrapper)
-		}
-	}
-	return
-}
-
-func (ele *Element) parsePossibleDDIs(oldActions []ActionWrapper, currentDelay Delay, parentName string) (pairs []DrugPair, newActions []ActionWrapper, newDelay Delay) {
-	newActions = oldActions
-	newDelay = currentDelay
-	for _, child := range ele.Children {
-		if child.IsSubElementType() {
-			el := child.(*Element)
-			var newPairs []DrugPair
-			if el.elementType == BranchType {
-				parallelActions := []ActionWrapper{}
-				newPairs, parallelActions, newDelay = el.parseBranchPossibleDDIs(newActions, parallelActions, newDelay, el.Name)
-				newActions = append(newActions, parallelActions...)
-				pairs = append(pairs, newPairs...)
-			} else if el.elementType == IterationType {
-				newPairs, newActions, newDelay = el.parseIterationPossibleDDIs(newActions, newDelay, el.Name)
-				pairs = append(pairs, newPairs...)
-			} else {
-				newPairs, newActions, newDelay = el.parsePossibleDDIs(newActions, newDelay, el.Name)
-				pairs = append(pairs, newPairs...)
-			}
-		} else if child.Type() == ActionType {
-			action1 := child.(Action)
-			// For all previous actions, check for DDI
-			// with delay = newDelay
-			for _, wrapper := range newActions {
-				action2 := wrapper.action
-				actionDelay := wrapper.currentDelay
-				for _, drugA := range action2.Drugs {
-					for _, drugB := range action1.Drugs {
-						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, parentName: parentName}
-						pairs = append(pairs, pair)
-					}
-				}
-			}
-			wrapper := ActionWrapper{action: action1, currentDelay: newDelay}
-			newActions = append(newActions, wrapper)
-		} else if child.Type() == DelayType {
-			delay := child.(Delay)
-			newDelay += delay
-		}
-	}
-	return
+	totalDelay := Delay(int(iterationDelay) * (ele.Loops - 1))
+	updatedParams.currentDelay += totalDelay
+	return updatedParams
 }

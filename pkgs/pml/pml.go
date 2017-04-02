@@ -26,6 +26,7 @@ type DDIType int
 const (
 	SequentialType DDIType = iota
 	ParallelType
+	RepeatedAlternativeDDIType
 )
 
 func (d DDIType) String() string {
