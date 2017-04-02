@@ -185,6 +185,22 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 	}
 }
 
+func TestBranchInIteration(t *testing.T) {
+	fmt.Println("* Testing that branches in sequence DDIs are registered")
+	process, err := processFromFile("branch_in_iteration.pml")
+
+	drugPairsList := process.FindDrugPairs() //actual value
+	//expected values
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+
+	var expectedDrugList = []DrugPair {pairA, pairB}
+	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for branches within iterations")) {
+		fmt.Println("PASSED!")
+	}
+
+}
+
 func TestSelectionNoDrugPair(t * testing.T) {
 	fmt.Println("* Testing that no drug pair is registered")
 	process, err := processFromFile("selection_no_drug_pair.pml")
