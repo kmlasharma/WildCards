@@ -171,16 +171,16 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 	pairB := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 	pairC := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 
-	pairD := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "branch2"}
+	pairD := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: ParallelType, parentName: "branch2"}
 	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 
-	var expectedDrugList = []DrugPair {pairA, pairB, pairC, pairD, pairE, pairF}
-	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList")) {
+	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -191,11 +191,11 @@ func TestBranchInIteration(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
-	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
+	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 
-	var expectedDrugList = []DrugPair {pairA, pairB}
-	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for branches within iterations")) {
+	var expectedDrugList = []DrugPair{pairA, pairB}
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for branches within iterations") {
 		fmt.Println("PASSED!")
 	}
 }
@@ -213,18 +213,18 @@ func TestSequenceInBranch(t *testing.T) {
 	pairE := DrugPair{DrugA: "pepsi", DrugB: "7up", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 
-	var expectedDrugList = []DrugPair {pairA, pairB, pairC, pairD, pairE, pairF}
-	if (assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for sequences within branches")) {
+	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, expectedDrugList, drugPairsList, "Expected drug list should equal drugPairList for sequences within branches") {
 		fmt.Println("PASSED!")
 	}
 }
 
-func TestSelectionNoDrugPair(t * testing.T) {
+func TestSelectionNoDrugPair(t *testing.T) {
 	fmt.Println("* Testing that no drug pair is registered")
 	process, err := processFromFile("selection_no_drug_pair.pml")
 
 	drugPairs := process.FindDrugPairs()
-	if (assert.Nil(t, err, err.Error()) && assert.Equal(t, len(drugPairs), 0, fmt.Sprintf("No drug pairs should be found. The length should be 0, it is %i", len(drugPairs)))) {
+	if assert.Nil(t, err, err.Error()) && assert.Equal(t, len(drugPairs), 0, fmt.Sprintf("No drug pairs should be found. The length should be 0, it is %i", len(drugPairs))) {
 		fmt.Println("PASSED!")
 	}
 }
