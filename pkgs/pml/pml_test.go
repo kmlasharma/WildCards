@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+	"time"
 )
 
 var resDir = os.Getenv("RES_DIR")
@@ -110,6 +111,7 @@ func TestBrokenFile(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 func TestDelayExistence(t *testing.T) {
 	fmt.Println("* Testing that malformed PML files are rejected")
 	process, err := processFromFile("delays.pml")
@@ -117,6 +119,15 @@ func TestDelayExistence(t *testing.T) {
 	if assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
+=======
+func TestDelayExistence(t * testing.T) {
+        fmt.Println("* Testing that delays are processed")
+        process, err := processFromFile("delays.pml")
+        success, message := delayHelper(process)
+        if (assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message)) {
+                fmt.Println("PASSED!")
+        }
+>>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 }
 
 func TestActionDelayFail(t *testing.T) {
@@ -127,7 +138,20 @@ func TestActionDelayFail(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 func TestPeriodicDrugUse(t *testing.T) {
+=======
+func TestTimeIntervalOffset(t * testing.T) {
+        fmt.Println("* Testing that time interval offsets are processed")
+        process, err := processFromFile("time_interval_offset.pml")
+	success, message := timeIntervalOffsetHelper(process)
+        if (assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message)) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func TestPeriodicDrugUse(t * testing.T) {
+>>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 	fmt.Println("* Testing that periodic drug use is registered")
 	process, err := processFromFile("periodic_use.pml")
 	success, message := periodicDrugUseHelper(process)
@@ -136,15 +160,24 @@ func TestPeriodicDrugUse(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 func TestSequentialDDI(t *testing.T) {
 	fmt.Println("* Testing that periodic drug use is registered")
 	process, err := processFromFile("sequential_ddi.pml")
 	success, message := sequentialDDIHelper(process)
 	if assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message) {
+=======
+func TestSequentialDrugPair(t * testing.T) {
+	fmt.Println("* Testing that sequential DDIs are registered")
+	process, err := processFromFile("sequential_ddi.pml")
+	success, message := drugPairHelper(process, SequentialType, "seq1")
+	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
+>>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 		fmt.Println("PASSED!")
 	}
 }
 
+<<<<<<< HEAD
 func sequentialDDIHelper(process *Element) (success bool, message string) {
 	drugPair := process.FindDrugPairs()[0]
 
@@ -153,6 +186,25 @@ func sequentialDDIHelper(process *Element) (success bool, message string) {
 	expectedDelay := Delay(0)
 	expectedDDIType := SequentialType
 	expectedParentName := "seq1"
+=======
+func TestParallelDrugPair(t * testing.T) {
+	fmt.Println("* Testing that parallel DDIs are registered")
+	process, err := processFromFile("parallel_ddi.pml")
+	success, message := drugPairHelper(process, ParallelType, "branch1")
+	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func drugPairHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
+	drugPair := process.FindDrugPairs[0]
+
+	expectedDrugA := "coke"
+	expectedDrugB := "pepsi"
+	expectedDelay := Delay("0")
+	expectedDDIType := expectedDDITypeIn
+	expectedParentName := expectedParentNameIn
+>>>>>>> e5a5e3fbf02c80bbdaabb5a7b6a3cd0492319229
 
 	actualDrugA := drugPair.DrugA
 	actualDrugB := drugPair.DrugB
@@ -244,6 +296,34 @@ func delayHelper(process *Element) (success bool, message string) {
 	return true, ""
 }
 
-// TODO: tests for: 	Merging clinical pathways
-//			PML-TX save to file
-// 			Time interval offset
+func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
+	proc_children := process.Children
+	timeIntervalOffset := proc_children[0].(Element).(Wait)
+	subsequentDelay := proc_children[1].(Element).(Delay)
+	currentDateAndTime := time.Now().Format(time.UnixDate)
+	today := strings.Split(currentDateAndTime, " ")[0]
+
+	var waitLength = Delay("0 day")
+
+	switch today {
+	case "Mon":
+		waitLength = Delay("0 day")
+	case "Tue":
+		waitLength = Delay("1 day")
+	case "Wed":
+		waitLength = Delay("2 day")
+	case "Thu":
+		waitLength = Delay("3 day")
+	case "Fri":
+		waitLength = Delay("4 day")
+	case "Sat":
+		waitLength = Delay("5 day")
+	case "Sun":
+		waitLength = Delay("6 day")
+	}
+
+	if subsequentDelay != waitLength {
+		return false, "Did not delay for the right amount of time based on specified time interval offset"
+	}
+	return true, ""
+}
