@@ -12,8 +12,8 @@
 		{
 			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "e8dccb442c15f760b61f65a4ce19aacfdc7a9225",
-			"revisionTime": "2017-04-02T13:58:51Z"
+			"revision": "a7a7f600d121b0a24830340d7a947f38499c28f4",
+			"revisionTime": "2017-04-02T14:21:01Z"
 		},
 		{
 			"checksumSHA1": "Ef3+gi97QEvLS9VonbjOF/cZnDQ=",
@@ -37,8 +37,8 @@
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"path": "golang.org/x/net/context",
-			"revision": "6c23252515492caf9b228a9d5cabcdbde29f7f82",
-			"revisionTime": "2017-03-24T21:59:51Z"
+			"revision": "78ebe5c8b6a27ec13109c73c22193d618270e1e1",
+			"revisionTime": "2017-02-11T12:21:22Z"
 		}
 	],
 	"rootPath": "github.com/kmlasharma/WildCards/pkgs/ddi"

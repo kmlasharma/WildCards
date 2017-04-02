@@ -8,6 +8,7 @@ import (
 	"strconv"
 )
 
+
 type errParser struct {
 	p   *Parser
 	err error
@@ -137,7 +138,7 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 	return Action{}, errors.New("No Script tag")
 }
 
-func (p *Parser) parseDelay(ep *errParser) Delay {
+func (p *Parser) parseDelay(ep *errParser) (Delay) {
 	ep.expect(LBRACE)
 	str := ep.expect(LIT)
 	ep.expect(RBRACE)
@@ -224,3 +225,5 @@ func (p *Parser) ensureNextTokenType(tok Token) (string, error) {
 func (p *Parser) currentLineNumber() int {
 	return p.s.ln
 }
+
+
