@@ -15,5 +15,13 @@ process test {
       delay { "3 days" }
       loops { "3" }
     }
+    branch branch1 {
+      action act_4 {
+        script { "{\"drugs\": [\"pepsi\"]}" }
+      }
+      action act_5 {
+        script { "{\"drugs\": [\"milk\"]}" }
+      }
+    }
   }
 }
