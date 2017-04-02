@@ -59,7 +59,7 @@ A suite of automated unit tests can be run to test all features of the app. This
 It is assumed that you have followed the instructions above before testing the features listed below. Each feature will clarify it's own starting context. Unit and behavioural tests are also outlined for each feature.
 
 # Release 2:
-#### Release 1 features are outlined below
+#### Release 2 features are outlined below
 
 ### ✅ Identify drugs in PML
 
@@ -191,7 +191,7 @@ It is assumed that you have followed the instructions above before testing the f
    * TODO: Planned for Iteration 7
 
 
-### ⏳ Specify Pereodic Drug Use
+### ⏳ Specify Periodic Drug Use
 
 * Status: **In Progress**
 * Starting context:
@@ -249,17 +249,6 @@ It is assumed that you have followed the instructions above before testing the f
 
 1. Make sure you have exited the container by typing `exit` ("Your prompt will change from `root@<some code>:~#` to your normal prompt).
 2. Run `docker-compose stop` to completely tear down the Docker container (run this command from outside of the container).
-
-
-## Automated Testing Instructions
-
-When inside the container, the automated tests can be run to test each of the above features automatically. 
-
-1. cd to `/root/tests` 
-2. Run `nosetests`
-3. 
-
-
 
 
 RELEASE 1 Features:
