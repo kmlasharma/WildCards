@@ -8,6 +8,7 @@ const (
 	IterationType
 	TaskType
 	BranchType
+	SelectionType
 	SequenceType
 	DelayType
 )

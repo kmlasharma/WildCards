@@ -173,6 +173,8 @@ func elementTypeForToken(tok Token) ElementType {
 		return TaskType
 	case BRANCH:
 		return BranchType
+	case SELECTION:
+		return SelectionType
 	default:
 		return ProcessType
 	}
