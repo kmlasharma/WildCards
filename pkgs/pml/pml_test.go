@@ -171,11 +171,11 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), ddiType: SequentialType, parentName: "branch1"}
 	pairB := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 	pairC := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 
-	pairD := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	pairD := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), ddiType: SequentialType, parentName: "branch2"}
 	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
 
