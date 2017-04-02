@@ -10,6 +10,18 @@
 			"revisionTime": "2017-01-30T11:31:45Z"
 		},
 		{
+			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
+			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
+			"revision": "856c0ef0a4a70e2a5de1f2c253e828d5cec43d06",
+			"revisionTime": "2017-04-02T15:17:24Z"
+		},
+		{
+			"checksumSHA1": "Ef3+gi97QEvLS9VonbjOF/cZnDQ=",
+			"path": "github.com/mattn/go-sqlite3",
+			"revision": "b2e464529e88db676302aa63a4ce36711633950e",
+			"revisionTime": "2017-03-24T00:12:00Z"
+		},
+		{
 			"checksumSHA1": "zKKp5SZ3d3ycKe4EKMNT0BqAWBw=",
 			"origin": "github.com/stretchr/testify/vendor/github.com/pmezard/go-difflib/difflib",
 			"path": "github.com/pmezard/go-difflib/difflib",
@@ -21,7 +33,13 @@
 			"path": "github.com/stretchr/testify/assert",
 			"revision": "4d4bfba8f1d1027c4fdbe371823030df51419987",
 			"revisionTime": "2017-01-30T11:31:45Z"
+		},
+		{
+			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
+			"path": "golang.org/x/net/context",
+			"revision": "78ebe5c8b6a27ec13109c73c22193d618270e1e1",
+			"revisionTime": "2017-02-11T12:21:22Z"
 		}
 	],
-	"rootPath": "github.com/kmlasharma/WildCards/pkgs/pml"
+	"rootPath": "github.com/kmlasharma/WildCards/pkgs/ddi"
 }

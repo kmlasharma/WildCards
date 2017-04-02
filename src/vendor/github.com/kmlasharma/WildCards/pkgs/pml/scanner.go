@@ -135,6 +135,8 @@ func (s *Scanner) scanIdent() (tok Token, lit string) {
 		return TASK, buf.String()
 	case "BRANCH":
 		return BRANCH, buf.String()
+	case "SELECTION":
+		return SELECTION, buf.String()
 	case "DELAY":
 		return DELAY, buf.String()
 	case "LOOPS":
@@ -147,6 +149,7 @@ func (s *Scanner) scanIdent() (tok Token, lit string) {
 		return REQUIRES, buf.String()
 	case "PROVIDES":
 		return PROVIDES, buf.String()
+
 	}
 
 	// Otherwise return as a regular identifier.

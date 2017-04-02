@@ -12,10 +12,8 @@ const SECONDS_TO_WEEK = 604800
 const SECONDS_TO_MONTH = 2592000
 
 func convertToSeconds(timeValue string) (timeInSeconds int) {
-	
 	result := strings.Split(timeValue, " ")
 	num, _ := strconv.Atoi(result[0])
-	
 	unit := result[1]
 
 	switch unit {
@@ -29,10 +27,11 @@ func convertToSeconds(timeValue string) (timeInSeconds int) {
 		timeInSeconds = num * SECONDS_TO_WEEK
 	case "month", "months":
 		timeInSeconds = num * SECONDS_TO_MONTH
-
 	default:
 		timeInSeconds = num //assume it is seconds
 	}
 	return timeInSeconds
 }
+
+
 
