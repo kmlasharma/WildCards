@@ -89,6 +89,36 @@ func (ele *Element) FindDrugPairs() []DrugPair {
 	return params.drugPairs
 }
 
+func (ele *Element) FindSequentialDrugPairs() (results []DrugPair) {
+	pairs := ele.FindDrugPairs()
+	for _, pair := range pairs {
+		if pair.ddiType == SequentialType {
+			results = append(results, pair)
+		}
+	}
+	return
+}
+
+func (ele *Element) FindParallelDrugPairs() (results []DrugPair) {
+	pairs := ele.FindDrugPairs()
+	for _, pair := range pairs {
+		if pair.ddiType == ParallelType {
+			results = append(results, pair)
+		}
+	}
+	return
+}
+
+func (ele *Element) FindRepeatedAlternativeDrugPairs() (results []DrugPair) {
+	pairs := ele.FindDrugPairs()
+	for _, pair := range pairs {
+		if pair.ddiType == RepeatedAlternativeDDIType {
+			results = append(results, pair)
+		}
+	}
+	return
+}
+
 func (ele *Element) parseElement(params Params, inIter bool) Params {
 	parentSequenceName = ele.Name
 	for _, child := range ele.Children {

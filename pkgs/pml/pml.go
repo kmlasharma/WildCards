@@ -21,6 +21,11 @@ type DrugPair struct {
 	parentName string
 }
 
+// temp getter. TODO remove
+func (dp DrugPair) ParentName() string {
+	return dp.parentName
+}
+
 type DDIType int
 
 const (

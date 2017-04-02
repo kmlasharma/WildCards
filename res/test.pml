@@ -3,7 +3,7 @@ process test {
     action act_3 {
       script { "{\"drugs\": [\"coke\"]}" }
     }
-    iteration i {
+    iteration s {
       selection s1 {
         action act_1 {
           script { "{\"drugs\": [\"oj\"]}" }

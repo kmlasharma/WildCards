@@ -40,7 +40,6 @@ func main() {
 	process := processFromFile(pmlFilePath)
 
 	fmt.Println("\n")
-	fmt.Println("Pairs in this PML Process:", process.FindDrugPairs())
 	fmt.Println("Drugs in this PML Process:", strings.Join(process.AllDrugs(), ", "))
 
 	taskNames := []string{}
@@ -48,7 +47,28 @@ func main() {
 		taskNames = append(taskNames, task.Name)
 	}
 
-	fmt.Println("Tasks in this PML Process:", strings.join(taskNames, ", "))
+	fmt.Println("Tasks in this PML Process:", strings.Join(taskNames, ", "))
+	fmt.Println("\n")
+
+	fmt.Println("Sequential Drug Pairs:")
+	fmt.Println("======================")
+	for _, pair := range process.FindSequentialDrugPairs() {
+		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Sequence:", pair.ParentName())
+	}
+	fmt.Println("\n")
+
+	fmt.Println("Parallel Drug Pairs:")
+	fmt.Println("====================")
+	for _, pair := range process.FindParallelDrugPairs() {
+		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Parallel:", pair.ParentName())
+	}
+	fmt.Println("\n")
+
+	fmt.Println("Alternative Repeated Drug Pairs:")
+	fmt.Println("================================")
+	for _, pair := range process.FindRepeatedAlternativeDrugPairs() {
+		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Selection:", pair.ParentName())
+	}
 	fmt.Println("\n")
 
 	fmt.Print("Enter path to CSV File: [default is ddi.csv] ")
