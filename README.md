@@ -145,7 +145,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-![](http://i.imgur.com/Advfand.png)
+![](http://i.imgur.com/KLNmf40.png)
 
 ### ✅ Report Use Of Task Construct
 
@@ -159,7 +159,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-![](http://i.imgur.com/2CbrRvY.png)
+![](http://i.imgur.com/6AgKC0V.png)
 
 
 ### ✅ Identify Sequential DDIs
@@ -175,6 +175,8 @@ It is assumed that you have followed the instructions above before testing the f
    * There are a number of other files, such as `test.pml` and `sequence_in_branch.pml` that also have sequential possible DDIs. 
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
+  
+  ![](http://i.imgur.com/hqVmgHg.png)
 
 ### ✅ Identify Parallel DDIs
 
@@ -189,6 +191,8 @@ It is assumed that you have followed the instructions above before testing the f
    * There are a number of other files, such as `sequence_in_branch.pml` that also have parallel possible DDIs. 
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
+  
+   ![](http://i.imgur.com/VOzWqpg.png)
    
 ### ⏳ Report Alternative Non-DDIs
 
@@ -210,6 +214,8 @@ It is assumed that you have followed the instructions above before testing the f
    * It will be trivial to query our DDI database to check this, which will complete this feature.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
+  
+  ![](http://i.imgur.com/XPDfP9A.png)
 
 
 ### ✅ Specify Periodic Drug Use
