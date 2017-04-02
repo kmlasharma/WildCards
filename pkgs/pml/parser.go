@@ -142,10 +142,7 @@ func (p *Parser) parseDelay(ep *errParser) Delay {
 	ep.expect(LBRACE)
 	str := ep.expect(LIT)
 	ep.expect(RBRACE)
-
-	// parse string into timestamp. TODO: Units
-	i, _ := strconv.Atoi(str)
-	return Delay(i)
+	return NewDelay(str)
 }
 
 func (p *Parser) parseLoops(ep *errParser) int {

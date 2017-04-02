@@ -142,7 +142,7 @@ func TestPeriodicDrugUse(t *testing.T) {
 	fmt.Println("* Testing that periodic drug use is registered")
 	process, err := processFromFile("periodic_use.pml")
 	success, message := periodicDrugUseHelper(process)
-	if assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message) {
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
 }
@@ -151,7 +151,7 @@ func TestSequentialDrugPair(t *testing.T) {
 	fmt.Println("* Testing that sequential DDIs are registered")
 	process, err := processFromFile("sequential_ddi.pml")
 	success, message := drugPairHelper(process, SequentialType, "seq1")
-	if assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message) {
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
 }
@@ -160,7 +160,7 @@ func TestParallelDrugPair(t *testing.T) {
 	fmt.Println("* Testing that parallel DDIs are registered")
 	process, err := processFromFile("parallel_ddi.pml")
 	success, message := drugPairHelper(process, ParallelType, "branch1")
-	if assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message) {
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
 }
