@@ -291,5 +291,4 @@ func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
 
 // TODO: tests for: 	Merging clinical pathways
 //			PML-TX save to file
-// 			Time interval offset
 
