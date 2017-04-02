@@ -127,6 +127,33 @@ func TestActionDelayFail(t * testing.T) {
         }
 }
 
+func TestPeriodicDrugUse(t * testing.T) {
+	fmt.Println("* Testing that periodic drug use is registered")
+	process, err := processFromFile("periodic_use.pml")
+	success, message := periodicDrugUseHelper(process)
+	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func periodicDrugUseHelper(process Element) (success bool, message string) {
+	iter1 := process.Children[0].(Element)
+
+	expected_loops := Loops(5)
+	expected_delay := Delay("3 days")
+
+	actual_loops := iter1.Children[0].(Loops)
+	actual_delay := iter1.Children[2].(Delay)
+
+	if expected_loops != actual_loops {
+		return false, "Expected loops {" + expected_loops + "} does not equal actual loops {" + actual_loops + "}"
+	}
+	if expected_delay != actual_delay {
+		return false, "Expected delay {" + expected_delay + "} does not equal actual delay {" + actual_delay + "}"
+	}
+	return true, "success"
+}
+
 func processFromFile(filepath string) (*Element, error) {
         reader, err := os.Open(resDir + "/" + filepath)
         if err != nil {
@@ -136,7 +163,6 @@ func processFromFile(filepath string) (*Element, error) {
         process, err := parser.Parse()
         return process, err
 }
- 
 
 func delayHelper(process Element) (success bool, message string) {
 	proc_children := process.Children
