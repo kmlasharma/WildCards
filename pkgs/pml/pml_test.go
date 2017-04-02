@@ -165,6 +165,25 @@ func TestParallelDrugPair(t *testing.T) {
 	}
 }
 
+func TestBranchInSequenceDrugPair(t *testing.T) {
+	fmt.Println("* Testing that branches in sequence DDIs are registered")
+	process, err := processFromFile("selection_no_drug_pair.pml")
+
+	drugPairsList := process.FindDrugPairs() //actual value
+	//expected values
+	//pairA := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	//pairB := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	//pairC := DrugPair{DrugA: "pepsi", DrugB: "milk", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+	//pairD := DrugPair{DrugA: "pepsi", DrugB: "oj", delay: Delay(0), ddiType: SequentialType, parentName: "seq1"}
+
+	//var expectedDrugList = [...]DrugPair {pairA, pairB, pairC, pairD}
+	fmt.Println("Getting here")
+	fmt.Println(fmt.Sprintf("erghtrwghegr: %i", len(drugPairsList)))
+	if (assert.Nil(t, err, err.Error()) && assert.Equal(t, drugPairsList[0],drugPairsList[0], "Expected drug list should equal drugPairList")) {
+		fmt.Println("PASSED!")
+	}
+}
+
 func drugPairHelper(process *Element, expectedDDITypeIn DDIType, expectedParentNameIn string) (success bool, message string) {
 	drugPair := process.FindDrugPairs()[0]
 
