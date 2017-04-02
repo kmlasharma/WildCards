@@ -170,12 +170,12 @@ func TestSelectionNoDrugPair(t * testing.T) {
 	process, err := processFromFile("selection_no_drug_pair.pml")
 
 	drugPairs := process.FindDrugPairs()
-	if assert.Equals(t, len(drugPairs), 0, "Mo drug pairs should be found. The length should be 0, it is " + len(drugPairs)) {
+	if (assert.Nil(t, err, err.Error()) && assert.Equal(t, len(drugPairs), 0, fmt.Sprintf("No drug pairs should be found. The length should be 0, it is %i", len(drugPairs)))) {
 		fmt.Println("PASSED!")
 	}
 }
 
-func drugPairHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
+func drugPairHelper(process *Element, expectedDDITypeIn DDIType, expectedParentNameIn string) (success bool, message string) {
 	drugPair := process.FindDrugPairs()[0]
 
 	expectedDrugA := "coke"
