@@ -146,25 +146,25 @@ func TestPeriodicDrugUse(t * testing.T) {
 	}
 }
 
-func TestSequentialDDI(t * testing.T) {
+func TestSequentialDrugPair(t * testing.T) {
 	fmt.Println("* Testing that sequential DDIs are registered")
 	process, err := processFromFile("sequential_ddi.pml")
-	success, message := ddiHelper(process, SequentialType, "seq1")
+	success, message := drugPairHelper(process, SequentialType, "seq1")
 	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
 		fmt.Println("PASSED!")
 	}
 }
 
-func TestParallelDDI(t * testing.T) {
+func TestParallelDrugPair(t * testing.T) {
 	fmt.Println("* Testing that parallel DDIs are registered")
 	process, err := processFromFile("parallel_ddi.pml")
-	success, message := ddiHelper(process, ParallelType, "branch1")
+	success, message := drugPairHelper(process, ParallelType, "branch1")
 	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
 		fmt.Println("PASSED!")
 	}
 }
 
-func ddiHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
+func drugPairHelper(process *Element, expectedDDITypeIn *ddiType, expectedParentNameIn string) (success bool, message string) {
 	drugPair := process.FindDrugPairs[0]
 
 	expectedDrugA := "coke"
