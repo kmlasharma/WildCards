@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+	"time"
 )
 
 var resDir = os.Getenv("RES_DIR")
@@ -111,7 +112,7 @@ func TestBrokenFile(t *testing.T) {
 }
 
 func TestDelayExistence(t * testing.T) {
-        fmt.Println("* Testing that malformed PML files are rejected")
+        fmt.Println("* Testing that delays are processed")
         process, err := processFromFile("delays.pml")
         success, message := delayHelper(process)
         if (assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message)) {
@@ -126,6 +127,16 @@ func TestActionDelayFail(t * testing.T) {
                 fmt.Println("PASSED!")
         }
 }
+
+func TestTimeIntervalOffset(t * testing.T) {
+        fmt.Println("* Testing that time interval offsets are processed")
+        process, err := processFromFile("time_interval_offset.pml")
+	success, message := timeIntervalOffsetHelper(process)
+        if (assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message)) {
+		fmt.Println("PASSED!")
+	}
+}
+
 
 func TestPeriodicDrugUse(t * testing.T) {
 	fmt.Println("* Testing that periodic drug use is registered")
@@ -198,6 +209,39 @@ func delayHelper(process Element) (success bool, message string) {
 	iter1_actual_delay := iter1_children[1].(Delay)
 	if iter1_expected_delay != iter1_actual_delay {
 		return false, "iter1 expected does not match actual"
+	}
+	return true, ""
+}
+
+
+func timeIntervalOffsetHelper(process Element) (success bool, message string) {
+	proc_children := process.Children
+	timeIntervalOffset := proc_children[0].(Element).(Wait)
+	subsequentDelay := proc_children[1].(Element).(Delay)
+	currentDateAndTime := time.Now().Format(time.UnixDate)
+	today := strings.Split(currentDateAndTime, " ")[0]
+	
+	var waitLength = Delay("0 day")
+
+	switch today {
+	case "Mon":
+		waitLength = Delay("0 day")
+	case "Tue":
+		waitLength = Delay("1 day")
+	case "Wed":
+		waitLength = Delay("2 day")
+	case "Thu":
+		waitLength = Delay("3 day")
+	case "Fri":
+		waitLength = Delay("4 day")
+	case "Sat":
+		waitLength = Delay("5 day")
+	case "Sun":
+		waitLength = Delay("6 day")
+	}
+
+	if subsequentDelay != waitLength {
+		return false, "Did not delay for the right amount of time based on specified time interval offset"
 	}
 	return true, ""
 }
