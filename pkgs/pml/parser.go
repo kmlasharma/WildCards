@@ -82,7 +82,7 @@ func (p *Parser) parseChildren(ep *errParser) (element Element) {
 			if err == nil { // Skip if non JSON script
 				element.Children = append(element.Children, action)
 			}
-		} else if tok == SEQUENCE || tok == TASK || tok == ITERATION {
+		} else if tok == SEQUENCE || tok == TASK || tok == ITERATION || tok == BRANCH {
 			ele := p.parseElement(tok, ep)
 			ele.elementType = elementTypeForToken(tok)
 			element.Children = append(element.Children, ele)
@@ -138,6 +138,7 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 }
 
 func (p *Parser) parseDelay(ep *errParser) Delay {
+	ep.expect(DELAY)
 	ep.expect(LBRACE)
 	str := ep.expect(LIT)
 	ep.expect(RBRACE)
@@ -148,6 +149,7 @@ func (p *Parser) parseDelay(ep *errParser) Delay {
 }
 
 func (p *Parser) parseLoops(ep *errParser) int {
+	ep.expect(LOOPS)
 	ep.expect(LBRACE)
 	str := ep.expect(LIT)
 	ep.expect(RBRACE)
@@ -172,6 +174,8 @@ func elementTypeForToken(tok Token) ElementType {
 		return IterationType
 	case TASK:
 		return TaskType
+	case BRANCH:
+		return BranchType
 	default:
 		return ProcessType
 	}

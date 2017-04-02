@@ -40,6 +40,7 @@ func main() {
 	process := processFromFile(pmlFilePath)
 
 	fmt.Println("\n")
+	fmt.Println("Pairs in this PML Process:", process.FindDrugPairs())
 	fmt.Println("Drugs in this PML Process:", strings.Join(process.AllDrugs(), ", "))
 	fmt.Println("Tasks in this PML Process:", process.AllTasks())
 	fmt.Println("\n")
