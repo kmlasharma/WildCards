@@ -15,8 +15,5 @@ process test {
       delay { "3 days" }
       loops { "3" }
     }
-    action act_4 {
-      script { "{\"drugs\": [\"coke\"]}" }
-    }
   }
 }
