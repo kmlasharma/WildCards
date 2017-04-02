@@ -7,8 +7,24 @@ const (
 	ProcessType
 	IterationType
 	TaskType
+	BranchType
 	SequenceType
 	DelayType
+)
+
+type DrugPair struct {
+	DrugA      string
+	DrugB      string
+	delay      int
+	ddiType    DDIType //parallel, sequential
+	parentName string
+}
+
+type DDIType int
+
+const (
+	SequentialType DDIType = iota
+	ParallelType
 )
 
 type ElementInterface interface {
