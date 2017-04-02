@@ -205,6 +205,5 @@ func delayHelper(process Element) (success bool, message string) {
 
 // TODO: tests for: 	Merging clinical pathways
 //			PML-TX save to file
-// 			Existance of periodic drug use = iteration with delays
 // 			Time interval offset
 
