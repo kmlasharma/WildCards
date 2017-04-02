@@ -9,7 +9,7 @@ process test {
           script { "{\"drugs\": [\"oj\"]}" }
         }
         action act_2 {
-          script { "{\"drugs\": [\"milk\"]}" }
+          script { "{\"drugs\": [\"7up\"]}" }
         }
       }
       delay { "3 days" }
