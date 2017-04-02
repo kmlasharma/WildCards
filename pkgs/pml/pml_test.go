@@ -309,17 +309,17 @@ func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
 	case "Mon":
 		waitLength = Delay("0 day")
 	case "Tue":
-		waitLength = Delay("1 day")
-	case "Wed":
-		waitLength = Delay("2 day")
-	case "Thu":
-		waitLength = Delay("3 day")
-	case "Fri":
-		waitLength = Delay("4 day")
-	case "Sat":
-		waitLength = Delay("5 day")
-	case "Sun":
 		waitLength = Delay("6 day")
+	case "Wed":
+		waitLength = Delay("5 day")
+	case "Thu":
+		waitLength = Delay("4 day")
+	case "Fri":
+		waitLength = Delay("3 day")
+	case "Sat":
+		waitLength = Delay("2 day")
+	case "Sun":
+		waitLength = Delay("1 day")
 	}
 
 	if subsequentDelay != waitLength {
