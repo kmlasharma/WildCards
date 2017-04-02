@@ -256,13 +256,13 @@ func delayHelper(process *Element) (success bool, message string) {
 }
 
 
-func timeIntervalOffsetHelper(process Element) (success bool, message string) {
+func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
 	proc_children := process.Children
 	timeIntervalOffset := proc_children[0].(Element).(Wait)
 	subsequentDelay := proc_children[1].(Element).(Delay)
 	currentDateAndTime := time.Now().Format(time.UnixDate)
 	today := strings.Split(currentDateAndTime, " ")[0]
-	
+
 	var waitLength = Delay("0 day")
 
 	switch today {
