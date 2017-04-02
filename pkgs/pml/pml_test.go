@@ -136,7 +136,49 @@ func TestPeriodicDrugUse(t * testing.T) {
 	}
 }
 
-func periodicDrugUseHelper(process Element) (success bool, message string) {
+func TestSequentialDDI(t * testing.T) {
+	fmt.Println("* Testing that periodic drug use is registered")
+	process, err := processFromFile("sequential_ddi.pml")
+	success, message := sequentialDDIHelper(process)
+	if (assert.NotEqual(t, err, nil, "There should not be an error") && assert.Equal(t, success, true, message)) {
+		fmt.Println("PASSED!")
+	}
+}
+
+func sequentialDDIHelper(process *Element) (success bool, message string) {
+	drugPair := process.FindDrugPairs[0]
+
+	expectedDrugA := "coke"
+	expectedDrugB := "pepsi"
+	expectedDelay := Delay("0")
+	expectedDDIType := SequentialType
+	expectedParentName := "seq1"
+
+	actualDrugA := drugPair.DrugA
+	actualDrugB := drugPair.DrugB
+	actualDelay := drugPair.Delay
+	actualDDIType := drugPair.ddiType
+	actualParentName := drugPair.parentName
+
+	if expectedDrugA != actualDrugA {
+		return false, "Expected DrugA {" + expectedDrugA + "} does not match actual DrugA {" + actualDrugA + "}"
+	}
+	if expectedDrugB != actualDrugB {
+		return false, "Expected DrugB {" + expectedDrugB + "} does not match actual DrugB {" + actualDrugB + "}"
+	}
+	if expectedDelay != actualDelay {
+		return false, "Expected delay {" + expectedDelay + "} does not match actual delay {" + actualDelay + "}"
+	}
+	if expectedDDIType != actualDDIType {
+		return false, "Expected DDI type {" + expectedDDIType + "} does not match actual DDI {" + actualDDIType + "}"
+	}
+	if expectedParentName != actualParentName {
+		return false, "Expected parent name {" + expectedParentName + "} does not match actual parent name {" + actualParentName + "}"
+	}
+	return true, "success"
+}
+
+func periodicDrugUseHelper(process *Element) (success bool, message string) {
 	iter1 := process.Children[0].(Element)
 
 	expected_loops := Loops(5)
@@ -164,7 +206,7 @@ func processFromFile(filepath string) (*Element, error) {
         return process, err
 }
 
-func delayHelper(process Element) (success bool, message string) {
+func delayHelper(process *Element) (success bool, message string) {
 	proc_children := process.Children
 
 	seq1 := proc_children[0].(Element)
