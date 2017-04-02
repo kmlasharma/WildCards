@@ -96,7 +96,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Status: **Complete**
 * Testing Instructions:
    * This feature is not directly testable, but reviewing the ddi.csv will show our defined format for DDI characterisation Data. 
-   * We require a CSV with 4 columns - Drug A, Drug B, Whether the interaction is adverse, and the duration of the interactoin.
+   * We require a CSV with 4 columns - Drug A, Drug B, Whether the interaction is adverse, and the duration of the interaction.
 
    
 ### ✅ Lookup Drugs in Mock Data File
@@ -129,7 +129,7 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### ✅ Report PML Construct Name-Clash
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
@@ -144,70 +144,96 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### ✅ Report Use Of Task Construct
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
    * When prompted to enter a pml file, enter `subtasks.pml`. 
-   * This feature has two tasks in it, so two tasks will be summarised on the screen.
+   * This file has two tasks in it, so two tasks will be summarised on the screen.
    * If you add/remove a task from this file, or indeed any other file, and re run this test, you will see the results reflecting that.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-![](http://i.imgur.com/2ViHjJt.png)
+![](http://i.imgur.com/2CbrRvY.png)
 
 
-### ⏳ Identify Sequential DDIs
+### ✅ Identify Sequential DDIs
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * When prompted to enter a pml file, enter `sequential_ddi.pml`. 
+   * This file has a possible sequential DDI which will be displayed. 
+   * Note that we do not run the possible DDI to confirm whether or not it is an actual DDI. 
+   * It will be trivial to query our DDI database to check this, which will complete this feature.
+   * There are a number of other files, such as `test.pml` and `sequence_in_branch.pml` that also have sequential possible DDIs. 
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
 
+### ✅ Identify Parallel DDIs
 
-### ⏳ Identify Parallel DDIs
-
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * When prompted to enter a pml file, enter `parallel_ddi.pml`. 
+   * This file has a possible sequential DDI which will be displayed. 
+   * Note that we do not run the possible DDI to confirm whether or not it is an actual DDI. 
+   * It will be trivial to query our DDI database to check this, which will complete this feature.
+   * There are a number of other files, such as `sequence_in_branch.pml` that also have parallel possible DDIs. 
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
    
 ### ⏳ Report Alternative Non-DDIs
 
 * Status: **In Progress**
 * Starting context:
-   * TODO
+   * This feature is almost complete but will require integration with the DDI Database to be fully testable so we will hold off till next week to confirm this.
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * TODO: Planned for Iteration 8
 
-### ⏳ Report Repeated Alternative DDIs
+### ✅ Report Repeated Alternative DDIs
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * When prompted to enter a pml file, enter `selection_in_iteration.pml`. 
+   * This file has a possible sequential DDI which will be displayed. 
+   * Note that we do not run the possible DDI to confirm whether or not it is an actual DDI. 
+   * It will be trivial to query our DDI database to check this, which will complete this feature.
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
 
 
-### ⏳ Specify Periodic Drug Use
+### ✅ Specify Periodic Drug Use
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * When prompted to enter a pml file, enter `periodic_use.pml`. 
+   * This file has an iteration with a `loops` and `delay` constructs, along us to specify periodic drug use. 
+   * It will be run every 3 days (due to a delay of 3 at the end) and run 5 times before finishing. 
+   * We could turn this into a custom keyword such as `periodic` to merge this into one keyword.
+   * We are not reporting use of this feature yet but we will do this to finalise this feature.
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
    
    
-### ⏳ Specify a Delay
+###  ✅ Specify a Delay
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
-   
+   * When prompted to enter a pml file, enter `delays.pml`. 
+   * The file will be correctly parsed, and the delays correcetly assigned.
+   * Nothing will be outputted but once we integrate the DDI Database feature, we will use this delay to determine interactions.
+   * We will also add reporting for this feature to finalise it.
+* Unit Testing:
+  * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
    
 ### ⏳ Specify a Time Interval Offset
 
@@ -215,7 +241,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * TODO
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * TODO: Planned for Iteration 8
 
 
 ### ⏳ Identify DDI Closest Approach
@@ -251,7 +277,7 @@ It is assumed that you have followed the instructions above before testing the f
 2. Run `docker-compose stop` to completely tear down the Docker container (run this command from outside of the container).
 
 
-RELEASE 1 Features:
+# RELEASE 1 Features:
 
 ### ✅ PML File Selection
 
