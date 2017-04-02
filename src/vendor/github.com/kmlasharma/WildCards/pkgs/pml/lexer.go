@@ -23,6 +23,7 @@ const (
 	ITERATION = "iteration"
 	TASK      = "task"
 	BRANCH    = "branch"
+	SELECTION = "selection"
 	DELAY     = "delay"
 	LOOPS     = "loops"
 	ACTION    = "action"

@@ -6,13 +6,13 @@ type ActionWrapper struct {
 }
 
 func (ele *Element) FindDrugPairs() []DrugPair {
-	pairs, _, _ := ele.parsePossibleDDIs([]ActionWrapper{}, Delay(0))
+	pairs, _, _ := ele.parsePossibleDDIs([]ActionWrapper{}, Delay(0), ele.Name)
 	return pairs
 }
 
-func (ele *Element) parseIterationPossibleDDIs(actions []ActionWrapper, delay Delay) (pairs []DrugPair, newActions []ActionWrapper, newDelay Delay) {
+func (ele *Element) parseIterationPossibleDDIs(actions []ActionWrapper, delay Delay, parentName string) (pairs []DrugPair, newActions []ActionWrapper, newDelay Delay) {
 	newDelay = delay
-	newPairs, newActions, updatedNewDelay := ele.parsePossibleDDIs(actions, newDelay)
+	newPairs, newActions, updatedNewDelay := ele.parsePossibleDDIs(actions, newDelay, parentName)
 	iterationDelay := updatedNewDelay - delay
 	for _, pair := range newPairs {
 		delay := iterationDelay - pair.delay
@@ -24,7 +24,7 @@ func (ele *Element) parseIterationPossibleDDIs(actions []ActionWrapper, delay De
 	return
 }
 
-func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallelActions []ActionWrapper, parentName string, delay Delay) (pairs []DrugPair, newParallelActions []ActionWrapper, newDelay Delay) {
+func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallelActions []ActionWrapper, delay Delay, parentName string) (pairs []DrugPair, newParallelActions []ActionWrapper, newDelay Delay) {
 	newParallelActions = oldParallelActions
 	newDelay = delay
 	for _, child := range ele.Children {
@@ -32,10 +32,10 @@ func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallel
 			el := child.(*Element)
 			var newPairs []DrugPair
 			if el.elementType == BranchType {
-				newPairs, newParallelActions, newDelay = el.parseBranchPossibleDDIs(actions, newParallelActions, ele.Name, newDelay)
+				newPairs, newParallelActions, newDelay = el.parseBranchPossibleDDIs(actions, newParallelActions, newDelay, ele.Name)
 				pairs = append(pairs, newPairs...)
 			} else {
-				newPairs, newParallelActions, newDelay = el.parseBranchPossibleDDIs(actions, newParallelActions, parentName, newDelay)
+				newPairs, newParallelActions, newDelay = el.parseBranchPossibleDDIs(actions, newParallelActions, newDelay, parentName)
 				pairs = append(pairs, newPairs...)
 			}
 		} else if child.Type() == ActionType {
@@ -43,9 +43,9 @@ func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallel
 			for _, wrapper := range newParallelActions {
 				action2 := wrapper.action
 				actionDelay := wrapper.currentDelay
-				for _, drugA := range action1.Drugs {
-					for _, drugB := range action2.Drugs {
-						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, ddiType: ParallelType, parentName: ele.Name}
+				for _, drugA := range action2.Drugs {
+					for _, drugB := range action1.Drugs {
+						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, ddiType: ParallelType, parentName: parentName}
 						pairs = append(pairs, pair)
 					}
 				}
@@ -53,9 +53,9 @@ func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallel
 			for _, wrapper := range actions {
 				action2 := wrapper.action
 				actionDelay := wrapper.currentDelay
-				for _, drugA := range action1.Drugs {
-					for _, drugB := range action2.Drugs {
-						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, ddiType: SequentialType, parentName: ele.Name}
+				for _, drugA := range action2.Drugs {
+					for _, drugB := range action1.Drugs {
+						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, ddiType: SequentialType, parentName: parentName}
 						pairs = append(pairs, pair)
 					}
 				}
@@ -67,7 +67,7 @@ func (ele *Element) parseBranchPossibleDDIs(actions []ActionWrapper, oldParallel
 	return
 }
 
-func (ele *Element) parsePossibleDDIs(oldActions []ActionWrapper, currentDelay Delay) (pairs []DrugPair, newActions []ActionWrapper, newDelay Delay) {
+func (ele *Element) parsePossibleDDIs(oldActions []ActionWrapper, currentDelay Delay, parentName string) (pairs []DrugPair, newActions []ActionWrapper, newDelay Delay) {
 	newActions = oldActions
 	newDelay = currentDelay
 	for _, child := range ele.Children {
@@ -76,14 +76,14 @@ func (ele *Element) parsePossibleDDIs(oldActions []ActionWrapper, currentDelay D
 			var newPairs []DrugPair
 			if el.elementType == BranchType {
 				parallelActions := []ActionWrapper{}
-				newPairs, parallelActions, newDelay = el.parseBranchPossibleDDIs(newActions, parallelActions, el.Name, newDelay)
+				newPairs, parallelActions, newDelay = el.parseBranchPossibleDDIs(newActions, parallelActions, newDelay, el.Name)
 				newActions = append(newActions, parallelActions...)
 				pairs = append(pairs, newPairs...)
 			} else if el.elementType == IterationType {
-				newPairs, newActions, newDelay = el.parseIterationPossibleDDIs(newActions, newDelay)
+				newPairs, newActions, newDelay = el.parseIterationPossibleDDIs(newActions, newDelay, el.Name)
 				pairs = append(pairs, newPairs...)
 			} else {
-				newPairs, newActions, newDelay = el.parsePossibleDDIs(newActions, newDelay)
+				newPairs, newActions, newDelay = el.parsePossibleDDIs(newActions, newDelay, el.Name)
 				pairs = append(pairs, newPairs...)
 			}
 		} else if child.Type() == ActionType {
@@ -93,9 +93,9 @@ func (ele *Element) parsePossibleDDIs(oldActions []ActionWrapper, currentDelay D
 			for _, wrapper := range newActions {
 				action2 := wrapper.action
 				actionDelay := wrapper.currentDelay
-				for _, drugA := range action1.Drugs {
-					for _, drugB := range action2.Drugs {
-						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay}
+				for _, drugA := range action2.Drugs {
+					for _, drugB := range action1.Drugs {
+						pair := DrugPair{DrugA: drugA, DrugB: drugB, delay: newDelay - actionDelay, parentName: parentName}
 						pairs = append(pairs, pair)
 					}
 				}

@@ -8,7 +8,6 @@ import (
 	"strconv"
 )
 
-
 type errParser struct {
 	p   *Parser
 	err error
@@ -138,19 +137,12 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 	return Action{}, errors.New("No Script tag")
 }
 
-<<<<<<< HEAD
-func (p *Parser) parseDelay(ep *errParser) (Delay) {
-=======
 func (p *Parser) parseDelay(ep *errParser) Delay {
 	ep.expect(DELAY)
->>>>>>> fd08ee7aff3f907a8b2b93aeef523fc932435fe6
 	ep.expect(LBRACE)
 	str := ep.expect(LIT)
 	ep.expect(RBRACE)
-
-	// parse string into timestamp. TODO: Units
-	i, _ := strconv.Atoi(str)
-	return Delay(i)
+	return NewDelay(str)
 }
 
 func (p *Parser) parseLoops(ep *errParser) int {
@@ -181,6 +173,8 @@ func elementTypeForToken(tok Token) ElementType {
 		return TaskType
 	case BRANCH:
 		return BranchType
+	case SELECTION:
+		return SelectionType
 	default:
 		return ProcessType
 	}
@@ -233,5 +227,3 @@ func (p *Parser) ensureNextTokenType(tok Token) (string, error) {
 func (p *Parser) currentLineNumber() int {
 	return p.s.ln
 }
-
-

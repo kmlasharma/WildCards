@@ -142,10 +142,7 @@ func (p *Parser) parseDelay(ep *errParser) Delay {
 	ep.expect(LBRACE)
 	str := ep.expect(LIT)
 	ep.expect(RBRACE)
-
-	// parse string into timestamp. TODO: Units
-	i, _ := strconv.Atoi(str)
-	return Delay(i)
+	return NewDelay(str)
 }
 
 func (p *Parser) parseLoops(ep *errParser) int {
@@ -176,6 +173,8 @@ func elementTypeForToken(tok Token) ElementType {
 		return TaskType
 	case BRANCH:
 		return BranchType
+	case SELECTION:
+		return SelectionType
 	default:
 		return ProcessType
 	}
