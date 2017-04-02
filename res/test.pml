@@ -1,8 +1,5 @@
 process test {
   sequence seq1 {
-    action act_3 {
-      script { "{\"drugs\": [\"coke\"]}" }
-    }
     iteration s {
       selection s1 {
         action act_1 {
