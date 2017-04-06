@@ -106,21 +106,15 @@ func TestModifyAllChildrenNames(t * testing.T) {
 	}
 }
 
-//func TestJoinPMLProcesses(t * testing.T) {
-	// TODO
-//	fmt.Println("Testing joining processes")
-//	JoinPMLProcesses([]*Element{})
-//}
-
-func TestCombineProcesses(t * testing.T) {
-	fmt.Println("Testing joining two processes")
-	firstProcess, _ := processFromFile("multi_drugs.pml")
-	secondProcess, _ := processFromFile("test.pml")
-
-	expectedProcess, _ := processFromFile("two_combined_processes.pml")
-	CombineProcesses(firstProcess, secondProcess)
-	actualProcess := firstProcess
-	if assert.NotEqual(t, expectedProcess, actualProcess, "Process do not match") {
+func TestJoinPMLProcesses(t * testing.T) {
+	fmt.Println("Testing joining processes")
+	processOne, _ := processFromFile("valid_delay.pml")
+	processTwo, _ := processFromFile("delays.pml")
+	processThree, _ := processFromFile("no_drugs.pml")
+	processFour, _ := processFromFile("subtasks.pml")
+	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree, processFour})
+	expectedProcess, _ := processFromFile("joined_processes.pml")
+	if assert.Equal(t, joinedProcess.Encode("  "), expectedProcess.Encode("  "), "Processes should be equal") {
 		fmt.Println("PASSED!")
 	}
 }
