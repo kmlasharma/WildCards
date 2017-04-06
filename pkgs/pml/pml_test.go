@@ -170,7 +170,7 @@ func TestParallelDrugPair(t *testing.T) {
 }
 
 func TestAlternativeNonDDI(t *testing.T) {
-	fmt.Println("* Testing that alternative non-DDIs are dealt with")
+	fmt.Println("* Testing that alternative non-DDIs are registered")
 	process, err := processFromFile("alternative_non_ddi.pml")
 	drugPair := process.FindDrugPairs()[0]
 	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, drugPair.ddiType, AlternativeNonDDIType, fmt.Sprintf("Alternative Non-DDI not registered, { %s } registered instead", drugPair.ddiType)) {
