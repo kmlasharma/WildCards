@@ -119,3 +119,12 @@ func TestJoinPMLProcesses(t * testing.T) {
 	}
 }
 
+func TestWriteToFile(t * testing.T) {
+	expectedProcess, _ := processFromFile("test.pml")
+	WriteProcessToFile(expectedProcess, "written_process.pml")
+	actualProcess, _ := processFromFile("written_process.pml")
+	if assert.Equal(t, expectedProcess.Encode("  "), actualProcess.Encode("  "), "Process should be equal") {
+		fmt.Println("PASSED!")
+	}
+}
+

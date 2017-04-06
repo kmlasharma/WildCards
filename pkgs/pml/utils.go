@@ -3,6 +3,7 @@ package pml
 import (
 	"strconv"
 	"strings"
+	"io/ioutil"
 )
 
 const SECONDS_TO_MIN = 60
@@ -31,6 +32,12 @@ func convertToSeconds(timeValue string) (timeInSeconds int) {
 		timeInSeconds = num //assume it is seconds
 	}
 	return timeInSeconds
+}
+
+func WriteProcessToFile(process *Element, fileName string) {
+	bytes := []byte(process.Encode("  "))
+	ioutil.WriteFile(resDir + "/" + fileName, bytes, 0644)
+	return
 }
 
 func drugPairListsEqual(listOne, listTwo []DrugPair) (equal bool) {
