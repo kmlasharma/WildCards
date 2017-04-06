@@ -49,6 +49,7 @@ type ElementInterface interface {
 	Type() ElementType
 	IsSubElementType() bool
 	GetName() string
+	ChangeNames(string)
 }
 
 type Element struct {
