@@ -91,6 +91,9 @@ func (p *Parser) parseChildren(ep *errParser) (element Element) {
 			element.Children = append(element.Children, delay)
 		} else if tok == LOOPS {
 			element.Loops = p.parseLoops(ep)
+		} else if tok == WAIT {
+			delay := p.parseTimeIntervalOffset(ep)
+			element.Children = append(element.Children, delay)
 		} else {
 			break
 		}
@@ -153,6 +156,17 @@ func (p *Parser) parseLoops(ep *errParser) int {
 
 	i, _ := strconv.Atoi(str)
 	return i
+}
+
+func (p *Parser) parseTimeIntervalOffset(eo *errParser) Delay {
+	ep.expect(WAIT)
+	ep.expect(LBRACE)
+	timeInterval := ep.expect(LIT)
+	ep.expect(RBRACE)
+
+	// TODO compute delay.
+
+	return NewDelay(timeInterval)
 }
 
 func decodeActionJSON(str string, name string) (Action, error) {

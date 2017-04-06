@@ -64,6 +64,13 @@ func main() {
 	}
 	fmt.Println("\n")
 
+	fmt.Println("Alternative Non-DDI Drug Pairs:")
+	fmt.Println("================================")
+	for _, pair := range process.FindAlternativeNonDDIDrugPairs() {
+		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Selection:", pair.ParentName())
+	}
+	fmt.Println("\n")
+
 	fmt.Println("Alternative Repeated Drug Pairs:")
 	fmt.Println("================================")
 	for _, pair := range process.FindRepeatedAlternativeDrugPairs() {

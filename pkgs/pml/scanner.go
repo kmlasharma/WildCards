@@ -141,6 +141,8 @@ func (s *Scanner) scanIdent() (tok Token, lit string) {
 		return DELAY, buf.String()
 	case "LOOPS":
 		return LOOPS, buf.String()
+	case "WAIT":
+		return WAIT, buf.String()
 	case "ACTION":
 		return ACTION, buf.String()
 	case "SCRIPT":

@@ -32,6 +32,7 @@ const (
 	SequentialType DDIType = iota
 	ParallelType
 	RepeatedAlternativeDDIType
+	AlternativeNonDDIType
 )
 
 func (d DDIType) String() string {
