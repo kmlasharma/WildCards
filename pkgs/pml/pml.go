@@ -3,13 +3,13 @@ package pml
 type ElementType int
 
 const (
-	ActionType ElementType = iota
-	ProcessType
+	ProcessType ElementType = iota
 	IterationType
 	TaskType
 	BranchType
 	SelectionType
 	SequenceType
+	ActionType
 	DelayType
 )
 
@@ -17,7 +17,7 @@ type DrugPair struct {
 	DrugA      string
 	DrugB      string
 	delay      Delay
-	ddiType    DDIType //parallel, sequential
+	ddiType    DDIType //parallel, sequential etc
 	parentName string
 }
 
@@ -32,6 +32,7 @@ const (
 	SequentialType DDIType = iota
 	ParallelType
 	RepeatedAlternativeDDIType
+	AlternativeNonDDIType
 )
 
 func (d DDIType) String() string {
@@ -40,6 +41,10 @@ func (d DDIType) String() string {
 		return "Sequential Type"
 	case ParallelType:
 		return "Parallel Type"
+	case RepeatedAlternativeDDIType:
+		return "Repeated Alternative DDI Type"
+	case AlternativeNonDDIType:
+		return "Alternative Non-DDI Type"
 	default:
 		return ""
 	}
@@ -50,6 +55,7 @@ type ElementInterface interface {
 	IsSubElementType() bool
 	GetName() string
 	ChangeNames(string)
+	Encode(string) string
 }
 
 type Element struct {
@@ -133,4 +139,8 @@ func (el Element) AllTasks() (tasks []*Element) {
 		}
 	}
 	return
+}
+
+func (d Delay) toHumanReadableDate() string {
+	return "30 secs" // TODO
 }

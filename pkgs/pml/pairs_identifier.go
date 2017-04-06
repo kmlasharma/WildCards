@@ -71,6 +71,23 @@ func (p *Params) addAction(action Action, inIter bool) {
 				}
 			}
 		}
+	} else {
+		for _, wrapper := range p.selectionActionWrappers {
+			action1 := wrapper.action
+			actionDelay := wrapper.currentDelay
+			for _, drugA := range action1.Drugs {
+				for _, drugB := range action.Drugs {
+					pair := DrugPair{
+						DrugA:      drugA,
+						DrugB:      drugB,
+						delay:      p.currentDelay - actionDelay,
+						ddiType:    AlternativeNonDDIType,
+						parentName: parentSelectionName,
+					}
+					p.drugPairs = append(p.drugPairs, pair)
+				}
+			}
+		}
 	}
 }
 
@@ -103,6 +120,16 @@ func (ele *Element) FindParallelDrugPairs() (results []DrugPair) {
 	pairs := ele.FindDrugPairs()
 	for _, pair := range pairs {
 		if pair.ddiType == ParallelType {
+			results = append(results, pair)
+		}
+	}
+	return
+}
+
+func (ele *Element) FindAlternativeNonDDIDrugPairs() (results []DrugPair) {
+	pairs := ele.FindDrugPairs()
+	for _, pair := range pairs {
+		if pair.ddiType == AlternativeNonDDIType {
 			results = append(results, pair)
 		}
 	}
@@ -225,10 +252,6 @@ func (ele *Element) parseSelection(params Params, inIter bool) Params {
 			params.drugPairs = append(params.drugPairs, updatedParams.drugPairs...)
 			params.selectionActionWrappers = append(params.selectionActionWrappers, updatedParams.sequentialActionWrappers...)
 		}
-	}
-
-	if !inIter {
-		// There may be alternative paths to highlight?
 	}
 
 	// Set delay as max delay

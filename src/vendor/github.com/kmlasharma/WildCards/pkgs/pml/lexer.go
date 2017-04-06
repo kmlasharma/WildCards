@@ -26,6 +26,7 @@ const (
 	SELECTION = "selection"
 	DELAY     = "delay"
 	LOOPS     = "loops"
+	WAIT      = "wait"
 	ACTION    = "action"
 	SCRIPT    = "script"
 	REQUIRES  = "requires"
