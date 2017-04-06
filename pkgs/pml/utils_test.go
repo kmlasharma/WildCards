@@ -91,11 +91,37 @@ func TestDrugPairListContains(t *testing.T) {
 		ddiType:    ParallelType,
 		parentName: "parent",
 	}
-	//for _, e := range listOne {
-	//	var x = (e == drugPair)
-	//	fmt.Println(x)
-	//}
 	if assert.True(t, drugPairListContains(listOne, drugPair), "Drug should be in list") {
 		fmt.Println("PASSED!")
 	}
 }
+
+func TestModifyAllChildrenNames(t * testing.T) {
+	fmt.Println("Testing adding string to all children")
+	baseProcess, _ := processFromFile("multi_drugs.pml")
+	expectedProcess, _ := processFromFile("modified_multi_drugs.pml")
+	baseProcess.ChangeNames("_1")
+	if assert.Equal(t, baseProcess.Encode("  "), expectedProcess.Encode("  "), "Processes should be equal") {
+		fmt.Println("PASSED!")
+	}
+}
+
+//func TestJoinPMLProcesses(t * testing.T) {
+	// TODO
+//	fmt.Println("Testing joining processes")
+//	JoinPMLProcesses([]*Element{})
+//}
+
+func TestCombineProcesses(t * testing.T) {
+	fmt.Println("Testing joining two processes")
+	firstProcess, _ := processFromFile("multi_drugs.pml")
+	secondProcess, _ := processFromFile("test.pml")
+
+	expectedProcess, _ := processFromFile("two_combined_processes.pml")
+	CombineProcesses(firstProcess, secondProcess)
+	actualProcess := firstProcess
+	if assert.NotEqual(t, expectedProcess, actualProcess, "Process do not match") {
+		fmt.Println("PASSED!")
+	}
+}
+

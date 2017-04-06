@@ -111,7 +111,7 @@ func (p *Parser) parseElement(initialToken Token, ep *errParser) *Element {
 	return &element
 }
 
-func (p *Parser) parseAction(ep *errParser) (Action, error) {
+func (p *Parser) parseAction(ep *errParser) (*Action, error) {
 	ep.expect(ACTION)
 	actionName := ep.expect(IDENT)
 	ep.expect(LBRACE)
@@ -137,7 +137,7 @@ func (p *Parser) parseAction(ep *errParser) (Action, error) {
 	if stringifiedJSON != "" {
 		return decodeActionJSON(stringifiedJSON, actionName)
 	}
-	return Action{}, errors.New("No Script tag")
+	return &Action{}, errors.New("No Script tag")
 }
 
 func (p *Parser) parseDelay(ep *errParser) Delay {
@@ -169,8 +169,8 @@ func (p *Parser) parseTimeIntervalOffset(ep *errParser) Delay {
 	return NewDelay(timeInterval)
 }
 
-func decodeActionJSON(str string, name string) (Action, error) {
-	action := Action{Name: name}
+func decodeActionJSON(str string, name string) (*Action, error) {
+	action := &Action{Name: name}
 	if err := json.Unmarshal([]byte(str), &action); err != nil {
 		return action, errors.New("Non JSON script")
 	}

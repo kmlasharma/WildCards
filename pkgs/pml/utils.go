@@ -3,6 +3,7 @@ package pml
 import (
 	"strconv"
 	"strings"
+	"fmt"
 )
 
 const SECONDS_TO_MIN = 60
@@ -50,3 +51,36 @@ func drugPairListContains(drugPairs []DrugPair, elem DrugPair) (contains bool) {
 	}
 	return false
 }
+
+//func JoinPMLProcesses(processes []*Element) (joinedProcess *Element) {
+//	joinedProcess, _ = processFromFile("base.pml")
+//	for _, process := range processes {
+//		CombineProcesses(joinedProcess, process)
+//	}
+//	return
+//}
+
+func (el *Element) ChangeNames(modifier string) {
+	el.Name = el.Name + modifier
+	for _, child := range el.Children {
+		child.ChangeNames(modifier)
+	}
+}
+
+func (act *Action) ChangeNames(modifier string) {
+	act.Name = act.Name + modifier
+}
+
+func (delay Delay) ChangeNames(modifier string) {
+	return
+}
+
+func CombineProcesses(baseProcess, processToAdd *Element) {
+	for _, child := range processToAdd.Children {
+		baseProcess.Children = append(baseProcess.Children, child)
+	}
+	for i, child := range baseProcess.Children {
+		fmt.Println(fmt.Sprintf("%s: %s", i, child.GetName()))
+	}
+}
+
