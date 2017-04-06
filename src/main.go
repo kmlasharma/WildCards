@@ -78,6 +78,8 @@ func main() {
 	}
 	fmt.Println("\n")
 
+	fmt.Println("Encoded:\n", process.Encode(""))
+
 	fmt.Print("Enter path to CSV File: [default is ddi.csv] ")
 	fmt.Scanln(&csvFilePath)
 	csvFilePath = strings.TrimRight(csvFilePath, "\n")

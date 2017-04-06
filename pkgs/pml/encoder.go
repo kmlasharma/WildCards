@@ -1,54 +1,66 @@
 package pml
 
-// import (
-// 	"encoding/json"
-// 	"fmt"
-// 	"strconv"
-// 	"strings"
-// )
+import (
+	"encoding/json"
+	"fmt"
+	"strconv"
+	"strings"
+)
 
-// func (p *Process) Encode() string {
-// 	return fmt.Sprintf("process %s {\n\t%s\n}", p.Name, encodeSequences(p.Sequences))
-// }
+func (el Element) Encode(indent string) string {
+	initialLine := fmt.Sprintf("%s%s %s {", indent, elementTypeToToken(el.elementType), el.Name)
+	lastLine := fmt.Sprintf("%s}", indent)
+	lines := []string{initialLine}
+	for _, child := range el.Children {
+		lines = append(lines, child.Encode(indent+"  "))
+	}
 
-// func encodeSequences(sequences []Sequence) string {
-// 	arr := []string{}
-// 	for _, seq := range sequences {
-// 		arr = append(arr, encodeSequence(seq))
-// 	}
-// 	return strings.Join(arr, "\n")
-// }
+	if el.Loops > 0 {
+		line := fmt.Sprintf("%sloops { \"%d\" }", indent+"  ", el.Loops)
+		lines = append(lines, line)
+	}
 
-// func encodeSequence(seq Sequence) string {
-// 	return fmt.Sprintf("sequence %s {\n\t%s\n}", seq.Name, encodeActions(seq.Actions))
-// }
+	lines = append(lines, lastLine)
+	return strings.Join(lines, "\n")
+}
 
-// func encodeIterations(iterations []Iteration) string {
-// 	arr := []string{}
-// 	for _, iter := range iterations {
-// 		arr = append(arr, encodeIteration(iter))
-// 	}
-// 	return strings.Join(arr, "\n")
-// }
+func (act Action) Encode(indent string) string {
+	initialLine := fmt.Sprintf("%saction %s {", indent, act.Name)
+	scriptLine := fmt.Sprintf("%s  script { %s }", indent, encodeDrugs(act.Drugs))
+	lastLine := fmt.Sprintf("%s}", indent)
+	lines := []string{initialLine, scriptLine, lastLine}
+	return strings.Join(lines, "\n")
+}
 
-// func encodeIteration(iter Iteration) string {
-// 	return fmt.Sprintf("iteration %s {\n\t%s\n}", iter.Name, encodeActions(iter.Actions))
-// }
+func (d Delay) Encode(indent string) string {
+	return fmt.Sprintf(`%sdelay { "%s" }`, indent, d.toHumanReadableDate())
+}
 
-// func encodeActions(actions []Action) string {
-// 	arr := []string{}
-// 	for _, action := range actions {
-// 		arr = append(arr, encodeAction(action))
-// 	}
-// 	return strings.Join(arr, "\n")
-// }
+func elementTypeToToken(et ElementType) string {
+	switch et {
+	case ProcessType:
+		return "process"
+	case IterationType:
+		return "iteration"
+	case TaskType:
+		return "task"
+	case BranchType:
+		return "branch"
+	case SelectionType:
+		return "selection"
+	case SequenceType:
+		return "sequence"
+	case ActionType:
+		return "action"
+	case DelayType:
+		return "delay"
+	default:
+		return ""
+	}
+}
 
-// func encodeAction(action Action) string {
-// 	return fmt.Sprintf("action %s {\n\t%s\n}", action.Name, encodeScript(action.Drugs))
-// }
-
-// func encodeScript(drugs []string) string {
-// 	dict := map[string]interface{}{"drugs": drugs}
-// 	str, _ := json.Marshal(dict)
-// 	return fmt.Sprintf("script { %s }", strconv.Quote(string(str)))
-// }
+func encodeDrugs(drugs []string) string {
+	dict := map[string]interface{}{"drugs": drugs}
+	bytes, _ := json.Marshal(dict)
+	return strconv.Quote(string(bytes))
+}

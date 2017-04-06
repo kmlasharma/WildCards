@@ -158,7 +158,7 @@ func (p *Parser) parseLoops(ep *errParser) int {
 	return i
 }
 
-func (p *Parser) parseTimeIntervalOffset(eo *errParser) Delay {
+func (p *Parser) parseTimeIntervalOffset(ep *errParser) Delay {
 	ep.expect(WAIT)
 	ep.expect(LBRACE)
 	timeInterval := ep.expect(LIT)
