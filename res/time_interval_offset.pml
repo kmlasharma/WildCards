@@ -1,10 +1,18 @@
 process test {
-  wait{ "Monday" }
-  iteration iter_1 {
-    loops { "5" }
-    action act_1 {
-      script { "{\"drugs\": [\"coke\", \"7up\", \"pepsi\"]}" }
-    }
-    delay { "3 days" }
-  }
+        wait { "Wednesday morning" }
+	iteration iter_1{
+	  branch branch1 {
+            sequence seq1 {
+	      action act_1 {
+	        script { "{\"drugs\": [\"pepsi\"]}" }
+	      }
+ 	    }
+	    sequence seq2 {
+	      wait { "evening" }
+	      action act_2 {
+	        script { "{\"drugs\": [\"flat7up\"]}" }
+	      }
+	    }
+	  }
+	}
 }
