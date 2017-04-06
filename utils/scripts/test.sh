@@ -6,7 +6,8 @@ for dir in `ls pkgs/`;
 do
     cd pkgs/$dir
     go test
-    RESULT=$?
+    PASSED=$?
+    RESULT=$(($RESULT+$PASSED))
     cd ../..
 done
 
