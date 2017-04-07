@@ -1,6 +1,8 @@
 package pml
 
 import (
+	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -16,6 +18,7 @@ var (
 	WEEKDAYS        = []string{"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"}
 	DAYTIMES        = []string{"morning", "afternoon", "evening"}
 	START_TIMESTAMP = int64(378000) // 378000 is the first monday at 9am timestamp
+	resDir          = os.Getenv("RES_DIR")
 )
 
 func convertToSeconds(timeValue string) (timeInSeconds int) {
@@ -109,6 +112,11 @@ func indexOf(s []string, e string) time.Weekday {
 	return time.Weekday(1)
 }
 
+func writeProcessToFile(process *Element, fileName string) {
+	bytes := []byte(process.Encode("  "))
+	ioutil.WriteFile(resDir+"/"+fileName, bytes, 0644)
+}
+
 func drugPairListsEqual(listOne, listTwo []DrugPair) (equal bool) {
 	for _, x := range listOne {
 		if !drugPairListContains(listTwo, x) {
@@ -125,4 +133,45 @@ func drugPairListContains(drugPairs []DrugPair, elem DrugPair) (contains bool) {
 		}
 	}
 	return false
+}
+
+func JoinPMLProcesses(processes []*Element) (joinedProcess *Element) {
+	joinedProcess = &Element{
+		Name:        "merged",
+		Children:    []ElementInterface{},
+		Loops:       0,
+		elementType: ProcessType,
+	}
+	branch := &Element{
+		Name:        "mergedpathways",
+		Children:    []ElementInterface{},
+		Loops:       0,
+		elementType: BranchType,
+	}
+	joinedProcess.Children = append(joinedProcess.Children, branch)
+	for i, process := range processes {
+		process.ChangeNames("_" + strconv.Itoa(i+1))
+		process.elementType = SequenceType
+		branch.Children = append(branch.Children, process)
+	}
+	return
+}
+
+func (el *Element) ChangeNames(modifier string) {
+	el.Name = el.Name + modifier
+	for _, child := range el.Children {
+		child.ChangeNames(modifier)
+	}
+}
+
+func (act *Action) ChangeNames(modifier string) {
+	act.Name = act.Name + modifier
+}
+
+func (delay Delay) ChangeNames(modifier string) {
+	return
+}
+
+func (w Wait) ChangeNames(modifier string) {
+	return
 }

@@ -7,7 +7,7 @@ var (
 )
 
 type ActionWrapper struct {
-	action       Action
+	action       *Action
 	currentDelay Delay
 }
 
@@ -19,7 +19,7 @@ type Params struct {
 	currentDelay             Delay
 }
 
-func (p *Params) addAction(action Action, inIter bool) {
+func (p *Params) addAction(action *Action, inIter bool) {
 	for _, wrapper := range p.parallelActionWrappers {
 		action1 := wrapper.action
 		actionDelay := wrapper.currentDelay
@@ -151,7 +151,7 @@ func (ele *Element) parseElement(params Params, inIter bool) Params {
 	for _, child := range ele.Children {
 		switch child.Type() {
 		case ActionType:
-			action := child.(Action)
+			action := child.(*Action)
 			params.addAction(action, inIter)
 			params.sequentialActionWrappers = append(params.sequentialActionWrappers, ActionWrapper{action: action, currentDelay: params.currentDelay})
 		case DelayType:
@@ -188,7 +188,7 @@ func (ele *Element) parseBranch(params Params, inIter bool) Params {
 	for _, child := range ele.Children {
 		switch child.Type() {
 		case ActionType:
-			action := child.(Action)
+			action := child.(*Action)
 			params.addAction(action, inIter)
 			params.parallelActionWrappers = append(params.parallelActionWrappers, ActionWrapper{action: action, currentDelay: params.currentDelay})
 		case DelayType:
@@ -232,7 +232,7 @@ func (ele *Element) parseSelection(params Params, inIter bool) Params {
 	for _, child := range ele.Children {
 		switch child.Type() {
 		case ActionType:
-			action := child.(Action)
+			action := child.(*Action)
 			params.addAction(action, inIter)
 			params.selectionActionWrappers = append(params.selectionActionWrappers, ActionWrapper{action: action, currentDelay: params.currentDelay})
 		case DelayType:

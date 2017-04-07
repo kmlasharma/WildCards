@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"os"
-	"strings"
 	"testing"
-	"time"
 )
 
 var resDir = os.Getenv("RES_DIR")
@@ -129,14 +127,20 @@ func TestActionDelayFail(t *testing.T) {
 	}
 }
 
-// func TestTimeIntervalOffset(t *testing.T) {
-// 	fmt.Println("* Testing that time interval offsets are processed")
-// 	process, err := processFromFile("time_interval_offset.pml")
-// 	success, message := timeIntervalOffsetHelper(process)
-// 	if assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message) {
-// 		fmt.Println("PASSED!")
-// 	}
-// }
+/*
+func TestTimeIntervalOffset(t *testing.T) {
+ 	fmt.Println("* Testing that time interval offsets are processed")
+ 	process, err := processFromFile("time_interval_offset.pml")
+	drugPair := process.FindDrugPairs()[0]
+	TODO ---
+		actualDDIType := Pull drug pair interaction from DDI database
+		expectedDDIType := "NOT ADVERSE"
+	---
+	if assert.Nil(t, err, "Error with PML file") && assert.Equal(t, expectedDDIType, actualDDIType, "Time interval offset not correctly registered -resulting in wrong DDI type for drug pair")
+		fmt.Println("PASSED!")
+	}
+}
+*/
 
 func TestPeriodicDrugUse(t *testing.T) {
 	fmt.Println("* Testing that periodic drug use is registered")
@@ -164,6 +168,23 @@ func TestParallelDrugPair(t *testing.T) {
 		fmt.Println("PASSED!")
 	}
 }
+
+func TestAlternativeNonDDI(t *testing.T) {
+	fmt.Println("* Testing that alternative non-DDIs are registered")
+	process, err := processFromFile("alternative_non_ddi.pml")
+	drugPair := process.FindDrugPairs()[0]
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, drugPair.ddiType, AlternativeNonDDIType, fmt.Sprintf("Alternative Non-DDI not registered, { %s } registered instead", drugPair.ddiType)) {
+		fmt.Println("PASSED!")
+	}
+}
+
+/*
+func TestDDIClosestApproach(t *testing.T) {
+	fmt.Println("* Testing DDI closest approach")
+	process, err := processFromFile("closest_approach.pml")
+	interactions := process.findInterations(process.FindDrugPairs())
+}
+*/
 
 func TestBranchInSequenceDrugPair(t *testing.T) {
 	fmt.Println("* Testing that branches in sequence DDIs are registered")
@@ -328,33 +349,3 @@ func delayHelper(process *Element) (success bool, message string) {
 	return true, ""
 }
 
-func timeIntervalOffsetHelper(process *Element) (success bool, message string) {
-	procChildren := process.Children
-	subsequentDelay := procChildren[0].(Delay)
-	currentDateAndTime := time.Now().Format(time.UnixDate)
-	today := strings.Split(currentDateAndTime, " ")[0]
-
-	var waitLength = NewDelay("0 days")
-
-	switch today {
-	case "Mon":
-		waitLength = NewDelay("0 days")
-	case "Tue":
-		waitLength = NewDelay("6 days")
-	case "Wed":
-		waitLength = NewDelay("5 days")
-	case "Thu":
-		waitLength = NewDelay("4 days")
-	case "Fri":
-		waitLength = NewDelay("3 days")
-	case "Sat":
-		waitLength = NewDelay("2 days")
-	case "Sun":
-		waitLength = NewDelay("1 day")
-	}
-
-	if subsequentDelay != waitLength {
-		return false, "Did not delay for the right amount of time based on specified time interval offset"
-	}
-	return true, ""
-}

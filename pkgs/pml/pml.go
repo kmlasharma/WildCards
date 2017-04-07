@@ -55,6 +55,7 @@ type ElementInterface interface {
 	Type() ElementType
 	IsSubElementType() bool
 	GetName() string
+	ChangeNames(string)
 	Encode(string) string
 }
 
@@ -130,7 +131,7 @@ func (w Wait) IsSubElementType() bool {
 func (el Element) AllDrugs() (drugs []string) {
 	for _, child := range el.Children {
 		if child.Type() == ActionType {
-			action := child.(Action)
+			action := child.(*Action)
 			drugs = append(drugs, action.Drugs...)
 		} else if child.IsSubElementType() {
 			element := child.(*Element)

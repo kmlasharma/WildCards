@@ -43,8 +43,8 @@ func TestFindAdverseInteraction(t *testing.T) {
 	fmt.Println("* Testing Finding an Adverse Interaction..")
 	assert := setup(t)
 
-	interaction, _ := db.FindInteraction("coke", "7up")
-	if assert.True(interaction.Adverse, "Coke + 7up interaction should be adverse") {
+	interaction, _ := db.FindInteraction("oj", "7up")
+	if assert.True(interaction.Adverse, "OJ + 7up interaction should be adverse") {
 		fmt.Println("PASSED!")
 	}
 }
