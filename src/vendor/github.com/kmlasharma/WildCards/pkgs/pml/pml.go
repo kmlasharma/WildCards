@@ -17,7 +17,7 @@ const (
 type DrugPair struct {
 	DrugA      string
 	DrugB      string
-	delay      Delay
+	Delay      Delay
 	ddiType    DDIType //parallel, sequential etc
 	parentName string
 }
@@ -157,5 +157,5 @@ func (el Element) AllTasks() (tasks []*Element) {
 }
 
 func (d Delay) toHumanReadableDate() string {
-	return "30 secs" // TODO
+	return secondsToHumanReadable(int(d))
 }

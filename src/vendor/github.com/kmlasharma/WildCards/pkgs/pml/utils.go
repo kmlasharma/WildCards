@@ -1,6 +1,7 @@
 package pml
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -41,6 +42,23 @@ func convertToSeconds(timeValue string) (timeInSeconds int) {
 		timeInSeconds = num //assume it is seconds
 	}
 	return timeInSeconds
+}
+
+func secondsToHumanReadable(seconds int) string {
+
+	if seconds/SECONDS_TO_MONTH > 0 {
+		return fmt.Sprintf("%d months", seconds/SECONDS_TO_MONTH)
+	} else if seconds/SECONDS_TO_WEEK > 0 {
+		return fmt.Sprintf("%d weeks", seconds/SECONDS_TO_WEEK)
+	} else if seconds/SECONDS_TO_DAY > 0 {
+		return fmt.Sprintf("%d days", seconds/SECONDS_TO_DAY)
+	} else if seconds/SECONDS_TO_HOUR > 0 {
+		return fmt.Sprintf("%d hrs", seconds/SECONDS_TO_HOUR)
+	} else if seconds/SECONDS_TO_MIN > 0 {
+		return fmt.Sprintf("%d mins", seconds/SECONDS_TO_MIN)
+	} else {
+		return fmt.Sprintf("%d secs", seconds)
+	}
 }
 
 /*

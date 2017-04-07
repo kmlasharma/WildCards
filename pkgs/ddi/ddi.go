@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/kmlasharma/WildCards/pkgs/logger"
+	"github.com/kmlasharma/WildCards/pkgs/pml"
 	_ "github.com/mattn/go-sqlite3"
 	"strings"
 )
@@ -88,6 +89,16 @@ func (db *Database) FindInteractions(drugs []string) (interactions []Interaction
 		err = rows.Err()
 	}
 	rows.Close()
+	return
+}
+
+func (db *Database) FindActiveInteractionsForPairs(pairs []pml.DrugPair) (interactions []Interaction, err error) {
+	for _, pair := range pairs {
+		interaction, err := db.FindInteraction(pair.DrugA, pair.DrugB)
+		if err == nil && interaction.Time > int(pair.Delay) {
+			interactions = append(interactions, interaction)
+		}
+	}
 	return
 }
 

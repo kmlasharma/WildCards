@@ -96,7 +96,7 @@ func TestDrugPairListContains(t *testing.T) {
 	}
 }
 
-func TestModifyAllChildrenNames(t * testing.T) {
+func TestModifyAllChildrenNames(t *testing.T) {
 	fmt.Println("Testing adding string to all children")
 	baseProcess, _ := processFromFile("multi_drugs.pml")
 	expectedProcess, _ := processFromFile("modified_multi_drugs.pml")
@@ -106,7 +106,7 @@ func TestModifyAllChildrenNames(t * testing.T) {
 	}
 }
 
-func TestJoinPMLProcesses(t * testing.T) {
+func TestJoinPMLProcesses(t *testing.T) {
 	fmt.Println("Testing joining processes")
 	processOne, _ := processFromFile("valid_delay.pml")
 	processTwo, _ := processFromFile("delays.pml")
@@ -119,26 +119,25 @@ func TestJoinPMLProcesses(t * testing.T) {
 	}
 }
 
-func TestWriteToFile(t * testing.T) {
+func TestWriteToFile(t *testing.T) {
 	fmt.Println("Testing writing process to file")
 	expectedProcess, _ := processFromFile("test.pml")
-	WriteProcessToFile(expectedProcess, "written_process.pml")
+	writeProcessToFile(expectedProcess, "written_process.pml")
 	actualProcess, _ := processFromFile("written_process.pml")
 	if assert.Equal(t, expectedProcess.Encode("  "), actualProcess.Encode("  "), "Process should be equal") {
 		fmt.Println("PASSED!")
 	}
 }
 
-func TestWriteMergedProcessToFile(t * testing.T) {
+func TestWriteMergedProcessToFile(t *testing.T) {
 	fmt.Println("Testing writing merged processes to file")
 	processOne, _ := processFromFile("valid_delay.pml")
 	processTwo, _ := processFromFile("delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree})
-	WriteProcessToFile(joinedProcess, "written_joined_process.pml")
+	writeProcessToFile(joinedProcess, "written_joined_process.pml")
 	writtenJoinedProcess, _ := processFromFile("written_joined_process.pml")
 	if assert.Equal(t, joinedProcess.Encode("  "), writtenJoinedProcess.Encode("  "), "Processes should be equal") {
 		fmt.Println("PASSED!")
 	}
 }
-

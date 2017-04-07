@@ -28,7 +28,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 				pair := DrugPair{
 					DrugA:      drugA,
 					DrugB:      drugB,
-					delay:      p.currentDelay - actionDelay,
+					Delay:      p.currentDelay - actionDelay,
 					ddiType:    ParallelType,
 					parentName: parentBranchName,
 				}
@@ -45,7 +45,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 				pair := DrugPair{
 					DrugA:      drugA,
 					DrugB:      drugB,
-					delay:      p.currentDelay - actionDelay,
+					Delay:      p.currentDelay - actionDelay,
 					ddiType:    SequentialType,
 					parentName: parentSequenceName,
 				}
@@ -63,7 +63,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 					pair := DrugPair{
 						DrugA:      drugA,
 						DrugB:      drugB,
-						delay:      p.currentDelay - actionDelay,
+						Delay:      p.currentDelay - actionDelay,
 						ddiType:    RepeatedAlternativeDDIType,
 						parentName: parentSelectionName,
 					}
@@ -80,7 +80,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 					pair := DrugPair{
 						DrugA:      drugA,
 						DrugB:      drugB,
-						delay:      p.currentDelay - actionDelay,
+						Delay:      p.currentDelay - actionDelay,
 						ddiType:    AlternativeNonDDIType,
 						parentName: parentSelectionName,
 					}
@@ -274,8 +274,14 @@ func (ele *Element) parseIteration(params Params) Params {
 	updatedParams := ele.parseElement(params, true)
 	iterationDelay := updatedParams.currentDelay - params.currentDelay
 	for _, pair := range updatedParams.drugPairs {
-		delay := iterationDelay - pair.delay
-		newPair := DrugPair{DrugA: pair.DrugB, DrugB: pair.DrugA, delay: delay, ddiType: pair.ddiType, parentName: pair.parentName}
+		delay := iterationDelay - pair.Delay
+		newPair := DrugPair{
+			DrugA:      pair.DrugB,
+			DrugB:      pair.DrugA,
+			Delay:      delay,
+			ddiType:    pair.ddiType,
+			parentName: pair.parentName,
+		}
 		updatedParams.drugPairs = append(updatedParams.drugPairs, newPair)
 	}
 	totalDelay := Delay(int(iterationDelay) * (ele.Loops - 1))
