@@ -11,6 +11,7 @@ const (
 	SequenceType
 	ActionType
 	DelayType
+	WaitType
 )
 
 type DrugPair struct {
@@ -71,6 +72,8 @@ type Action struct {
 
 type Delay int
 
+type Wait string
+
 func NewDelay(delayStr string) Delay {
 	seconds := convertToSeconds(delayStr)
 	return Delay(seconds)
@@ -88,6 +91,10 @@ func (delay Delay) Type() ElementType {
 	return DelayType
 }
 
+func (wait Wait) Type() ElementType {
+	return WaitType
+}
+
 func (el Element) GetName() string {
 	return el.Name
 }
@@ -100,6 +107,10 @@ func (dl Delay) GetName() string {
 	return "delay"
 }
 
+func (w Wait) GetName() string {
+	return "wait"
+}
+
 func (el Element) IsSubElementType() bool {
 	return true
 }
@@ -109,6 +120,10 @@ func (act Action) IsSubElementType() bool {
 }
 
 func (dl Delay) IsSubElementType() bool {
+	return false
+}
+
+func (w Wait) IsSubElementType() bool {
 	return false
 }
 

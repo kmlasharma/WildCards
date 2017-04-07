@@ -33,7 +33,11 @@ func (act Action) Encode(indent string) string {
 }
 
 func (d Delay) Encode(indent string) string {
-	return fmt.Sprintf(`%sdelay { "%s" }`, indent, d.toHumanReadableDate())
+	return fmt.Sprintf("%sdelay { \"%s\" }", indent, d.toHumanReadableDate())
+}
+
+func (w Wait) Encode(indent string) string {
+	return fmt.Sprintf("%swait { \"%s\" }", indent, w)
 }
 
 func elementTypeToToken(et ElementType) string {

@@ -157,6 +157,9 @@ func (ele *Element) parseElement(params Params, inIter bool) Params {
 		case DelayType:
 			delay := child.(Delay)
 			params.currentDelay += delay
+		case WaitType:
+			offset := child.(Wait)
+			params.currentDelay = calculateOffsetDelay(params.currentDelay, offset)
 		default:
 			var updatedParams Params
 			el := child.(*Element)

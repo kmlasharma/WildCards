@@ -1,10 +1,12 @@
 process test {
-  wait{ "Monday" }
-  iteration iter_1 {
-    loops { "5" }
+  sequence seq_1 {
+    delay { "2 days" }
     action act_1 {
-      script { "{\"drugs\": [\"coke\", \"7up\", \"pepsi\"]}" }
+      script { "{\"drugs\": [\"paracetamol\"]}" }
     }
-    delay { "3 days" }
+    wait{ "Monday" }
+    action act_2 {
+      script { "{\"drugs\": [\"alcohol\"]}" }
+    }
   }
 }
