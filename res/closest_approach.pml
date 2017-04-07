@@ -1,7 +1,7 @@
 process test {
   selection sel_1 {
     action act_1 {
-      script { "{\"drugs\": [\"coke\"]}" }
+      script { "{\"drugs\": [\"oj\"]}" }
     }
     action act_2 {
       script { "{\"drugs\": [\"7up\"]}" }
@@ -14,6 +14,15 @@ process test {
     delay { "5 days" }
     action act_4 {
       script { "{\"drugs\": [\"alcohol\"]}" }
+    }
+  }
+  sequence seq_2 {
+    action act_5 {
+      script { "{\"drugs\": [\"pepsi\"]}" }
+    }
+    delay { "1 day" }
+    action act_5 {
+      script { "{\"drugs\": [\"flat7up\"]}" }
     }
   }
 }

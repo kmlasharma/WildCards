@@ -178,6 +178,14 @@ func TestAlternativeNonDDI(t *testing.T) {
 	}
 }
 
+/*
+func TestDDIClosestApproach(t *testing.T) {
+	fmt.Println("* Testing DDI closest approach")
+	process, err := processFromFile("closest_approach.pml")
+	interactions := process.findInterations(process.FindDrugPairs())
+}
+*/
+
 func TestBranchInSequenceDrugPair(t *testing.T) {
 	fmt.Println("* Testing that branches in sequence DDIs are registered")
 	process, err := processFromFile("multiple_branches_in_sequence.pml")
