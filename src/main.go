@@ -9,55 +9,45 @@ import (
 	"strings"
 )
 
-	var resDir = os.Getenv("RES_DIR")
-	var testPMLFile = resDir + "/test.pml"
-	var testDDIFile = resDir + "/ddi.csv"
-	var process *pml.Element
+var resDir = os.Getenv("RES_DIR")
+var testPMLFile = resDir + "/test.pml"
+var testDDIFile = resDir + "/ddi.csv"
+var process *pml.Element
 
 func main() {
 	startMessage()
 	process = selectPML()
-	var csvFilePath string = selectCSV()
+	csvFilePath := selectCSV()
+	continueApp := true
 
-	var selection string
-	var continueApp bool = true
-	for(continueApp == true){
+	for continueApp {
 		fmt.Println("\n")
-		selection= getOptionSelection()
-		switch selection{
-			case "1":
-				fmt.Println("Drugs in this PML Process:\n", strings.Join(process.AllDrugs(), ", "))
-				showAllInteractions(csvFilePath)
-				break
-			case "2":
-				fmt.Println("SHOWING ADVERSE DRUG INTERACTIONS, WITH CLOSEST APPROACH")
-				break
-			case "3":
-				showTaskConstructs()
-				break
-			case "4":
-				showSequentialDrugPairs()
-				break
-			case "5":
-				showParallelDrugPairs()
-				break
-			case "6":
-				showAlternativeNonDDIDrugPairs()
-				break
-			case "7":
-				showAlternativeRepeatedDDIDrugPairs()			
-				break
-			case "8":
-				fmt.Println("SAVE PML TO FILE")
-				break
-			case "9":
-				fmt.Println("MERGE PML FILES")
-				break
-			case "10":
-				continueApp = false				
-				break
-			default:
-				break
+		selection := getOptionSelection()
+		clearScreen()
+		switch selection {
+		case "1":
+			fmt.Println("Drugs in this PML Process:\n", strings.Join(process.AllDrugs(), ", "))
+			showAllInteractions(csvFilePath)
+		case "2":
+			fmt.Println("SHOWING ADVERSE DRUG INTERACTIONS, WITH CLOSEST APPROACH")
+		case "3":
+			showTaskConstructs()
+		case "4":
+			showSequentialDrugPairs()
+		case "5":
+			showParallelDrugPairs()
+		case "6":
+			showAlternativeNonDDIDrugPairs()
+		case "7":
+			showAlternativeRepeatedDDIDrugPairs()
+		case "8":
+			fmt.Println("SAVE PML TO FILE")
+		case "9":
+			fmt.Println("MERGE PML FILES")
+		case "10":
+			continueApp = false
+		default:
+			break
 		}
 	}
 }
@@ -76,7 +66,7 @@ func checkExtension(path string, extension string) {
 	}
 }
 
-func selectCSV() (selectedCSVPath string){
+func selectCSV() (selectedCSVPath string) {
 	fmt.Print("Enter path to CSV File: [default is ddi.csv] ")
 	fmt.Scanln(&selectedCSVPath)
 	selectedCSVPath = strings.TrimRight(selectedCSVPath, "\n")
@@ -84,10 +74,10 @@ func selectCSV() (selectedCSVPath string){
 		selectedCSVPath = testDDIFile
 	}
 	checkExtension(selectedCSVPath, "csv")
-	return selectedCSVPath
+	return
 }
 
-func selectPML() (*pml.Element){
+func selectPML() *pml.Element {
 	var selectedPMLPath string
 	fmt.Print("\nEnter path to PML File: [default is test.pml] ")
 	fmt.Scanln(&selectedPMLPath)
@@ -121,26 +111,28 @@ func processFromFile(path string) *pml.Element {
 	return retProcess
 }
 
-func getOptionSelection() string{
+func getOptionSelection() string {
 	var selectedOperation string
 	fmt.Println("What operation would you like to complete?")
-	fmt.Println("1) Show All Interactions"+
-				"\n2) Show Adverse Drug Interactions (With Closest Approach)"+
-				"\n3) Show Task Constructs"+
-				"\n4) Show Sequential DDIs"+
-				"\n5) Show Parallel DDIs"+
-				"\n6) Show Alternative Non DDIs"+
-				"\n7) Show Alternative Repeated DDIs"+
-				"\n8) Save PML to File "+
-				"\n9) Merge PML Files "+
-				"\n10) Quit Application")
+	fmt.Println(`
+        1) Show All Interactions
+        2) Show Adverse Drug Interactions (With Closest Approach)
+        3) Show Task Constructs
+        4) Show Sequential DDIs
+        5) Show Parallel DDIs
+        6) Show Alternative Non DDIs
+        7) Show Alternative Repeated DDIs
+        8) Save PML to File
+        9) Merge PML Files
+        10) Quit Application
+     `)
 
 	fmt.Scanln(&selectedOperation)
 	selectedOperation = strings.TrimRight(selectedOperation, "\n")
 	return selectedOperation
 }
 
-func showTaskConstructs(){
+func showTaskConstructs() {
 	taskNames := []string{}
 	for _, task := range process.AllTasks() {
 		taskNames = append(taskNames, task.Name)
@@ -148,7 +140,7 @@ func showTaskConstructs(){
 	fmt.Println("Tasks in this PML Process:\n", strings.Join(taskNames, ", "))
 }
 
-func showSequentialDrugPairs(){
+func showSequentialDrugPairs() {
 	fmt.Println("Sequential Drug Pairs:")
 	fmt.Println("======================")
 	for _, pair := range process.FindSequentialDrugPairs() {
@@ -157,16 +149,16 @@ func showSequentialDrugPairs(){
 	fmt.Println("\n")
 }
 
-func showParallelDrugPairs(){
+func showParallelDrugPairs() {
 	fmt.Println("\nParallel Drug Pairs:")
 	fmt.Println("====================")
 	for _, pair := range process.FindParallelDrugPairs() {
-		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Parallel:", pair.ParentName())
+		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Branch:", pair.ParentName())
 	}
 	fmt.Println("\n")
 }
 
-func showAlternativeNonDDIDrugPairs(){
+func showAlternativeNonDDIDrugPairs() {
 	fmt.Println("Alternative Non-DDI Drug Pairs:")
 	fmt.Println("================================")
 	for _, pair := range process.FindAlternativeNonDDIDrugPairs() {
@@ -175,17 +167,17 @@ func showAlternativeNonDDIDrugPairs(){
 	fmt.Println("\n")
 }
 
-func showAlternativeRepeatedDDIDrugPairs(){
+func showAlternativeRepeatedDDIDrugPairs() {
 	fmt.Println("Alternative Repeated Drug Pairs:")
 	fmt.Println("================================")
 	for _, pair := range process.FindRepeatedAlternativeDrugPairs() {
 		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Selection:", pair.ParentName())
 	}
 
-	fmt.Println("\nEncoded:\n", process.Encode(""))
+	fmt.Println("\n")
 }
 
-func showAllInteractions(csvPath string){
+func showAllInteractions(csvPath string) {
 	db := ddi.NewDatabase()
 	db.PopulateFromFile(csvPath)
 	interactions, err := db.FindInteractions(process.AllDrugs())
@@ -194,4 +186,8 @@ func showAllInteractions(csvPath string){
 		os.Exit(1)
 	}
 	fmt.Println("DDI's for this PML File:", interactions)
+}
+
+func clearScreen() {
+	fmt.Print("\033[H\033[2J")
 }
