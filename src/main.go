@@ -27,24 +27,34 @@ func main() {
 		switch selection{
 			case "1":
 				fmt.Println("Drugs in this PML Process:\n", strings.Join(process.AllDrugs(), ", "))
-				getTaskNames()
-				showSequentialDrugPairs()
-				showParallelDrugPairs()
-				showAlternativeNonDDIDrugPairs()
-				showAlternativeRepeatedDDIDrugPairs()
 				showAllInteractions(csvFilePath)
 				break
 			case "2":
-				fmt.Println("SHOWING ADVERSE DRUG INTERACTIONS")
+				fmt.Println("SHOWING ADVERSE DRUG INTERACTIONS, WITH CLOSEST APPROACH")
 				break
 			case "3":
-				fmt.Println("PML SAVED TO FILE")
+				showTaskConstructs()
 				break
 			case "4":
-				fmt.Println("MERGING PML FILES")
+				showSequentialDrugPairs()
 				break
 			case "5":
-				continueApp = false
+				showParallelDrugPairs()
+				break
+			case "6":
+				showAlternativeNonDDIDrugPairs()
+				break
+			case "7":
+				showAlternativeRepeatedDDIDrugPairs()			
+				break
+			case "8":
+				fmt.Println("SAVE PML TO FILE")
+				break
+			case "9":
+				fmt.Println("MERGE PML FILES")
+				break
+			case "10":
+				continueApp = false				
 				break
 			default:
 				break
@@ -114,18 +124,23 @@ func processFromFile(path string) *pml.Element {
 func getOptionSelection() string{
 	var selectedOperation string
 	fmt.Println("What operation would you like to complete?")
-	fmt.Println("\n 1) Show All Interactions")
-	fmt.Println("\n 2) Show Adverse Drug Interactions (With Closest Approach)")
-	fmt.Println("\n 3) Save PML to File ")
-	fmt.Println("\n 4) Merge PML Files ")
-	fmt.Println("\n 5) Quit Application")
-	fmt.Println("Please enter number responding to operation")
+	fmt.Println("1) Show All Interactions"+
+				"\n2) Show Adverse Drug Interactions (With Closest Approach)"+
+				"\n3) Show Task Constructs"+
+				"\n4) Show Sequential DDIs"+
+				"\n5) Show Parallel DDIs"+
+				"\n6) Show Alternative Non DDIs"+
+				"\n7) Show Alternative Repeated DDIs"+
+				"\n8) Save PML to File "+
+				"\n9) Merge PML Files "+
+				"\n10) Quit Application")
+
 	fmt.Scanln(&selectedOperation)
 	selectedOperation = strings.TrimRight(selectedOperation, "\n")
 	return selectedOperation
 }
 
-func getTaskNames(){
+func showTaskConstructs(){
 	taskNames := []string{}
 	for _, task := range process.AllTasks() {
 		taskNames = append(taskNames, task.Name)
