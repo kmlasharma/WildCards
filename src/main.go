@@ -45,6 +45,8 @@ func main() {
 		case "9":
 			fmt.Println("MERGE PML FILES")
 		case "10":
+			process = selectPML()
+		case "11":
 			continueApp = false
 		default:
 			break
@@ -124,7 +126,8 @@ func getOptionSelection() string {
         7) Show Alternative Repeated DDIs
         8) Save PML to File
         9) Merge PML Files
-        10) Quit Application
+        10) Change to new pml file
+        11) Quit Application
      `)
 
 	fmt.Scanln(&selectedOperation)
