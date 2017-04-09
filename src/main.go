@@ -51,6 +51,8 @@ func main() {
 		case "9":
 			process = selectPML()
 		case "10":
+			fmt.Println("SHOW ALL CLOSEST APPROACHES")
+		case "11":
 			os.Exit(0)
 		default:
 			fmt.Println(fmt.Sprintf("\"%s\" is not a valid selection. Please try again", selection))
@@ -78,7 +80,7 @@ func selectCSV() (selectedCSVPath string) {
 	selectedCSVPath = strings.TrimRight(selectedCSVPath, "\n")
 	if selectedCSVPath == "" {
 		selectedCSVPath = testDDIFile
-	}
+	} 
 	checkExtension(selectedCSVPath, "csv")
 	return
 }
@@ -130,7 +132,8 @@ func getOptionSelection() string {
         7) Save PML to File
         8) Merge PML Files
         9) Change to new pml file
-        10) Quit Application
+	10) Show all closest approaches
+        11) Quit Application
      `)
 
 	fmt.Scanln(&selectedOperation)
@@ -208,6 +211,15 @@ func findAndPrintInteractions(pairs []pml.DrugPair) {
 	}
 	fmt.Println(interactions)
 	fmt.Println("\n")
+}
+
+func showClosestApproaches() {
+	fmt.Println("All Closest Approaches:")
+	fmt.Println("======================")
+	pairs := process.FindDrugPairs()
+	for _, pair := range pairs {
+		fmt.Println("Drug A: %s, Drug B: %s, Closest Approach: %s)", pair.DrugA, pair.DrugB, pair.Delay.HumanReadableTime())
+	}
 }
 
 func clearScreen() {
