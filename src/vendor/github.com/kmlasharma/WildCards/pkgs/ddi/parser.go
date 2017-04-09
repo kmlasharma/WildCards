@@ -13,6 +13,7 @@ const SECONDS_TO_MIN = 60
 const SECONDS_TO_HOUR = 3600
 const SECONDS_TO_DAY = 86400
 const SECONDS_TO_WEEK = 604800
+const SECONDS_TO_MONTH = 2592000
 
 const DRUG_1 = "Drug A"
 const DRUG_2 = "Drug B"
@@ -67,6 +68,23 @@ func convertToSeconds(time int, unit string) (timeInSeconds int) {
 	return timeInSeconds
 }
 
+func secondsToHumanReadable(seconds int) string {
+
+	if seconds/SECONDS_TO_MONTH > 0 {
+		return fmt.Sprintf("%d months", seconds/SECONDS_TO_MONTH)
+	} else if seconds/SECONDS_TO_WEEK > 0 {
+		return fmt.Sprintf("%d weeks", seconds/SECONDS_TO_WEEK)
+	} else if seconds/SECONDS_TO_DAY > 0 {
+		return fmt.Sprintf("%d days", seconds/SECONDS_TO_DAY)
+	} else if seconds/SECONDS_TO_HOUR > 0 {
+		return fmt.Sprintf("%d hrs", seconds/SECONDS_TO_HOUR)
+	} else if seconds/SECONDS_TO_MIN > 0 {
+		return fmt.Sprintf("%d mins", seconds/SECONDS_TO_MIN)
+	} else {
+		return fmt.Sprintf("%d secs", seconds)
+	}
+}
+
 func analyseHeader(header []string) (headerToIndex map[string]int) {
 	headerToIndex = make(map[string]int)
 	for i, _ := range header {
@@ -100,4 +118,3 @@ func rowToInteractionObject(row []string, headerToIndex map[string]int) (interac
 	interaction = Interaction{DrugA: drugA, DrugB: drugB, Adverse: adverse, Time: time}
 	return interaction, nil
 }
-

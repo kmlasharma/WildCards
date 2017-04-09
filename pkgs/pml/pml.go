@@ -186,6 +186,6 @@ func (el Element) AllDelays() (delays []Delay) {
 	return
 }
 
-func (d Delay) ToHumanReadableDate() string {
+func (d Delay) toHumanReadableDate() string {
 	return secondsToHumanReadable(int(d))
 }
