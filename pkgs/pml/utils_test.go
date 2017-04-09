@@ -14,21 +14,21 @@ func TestDDIPairsListsEqual(t *testing.T) {
 			DrugB:      "pepsi",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 	}
 	var listTwo = []DrugPair{
@@ -37,21 +37,21 @@ func TestDDIPairsListsEqual(t *testing.T) {
 			DrugB:      "lemsip",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "coke",
 			DrugB:      "pepsi",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 	}
 	if assert.True(t, drugPairListsEqual(listOne, listTwo), "DrugPair lists should be the same") {
@@ -67,21 +67,21 @@ func TestDrugPairListContains(t *testing.T) {
 			DrugB:      "pepsi",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 	}
 	var drugPair = DrugPair{
@@ -89,7 +89,7 @@ func TestDrugPairListContains(t *testing.T) {
 		DrugB:      "pepsi",
 		Delay:      Delay(0),
 		DDIType:    ParallelType,
-		parentName: "parent",
+		ParentName: "parent",
 	}
 	if assert.True(t, drugPairListContains(listOne, drugPair), "Drug should be in list") {
 		fmt.Println("PASSED!")
@@ -122,7 +122,7 @@ func TestJoinPMLProcesses(t *testing.T) {
 func TestWriteToFile(t *testing.T) {
 	fmt.Println("Testing writing process to file")
 	expectedProcess, _ := processFromFile("test.pml")
-	writeProcessToFile(expectedProcess, "written_process.pml")
+	WriteProcessToFile(expectedProcess, "written_process.pml")
 	actualProcess, _ := processFromFile("written_process.pml")
 	if assert.Equal(t, expectedProcess.Encode("  "), actualProcess.Encode("  "), "Process should be equal") {
 		fmt.Println("PASSED!")
@@ -135,7 +135,7 @@ func TestWriteMergedProcessToFile(t *testing.T) {
 	processTwo, _ := processFromFile("delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree})
-	writeProcessToFile(joinedProcess, "written_joined_process.pml")
+	WriteProcessToFile(joinedProcess, "written_joined_process.pml")
 	writtenJoinedProcess, _ := processFromFile("written_joined_process.pml")
 	if assert.Equal(t, joinedProcess.Encode("  "), writtenJoinedProcess.Encode("  "), "Processes should be equal") {
 		fmt.Println("PASSED!")
