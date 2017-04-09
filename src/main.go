@@ -52,7 +52,7 @@ func main() {
 		case "10":
 			os.Exit(0)
 		default:
-			break
+			fmt.Println(fmt.Sprintf("\"%s\" is not a valid selection. Please try again", selection))
 		}
 	}
 }
