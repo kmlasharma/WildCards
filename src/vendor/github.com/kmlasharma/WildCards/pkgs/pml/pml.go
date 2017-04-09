@@ -1,6 +1,11 @@
 package pml
 
+import "os"
+
+
 type ElementType int
+
+var resDir = os.Getenv("RES_DIR")
 
 const (
 	ProcessType ElementType = iota
@@ -18,7 +23,7 @@ type DrugPair struct {
 	DrugA      string
 	DrugB      string
 	Delay      Delay
-	DDIType    DDIType //parallel, sequential etc
+	ddiType    DDIType //parallel, sequential etc
 	parentName string
 }
 
@@ -171,14 +176,14 @@ func (el Element) AllPeriodicIterations() (iterations []*Element) {
 	return
 }
 
-func (el Element) AllDelays() (delays []*Element) {
+func (el Element) AllDelays() (delays []Delays) {
 	for _, child := range el.Children {
 		if child.Type() == DelayType {
-			element := child.(*Element)
+			element := child.(Delay)
 			delays = append(delays, element)
 		}
 		if child.IsSubElementType() {
-			element := child.(*Element)
+			element := child.(Delay)
 			delays = append(delays, element.AllDelays()...)
 		}
 	}
