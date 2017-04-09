@@ -195,14 +195,14 @@ func findAndPrintInteractions(pairs []pml.DrugPair) {
 		fmt.Println("Couldn't find any DDI's")
 		os.Exit(1)
 	}
-	for _, interaction := interactions {
+	for _, interaction := range interactions {
 		var adverse string
-		if interaction. == true {
+		if interaction.Adverse == true {
 			adverse = "Yes"
 		} else {
 			adverse = "No"
 		}
-		fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, interaction.ParentName, interaction.Delay))
+		fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, interaction.ParentName, interaction.Time))
 	}
 	fmt.Println("\n")
 }
