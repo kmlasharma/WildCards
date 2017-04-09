@@ -107,7 +107,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
     * Hit enter at the prompt to select the default PML file. You can also use an alternative PML file.
     * Hit enter at the prompt to select the default DDI file. You can also use an alternative DDI file.
-    * The program will automatically lookup the drugs from the PML file in the Mock data file.
+    * After after selecting 'Show All Interactions' in the menu by entering '1', the app will look up the drugs from the PML file in the Mock data file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
   
