@@ -70,7 +70,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
    
-![](http://i.imgur.com/r5czJYf.png)
+![](http://i.imgur.com/oqpJ9HC.png)
 
 ### ✅ Report Un-named PML Construct
 
@@ -84,7 +84,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-![](http://i.imgur.com/iVQGo8m.png)
+![](http://imgur.com/GDOhHJZ.png)
    
 ### ✅ Mock DDI Characterisation Data
 
@@ -111,7 +111,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
   
-![](http://i.imgur.com/DuVHsbN.png)
+![](http://imgur.com/MzmzX3L.png)
    
 ### ✅ Identify DDIs
 
@@ -125,7 +125,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
   
-![](http://i.imgur.com/DuVHsbN.png)
+![](http://imgur.com/MzmzX3L.png)
 
 ### ✅ Report PML Construct Name-Clash
 
@@ -154,7 +154,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-![](http://i.imgur.com/6AgKC0V.png)
+![](http://imgur.com/MzmzX3L.png)
 
 ### ✅ Identify Sequential DDIs
 
@@ -169,7 +169,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-  ![](http://i.imgur.com/hqVmgHg.png)
+  ![](http://imgur.com/QLgVxA7.png)
 
 ### ✅ Identify Parallel DDIs
 
@@ -184,7 +184,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
   
-   ![](http://i.imgur.com/VOzWqpg.png)
+   ![](http://imgur.com/QQPteEJ.png)
    
 ### ✅ Report Alternative Non-DDIs
 
@@ -197,6 +197,8 @@ It is assumed that you have followed the instructions above before testing the f
    * An Alternative Non DDI will be displayed due to the fact that there is one in the PML file.
 * Unit Testing:
    * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
+   
+   ![](http://imgur.com/rFs7Jy8.png)
 
 ### ✅ Report Repeated Alternative DDIs
 
@@ -210,7 +212,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
   
-  ![](http://i.imgur.com/XPDfP9A.png)
+  ![](http://imgur.com/RMK6pgy.png)
 
 
 ### ✅ Specify Periodic Drug Use
@@ -225,6 +227,8 @@ It is assumed that you have followed the instructions above before testing the f
    * Periodic drug use will be reported immediately.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
+  
+  ![](http://imgur.com/Hqf8DLP.png)
    
    
 ###  ✅ Specify a Delay
@@ -238,6 +242,8 @@ It is assumed that you have followed the instructions above before testing the f
    * Use of delays will be reported immediately.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
+  
+  ![](http://imgur.com/0TG4RAi.png)
    
 ### ✅ Specify a Time Interval Offset
 
@@ -250,6 +256,8 @@ It is assumed that you have followed the instructions above before testing the f
    * Removing it, or changing it, will adjust the interactions in this file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
+  
+  ![](http://imgur.com/fYYGUXN.png)
 
 
 ### ✅ Identify DDI Closest Approach
@@ -264,6 +272,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
 
+![](http://imgur.com/YLqRDrr.png)
 
 ### ✅ Merging Clinical Pathways Written In PML
 
@@ -277,6 +286,7 @@ It is assumed that you have followed the instructions above before testing the f
    * Once you hit enter, the processes will be merged using a branch construct.
    * An easy way to see this in action is to then save the PML file using the instructions below.
  
+ ![](http://imgur.com/T3Nv2jL.png)
  
 ### ✅ PML-TX Save PML To File
 
@@ -289,7 +299,7 @@ It is assumed that you have followed the instructions above before testing the f
    * You will then be asked what you would like to name the saved file. 
    * It will then be saved in the same directory as the other PML files.
    * If you want to read the file, quit the application by entering '11' when prompted. Then you can run `vim <FILE_NAME>` where `<FILE_NAME>` is the name of the file that you saved to.
-
+![](http://imgur.com/n81qLTk.png)
 
 ## Tearing down the Docker container
 
