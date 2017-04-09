@@ -144,6 +144,10 @@ func reportInfo() {
 	// Report missing name constructs etc
 }
 
+func showDelays() {
+
+}
+
 func showAllDrugsInProcess() {
 	fmt.Println("Drugs in Process:", process.AllDrugs())
 }
@@ -162,10 +166,6 @@ func showPeriodicDrugUse() {
 	for _, iter := range process.AllPeriodicIterations() {
 		fmt.Println("Periodic Drug Use in iteration", iter.Name)
 	}
-}
-
-func showDelays() {
-
 }
 
 func showSequentialDrugPairs() {
@@ -211,7 +211,13 @@ func findAndPrintInteractions(pairs []pml.DrugPair) {
 		} else {
 			adverse = "No"
 		}
-		fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, interaction.ParentName, interaction.Time))
+		var parentName string
+		for _, pair := range pairs {
+			if pair.DrugA == interaction.DrugA && pair.DrugB == interaction.DrugB {
+				parentName = pair.ParentName
+			}
+		}
+		fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, parentName, interaction.HumanReadableTime()))
 	}
 	fmt.Println("\n")
 }
