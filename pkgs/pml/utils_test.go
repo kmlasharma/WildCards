@@ -134,7 +134,7 @@ func TestWriteMergedProcessToFile(t *testing.T) {
 	processOne, _ := processFromFile("valid_delay.pml")
 	processTwo, _ := processFromFile("delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
-	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree})
+	joinedProcess := JoinPMLProcesses(processOne, processTwo, processThree)
 	WriteProcessToFile(joinedProcess, "written_joined_process.pml")
 	writtenJoinedProcess, _ := processFromFile("written_joined_process.pml")
 	if assert.Equal(t, joinedProcess.Encode("  "), writtenJoinedProcess.Encode("  "), "Processes should be equal") {
