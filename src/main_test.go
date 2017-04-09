@@ -26,10 +26,10 @@ func TestTimeIntervalOffset(t *testing.T) {
 func TestDDIClosestApproach(t *testing.T) {
 	fmt.Println("* Testing DDI closest approach")
 	assert := setup(t)
-	process, procErr := processFromFile("closest_approach.pml")
-	actualInteractions, interactionErr := ddi.FindActiveInteractionsForPairs(process.FindDrugPairs())
+	process := processFromFile("closest_approach.pml")
+	actualInteractions, interactionErr := db.FindActiveInteractionsForPairs(process.FindDrugPairs())
 	expectedInteraction := ddi.Interaction{"caffeine","alcohol", false, 604800}
-	if assert.Nil(procErr, "There should not be an error with the process") && assert.Nil(interactionErr, "There should not be an error finding interactions") && assertEqual(1, len(actualInteractions), "Too many interactions found") && assert.Equal(actualInteractions[0], expectedInteraction, fmt.Sprintf("Wrong interation found, expected { %s } found { %s }", expectedInteraction, actualInteractions[0])) {
+	if assert.Nil(interactionErr, "There should not be an error finding interactions") && assert.Equal(1, len(actualInteractions), "Too many interactions found") && assert.Equal(actualInteractions[0], expectedInteraction, fmt.Sprintf("Wrong interation found, expected { %s } found { %s }", expectedInteraction, actualInteractions[0])) {
 		fmt.Println("PASSED!")
 	}
 }
