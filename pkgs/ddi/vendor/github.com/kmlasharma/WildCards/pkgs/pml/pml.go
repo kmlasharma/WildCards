@@ -1,6 +1,8 @@
 package pml
 
-import "os"
+import (
+	"os"
+)
 
 type ElementType int
 
@@ -22,7 +24,7 @@ type DrugPair struct {
 	DrugA      string
 	DrugB      string
 	Delay      Delay
-	ddiType    DDIType //parallel, sequential etc
+	DDIType    DDIType //parallel, sequential etc
 	parentName string
 }
 

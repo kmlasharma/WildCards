@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"github.com/kmlasharma/WildCards/pkgs/ddi"
+	"os"
 )
 
-var resDir = os.Getenv("RES_DIR")
-
-var db = NewDatabase()
 
 /*
 func TestTimeIntervalOffset(t *testing.T) {
@@ -35,14 +34,9 @@ func TestDDIClosestApproach(t *testing.T) {
 	}
 }
 
-func processFromFile(filepath string) (*Element, error) {
-	reader, err := os.Open(resDir + "/" + filepath)
-	if err != nil {
-		return &Element{}, err
-	}
-	parser := NewParser(reader)
-	process, err := parser.Parse()
-	return process, err
+func setup(t *testing.T) *assert.Assertions {
+	db.Clear()
+	db.PopulateFromFile(os.Getenv("RES_DIR") + "/ddi.csv")
+	return assert.New(t)
 }
-
 
