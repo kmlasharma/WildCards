@@ -182,7 +182,7 @@ func (el Element) AllDelays() (delays []Delay) {
 			delays = append(delays, element)
 		}
 		if child.IsSubElementType() {
-			element := child.(Delay)
+			element := child.(*Element)
 			delays = append(delays, element.AllDelays()...)
 		}
 	}

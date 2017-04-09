@@ -278,11 +278,11 @@ func (ele *Element) parseIteration(params Params) Params {
 	iterationDelay := updatedParams.currentDelay - params.currentDelay
 	for _, pair := range updatedParams.drugPairs {
 		delay := iterationDelay - pair.Delay
-		var minDelay int
-		if delay < pairDelay {
-			minDelay := delay
+		var minDelay Delay
+		if delay < pair.Delay {
+			minDelay = delay
 		} else {
-			minDelay := pair.Delay
+			minDelay = pair.Delay
 		}
 		newPair := DrugPair{
 			DrugA:      pair.DrugB,
