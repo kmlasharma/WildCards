@@ -3,37 +3,37 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "1dg2wbu6x5+JUYAviaBXTbqPbfI=",
+			"checksumSHA1": "W7zly9dNaEhnrqo1fnd3twwMcjg=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/ddi",
-			"revision": "d3de3e695850e649b23984c6a40231b51d57177d",
-			"revisionTime": "2017-04-09T11:03:29Z"
+			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
+			"revisionTime": "2017-04-09T11:12:46Z"
 		},
 		{
 			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "d3de3e695850e649b23984c6a40231b51d57177d",
-			"revisionTime": "2017-04-09T11:03:29Z"
+			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
+			"revisionTime": "2017-04-09T11:12:46Z"
 		},
 		{
 			"checksumSHA1": "8VLjWFFmJjMJbH4szP4ZvNJHUu0=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "d3de3e695850e649b23984c6a40231b51d57177d",
-			"revisionTime": "2017-04-09T11:03:29Z"
+			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
+			"revisionTime": "2017-04-09T11:12:46Z"
 		},
 		{
-			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
+			"checksumSHA1": "HuW5g535PhU4F2sN5J2o5GL459c=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/github.com/mattn/go-sqlite3",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "d3de3e695850e649b23984c6a40231b51d57177d",
-			"revisionTime": "2017-04-09T11:03:29Z"
+			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
+			"revisionTime": "2017-04-09T11:12:46Z"
 		},
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/golang.org/x/net/context",
 			"path": "golang.org/x/net/context",
-			"revision": "d3de3e695850e649b23984c6a40231b51d57177d",
-			"revisionTime": "2017-04-09T11:03:29Z"
+			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
+			"revisionTime": "2017-04-09T11:12:46Z"
 		}
 	],
-	"rootPath": "github.com/kmlasharma/wildcards/src"
+	"rootPath": "github.com/KmlaSharma/WildCards/src"
 }
