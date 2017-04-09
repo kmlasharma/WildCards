@@ -8,5 +8,6 @@ process test {
         script { "{\"drugs\": [\"alcohol\"]}" }
       }
     }
+    delay { "2 weeks"}
   }
 }

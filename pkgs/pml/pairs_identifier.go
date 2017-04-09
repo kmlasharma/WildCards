@@ -279,24 +279,33 @@ func (ele *Element) parseIteration(params Params) Params {
 	iterationDelay := updatedParams.currentDelay - params.currentDelay
 	pairs := []DrugPair{}
 	for _, pair := range updatedParams.drugPairs {
-		delay := iterationDelay - pair.Delay
-		fmt.Println("Pair: ", pair)
-		fmt.Println("Pair.Delay:", pair.Delay)
-		fmt.Println("Rest of delay:", delay)
-		var minDelay Delay
-		if delay < pair.Delay {
-			minDelay = delay
+		if pair.DDIType == RepeatedAlternativeDDIType {
+			fmt.Println("here")
+			newPair := DrugPair{
+				DrugA:      pair.DrugB,
+				DrugB:      pair.DrugA,
+				Delay:      iterationDelay, // Delay in selection is always 0, so the delay between repeated branching is just the iteration delay
+				DDIType:    pair.DDIType,
+				ParentName: pair.ParentName,
+			}
+			pairs = append(pairs, newPair)
 		} else {
-			minDelay = pair.Delay
+			delay := iterationDelay - pair.Delay
+			var minDelay Delay
+			if delay < pair.Delay {
+				minDelay = delay
+			} else {
+				minDelay = pair.Delay
+			}
+			newPair := DrugPair{
+				DrugA:      pair.DrugB,
+				DrugB:      pair.DrugA,
+				Delay:      minDelay,
+				DDIType:    pair.DDIType,
+				ParentName: pair.ParentName,
+			}
+			pairs = append(pairs, newPair)
 		}
-		newPair := DrugPair{
-			DrugA:      pair.DrugB,
-			DrugB:      pair.DrugA,
-			Delay:      minDelay,
-			DDIType:    pair.DDIType,
-			ParentName: pair.ParentName,
-		}
-		pairs = append(pairs, newPair)
 	}
 	totalDelay := Delay(int(iterationDelay) * (ele.Loops - 1))
 	updatedParams.currentDelay += totalDelay
