@@ -172,15 +172,22 @@ func (el Element) AllPeriodicIterations() (iterations []*Element) {
 	return
 }
 
-func (el Element) AllDelays() (delays []Delay) {
+// Used as temporary return type
+type ElementWithDelay struct {
+	Element Element
+	Delay   Delay
+}
+
+func (el Element) AllWithDelays() (arr []ElementWithDelay) {
 	for _, child := range el.Children {
 		if child.Type() == DelayType {
-			element := child.(Delay)
-			delays = append(delays, element)
+			delay := child.(Delay)
+			res := ElementWithDelay{Element: el, Delay: delay}
+			arr = append(arr, res)
 		}
 		if child.IsSubElementType() {
 			element := child.(*Element)
-			delays = append(delays, element.AllDelays()...)
+			arr = append(arr, element.AllWithDelays()...)
 		}
 	}
 	return

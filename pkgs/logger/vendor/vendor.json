@@ -2,5 +2,5 @@
 	"comment": "",
 	"ignore": "test",
 	"package": [],
-	"rootPath": "github.com/kmlasharma/wildcards/pkgs/logger"
+	"rootPath": "github.com/kmlasharma/WildCards/pkgs/logger"
 }

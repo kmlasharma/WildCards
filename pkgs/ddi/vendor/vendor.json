@@ -12,20 +12,20 @@
 		{
 			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "dcc7807d62a8eb10edeee353d7d185c7794db496",
-			"revisionTime": "2017-04-09T13:55:52Z"
+			"revision": "6634fb1b0aa74bb6b5dd8411559a9b8657cb89cb",
+			"revisionTime": "2017-04-09T14:00:47Z"
 		},
 		{
-			"checksumSHA1": "iXHUtZjxC4l4pKkQ4PthbwkJ9wc=",
+			"checksumSHA1": "qzkCWHaeD3a9+vJHW1J5pDwHTe8=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "dcc7807d62a8eb10edeee353d7d185c7794db496",
-			"revisionTime": "2017-04-09T13:55:52Z"
+			"revision": "6634fb1b0aa74bb6b5dd8411559a9b8657cb89cb",
+			"revisionTime": "2017-04-09T14:00:47Z"
 		},
 		{
-			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
+			"checksumSHA1": "6ZV/m7lRaCJMopHqHHjmcOy9s2A=",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "eac1dfa2a61ebccaa117538a5bb12044f6700cd0",
-			"revisionTime": "2017-03-05T14:02:06Z"
+			"revision": "cf7286f069c3ef596efcc87781a4653a2e7607bd",
+			"revisionTime": "2017-04-07T15:46:27Z"
 		},
 		{
 			"checksumSHA1": "zKKp5SZ3d3ycKe4EKMNT0BqAWBw=",
@@ -43,9 +43,9 @@
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"path": "golang.org/x/net/context",
-			"revision": "007e530097ad7f954752df63046b4036f98ba6a6",
-			"revisionTime": "2017-02-01T22:13:12Z"
+			"revision": "d1e1b351919c6738fdeb9893d5c998b161464f0c",
+			"revisionTime": "2016-12-29T22:47:41Z"
 		}
 	],
-	"rootPath": "github.com/kmlasharma/wildcards/pkgs/ddi"
+	"rootPath": "github.com/kmlasharma/WildCards/pkgs/ddi"
 }

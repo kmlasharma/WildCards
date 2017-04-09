@@ -5,24 +5,19 @@ import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"github.com/kmlasharma/WildCards/pkgs/ddi"
-	"github.com/kmlasharma/WildCards/pkgs/pml"
 	"os"
 )
 
-
-/*
 func TestTimeIntervalOffset(t *testing.T) {
  	fmt.Println("* Testing that time interval offsets are processed")
- 	process, err := processFromFile("time_interval_offset.pml")
+	assert := setup(t)
+ 	process := processFromFile(resDir + "/" + "time_interval_offset.pml")
 	drugPair := process.FindDrugPairs()[0]
-	actualDDIType := Pull drug pair interaction from DDI database
-		expectedDDIType := "NOT ADVERSE"
-	---
-	if assert.Nil(t, err, "Error with PML file") && assert.Equal(t, expectedDDIType, actualDDIType, "Time interval offset not correctly registered -resulting in wrong DDI type for drug pair")
+	_, notFoundErr := db.FindActiveInteractionForPair(drugPair)
+	if assert.NotNil(notFoundErr, "Time interval offset not correctly registered") {
 		fmt.Println("PASSED!")
 	}
 }
-*/
 
 func TestDDIClosestApproach(t *testing.T) {
 	fmt.Println("* Testing DDI closest approach")
