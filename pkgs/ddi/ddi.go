@@ -30,10 +30,14 @@ func NewDatabase() *Database {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	db := &Database{conn: conn}
+	db := Database{conn: conn}
 	db.createTableIfNotExists()
 	db.Clear()
-	return db
+	return &db
+}
+
+func (db *Database) Ping() error {
+	return db.conn.Ping()
 }
 
 func (db *Database) Populate(interactions []Interaction) error {
@@ -69,7 +73,6 @@ func (db *Database) FindInteractions(drugs []string) (interactions []Interaction
 	template := "SELECT * FROM interactions WHERE DrugA IN ('%s') AND DrugB IN ('%s');"
 	drugsString := strings.Join(drugs, "','")
 	query := fmt.Sprintf(template, drugsString, drugsString)
-	fmt.Println("Query:", query)
 	rows, err := db.conn.Query(query)
 	var drugA, drugB string
 	var adverse bool
