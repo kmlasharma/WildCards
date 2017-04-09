@@ -156,7 +156,6 @@ It is assumed that you have followed the instructions above before testing the f
   
 ![](http://i.imgur.com/6AgKC0V.png)
 
-
 ### ✅ Identify Sequential DDIs
 
 * Status: **Complete**
@@ -248,6 +247,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * When prompted to enter a pml file, enter `time_interval_offset.pml`.
    * The 'wait' construct will be correctly parsed. It will wait to Monday due to the `wait{ "Monday" }` construct.
+   * Removing it, or changing it, will adjust the interactions in this file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
 
@@ -260,7 +260,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * When prompted to enter a pml file, enter `closest_approach.pml`. 
    * When you are asked what operation you would like to complete, select 'Show all closest approaches' by entering '10'.
-   * The DDI Closest Approach will be displayed for any interactions. In this case, there will be one, and it will have a closest approach of 'infinite' due to it being in a selection.
+   * The DDI Closest Approach will be displayed for any interactions. In this case, there will be three, and one of them will have a closest approach of 'infinite' due to it being in a selection.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
 
