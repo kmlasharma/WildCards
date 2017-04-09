@@ -100,6 +100,18 @@ func (db *Database) FindInteractions(drugs []string) (interactions []Interaction
 	return
 }
 
+func (db *Database) FindActiveInteractionForPair(pair pml.DrugPair) (Interaction, error) {
+	interaction, err := db.FindInteraction(pair.DrugA, pair.DrugB)
+	if err == nil {
+		if interaction.Time > int(pair.Delay) {
+			return interaction, nil
+		} else {
+			return Interaction{}, errors.New("Not Found")
+		}
+	}
+	return Interaction{}, err
+}
+
 func (db *Database) FindActiveInteractionsForPairs(pairs []pml.DrugPair) (interactions []Interaction, err error) {
 	for _, pair := range pairs {
 		interaction, err := db.FindInteraction(pair.DrugA, pair.DrugB)

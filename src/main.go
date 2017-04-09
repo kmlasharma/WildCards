@@ -185,81 +185,50 @@ func savePMLToFile() {
 func showSequentialDrugPairs() {
 	fmt.Println("Sequential Drug Pairs:")
 	fmt.Println("======================")
-	findAndPrintInteractions(process.FindSequentialDrugPairs())
+	findAndPrintInteractions(process.FindSequentialDrugPairs(), false)
 }
 
 func showParallelDrugPairs() {
 	fmt.Println("\nParallel Drug Pairs:")
 	fmt.Println("====================")
-	findAndPrintInteractions(process.FindParallelDrugPairs())
+	findAndPrintInteractions(process.FindParallelDrugPairs(), false)
 }
 
 func showAlternativeNonDDIDrugPairs() {
 	fmt.Println("Alternative Non-DDI Drug Pairs:")
 	fmt.Println("================================")
-	findAndPrintInteractions(process.FindAlternativeNonDDIDrugPairs())
+	findAndPrintInteractions(process.FindAlternativeNonDDIDrugPairs(), false)
 }
 
 func showAlternativeRepeatedDDIDrugPairs() {
 	fmt.Println("Alternative Repeated Drug Pairs:")
 	fmt.Println("================================")
-	findAndPrintInteractions(process.FindRepeatedAlternativeDrugPairs())
+	findAndPrintInteractions(process.FindRepeatedAlternativeDrugPairs(), false)
 }
 
 func showAllInteractions() {
 	fmt.Println("All Interactions:")
 	fmt.Println("=================")
-	findAndPrintInteractions(process.FindDrugPairs())
+	findAndPrintInteractions(process.FindDrugPairs(), false)
 }
 
 func showAdverseInteractions() {
 	fmt.Println("All Interactions:")
 	fmt.Println("=================")
-	findAndPrintAdverseInteractions(process.FindDrugPairs())
+	findAndPrintInteractions(process.FindDrugPairs(), true)
 }
 
-func findAndPrintAdverseInteractions(pairs []pml.DrugPair) {
-	interactions, err := db.FindActiveInteractionsForPairs(pairs)
-	if err != nil {
-		fmt.Println("Couldn't find any DDI's")
-		os.Exit(1)
-	}
-	for _, interaction := range interactions {
-		var parentName string
-		for _, pair := range pairs {
-			if pair.DrugA == interaction.DrugA && pair.DrugB == interaction.DrugB {
-				parentName = pair.ParentName
+func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
+	for _, pair := range pairs {
+		interaction, err := db.FindActiveInteractionForPair(pair)
+		if err == nil && (!onlyAdverse || interaction.Adverse) {
+			var adverse = "Yes"
+			if !interaction.Adverse {
+				adverse = "No"
 			}
-		}
-		if interaction.Adverse {
-			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, parentName, interaction.HumanReadableTime()))
+			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, pair.ParentName, interaction.HumanReadableTime()))
 		}
 	}
-	fmt.Println("\n")
-}
-
-func findAndPrintInteractions(pairs []pml.DrugPair) {
-	interactions, err := db.FindActiveInteractionsForPairs(pairs)
-	if err != nil {
-		fmt.Println("Couldn't find any DDI's")
-		os.Exit(1)
-	}
-	for _, interaction := range interactions {
-		var adverse string
-		if interaction.Adverse == true {
-			adverse = "Yes"
-		} else {
-			adverse = "No"
-		}
-		var parentName string
-		for _, pair := range pairs {
-			if pair.DrugA == interaction.DrugA && pair.DrugB == interaction.DrugB {
-				parentName = pair.ParentName
-			}
-		}
-		fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, parentName, interaction.HumanReadableTime()))
-	}
-	fmt.Println("\n")
 }
 
 func clearScreen() {
