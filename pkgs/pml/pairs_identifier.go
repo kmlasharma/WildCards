@@ -78,7 +78,6 @@ func (p *Params) addAction(action *Action, inIter bool) {
 	} else {
 		for _, wrapper := range p.selectionActionWrappers {
 			action1 := wrapper.action
-			actionDelay := wrapper.currentDelay
 			for _, drugA := range action1.Drugs {
 				for _, drugB := range action.Drugs {
 					pair := DrugPair{
