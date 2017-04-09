@@ -33,7 +33,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 					DrugA:      drugA,
 					DrugB:      drugB,
 					Delay:      p.currentDelay - actionDelay,
-					ddiType:    ParallelType,
+					DDIType:    ParallelType,
 					parentName: parentBranchName,
 				}
 				p.drugPairs = append(p.drugPairs, pair)
@@ -50,7 +50,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 					DrugA:      drugA,
 					DrugB:      drugB,
 					Delay:      p.currentDelay - actionDelay,
-					ddiType:    SequentialType,
+					DDIType:    SequentialType,
 					parentName: parentSequenceName,
 				}
 				p.drugPairs = append(p.drugPairs, pair)
@@ -68,7 +68,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 						DrugA:      drugA,
 						DrugB:      drugB,
 						Delay:      p.currentDelay - actionDelay,
-						ddiType:    RepeatedAlternativeDDIType,
+						DDIType:    RepeatedAlternativeDDIType,
 						parentName: parentSelectionName,
 					}
 					p.drugPairs = append(p.drugPairs, pair)
@@ -84,7 +84,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 						DrugA:      drugA,
 						DrugB:      drugB,
 						Delay:      math.MaxInt64,
-						ddiType:    AlternativeNonDDIType,
+						DDIType:    AlternativeNonDDIType,
 						parentName: parentSelectionName,
 					}
 					p.drugPairs = append(p.drugPairs, pair)
@@ -112,7 +112,7 @@ func (ele *Element) FindDrugPairs() []DrugPair {
 func (ele *Element) FindSequentialDrugPairs() (results []DrugPair) {
 	pairs := ele.FindDrugPairs()
 	for _, pair := range pairs {
-		if pair.ddiType == SequentialType {
+		if pair.DDIType == SequentialType {
 			results = append(results, pair)
 		}
 	}
@@ -122,7 +122,7 @@ func (ele *Element) FindSequentialDrugPairs() (results []DrugPair) {
 func (ele *Element) FindParallelDrugPairs() (results []DrugPair) {
 	pairs := ele.FindDrugPairs()
 	for _, pair := range pairs {
-		if pair.ddiType == ParallelType {
+		if pair.DDIType == ParallelType {
 			results = append(results, pair)
 		}
 	}
@@ -132,7 +132,7 @@ func (ele *Element) FindParallelDrugPairs() (results []DrugPair) {
 func (ele *Element) FindAlternativeNonDDIDrugPairs() (results []DrugPair) {
 	pairs := ele.FindDrugPairs()
 	for _, pair := range pairs {
-		if pair.ddiType == AlternativeNonDDIType {
+		if pair.DDIType == AlternativeNonDDIType {
 			results = append(results, pair)
 		}
 	}
@@ -142,7 +142,7 @@ func (ele *Element) FindAlternativeNonDDIDrugPairs() (results []DrugPair) {
 func (ele *Element) FindRepeatedAlternativeDrugPairs() (results []DrugPair) {
 	pairs := ele.FindDrugPairs()
 	for _, pair := range pairs {
-		if pair.ddiType == RepeatedAlternativeDDIType {
+		if pair.DDIType == RepeatedAlternativeDDIType {
 			results = append(results, pair)
 		}
 	}
@@ -282,7 +282,7 @@ func (ele *Element) parseIteration(params Params) Params {
 			DrugA:      pair.DrugB,
 			DrugB:      pair.DrugA,
 			Delay:      delay,
-			ddiType:    pair.ddiType,
+			DDIType:    pair.DDIType,
 			parentName: pair.parentName,
 		}
 		updatedParams.drugPairs = append(updatedParams.drugPairs, newPair)

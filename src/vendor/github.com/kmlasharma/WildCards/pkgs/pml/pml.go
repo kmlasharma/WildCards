@@ -18,7 +18,7 @@ type DrugPair struct {
 	DrugA      string
 	DrugB      string
 	Delay      Delay
-	ddiType    DDIType //parallel, sequential etc
+	DDIType    DDIType //parallel, sequential etc
 	parentName string
 }
 
