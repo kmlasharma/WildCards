@@ -3,7 +3,6 @@ package pml
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	"os"
 	"testing"
 	"github.com/kmlasharma/WildCards/pkgs/ddi"
 )

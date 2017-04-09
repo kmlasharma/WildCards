@@ -1,5 +1,8 @@
 package pml
 
+import "os"
+
+
 type ElementType int
 
 var resDir = os.Getenv("RES_DIR")
@@ -153,6 +156,35 @@ func (el Element) AllTasks() (tasks []*Element) {
 		if child.IsSubElementType() {
 			element := child.(*Element)
 			tasks = append(tasks, element.AllTasks()...)
+		}
+	}
+	return
+}
+
+func (el Element) AllPeriodicIterations() (iterations []*Element) {
+	for _, child := range el.Children {
+		if child.Type() == IterationType {
+			iter := child.(*Element)
+			for _, ch := range iter.Children {
+				if ch.Type() == DelayType {
+					iterations = append(iterations, iter)
+					break
+				}
+			}
+		}
+	}
+	return
+}
+
+func (el Element) AllDelays() (delays []*Element) {
+	for _, child := range el.Children {
+		if child.Type() == DelayType {
+			element := child.(*Element)
+			delays = append(delays, element)
+		}
+		if child.IsSubElementType() {
+			element := child.(*Element)
+			delays = append(delays, element.AllDelays()...)
 		}
 	}
 	return

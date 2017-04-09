@@ -3,7 +3,6 @@ package pml
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
 	"strconv"
 	"strings"
 	"time"
