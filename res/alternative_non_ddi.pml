@@ -4,7 +4,7 @@ process test {
       script { "{\"drugs\": [\"coke\"]}" }
     }
     action act_2 {
-      script { "{\"drugs\": [\"7up\"]}" }
+      script { "{\"drugs\": [\"pepsi\"]}" }
     }
   }
 }

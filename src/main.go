@@ -101,9 +101,9 @@ func startMessage() {
 	fmt.Println("\t* You will choose a PML file")
 	fmt.Println("\t* You will choose a CSV file for DDI's")
 	fmt.Println("\t* The app will generate the following:")
-	fmt.Println("\t\t1) Analysis based on your files")
-	fmt.Println("\t\t2) A log file for you to read called analysis.log")
-	fmt.Println("\t\t3) An error output file called analysis.err")
+	fmt.Println("\t\t1) A log file for you to read called analysis.log")
+	fmt.Println("\t\t2) An error output file called analysis.err")
+	fmt.Println("\t* You will then be presented with a more detailed menu for analysing the data")
 	fmt.Println("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
 }
 
@@ -125,11 +125,11 @@ func getOptionSelection() string {
         2) Show Adverse Drug Interactions (With Closest Approach)
         3) Show Sequential DDIs
         4) Show Parallel DDIs
-        5) Show Alternative Non DDIs
+        5) Show Alternative Non-DDIs
         6) Show Alternative Repeated DDIs
         7) Save PML to File
         8) Merge PML Files
-        9) Change to new pml file
+        9) Change to new PML file
 	10) Show all closest approaches
         11) Quit Application
      `)
@@ -197,15 +197,15 @@ func showSequentialDrugPairs() {
 }
 
 func showParallelDrugPairs() {
-	fmt.Println("\nParallel DDIs:")
+	fmt.Println("Parallel DDIs:")
 	fmt.Println("====================")
 	findAndPrintInteractions(process.FindParallelDrugPairs(), false)
 }
 
 func showAlternativeNonDDIDrugPairs() {
-	fmt.Println("Alternative Non-DDI Drug Pairs:")
+	fmt.Println("Alternative Non-DDIs:")
 	fmt.Println("================================")
-	findAndPrintInteractions(process.FindAlternativeNonDDIDrugPairs(), false)
+	findAndPrintNonDDIs(process.FindAlternativeNonDDIDrugPairs(), false)
 }
 
 func showAlternativeRepeatedDDIDrugPairs() {
@@ -221,9 +221,25 @@ func showAllInteractions() {
 }
 
 func showAdverseInteractions() {
-	fmt.Println("All Interactions:")
+	fmt.Println("All Adverse Interactions:")
 	fmt.Println("=================")
 	findAndPrintInteractions(process.FindDrugPairs(), true)
+}
+
+func findAndPrintNonDDIs(pairs []pml.DrugPair, onlyAdverse bool) {
+	for _, pair := range pairs {
+		altered_pair := pair
+		altered_pair.DDIType = pml.SequentialType
+		altered_pair.Delay = pml.Delay(0)
+		interaction, err := db.FindActiveInteractionForPair(altered_pair)
+		if err == nil && (!onlyAdverse || interaction.Adverse) {
+			var adverse = "Yes"
+			if !interaction.Adverse {
+				adverse = "No"
+			}
+			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, pair.ParentName))
+		}
+	}
 }
 
 func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
@@ -234,7 +250,7 @@ func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
 			if !interaction.Adverse {
 				adverse = "No"
 			}
-			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, pair.ParentName, interaction.HumanReadableTime()))
+			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\", Interaction Timeframe: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, pair.ParentName, pair.Delay.HumanReadableTime(), interaction.HumanReadableTime()))
 		}
 	}
 }
