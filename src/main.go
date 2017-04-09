@@ -125,11 +125,11 @@ func getOptionSelection() string {
         2) Show Adverse Drug Interactions (With Closest Approach)
         3) Show Sequential DDIs
         4) Show Parallel DDIs
-        5) Show Alternative Non DDIs
+        5) Show Alternative Non-DDIs
         6) Show Alternative Repeated DDIs
         7) Save PML to File
         8) Merge PML Files
-        9) Change to new pml file
+        9) Change to new PML file
 	10) Show all closest approaches
         11) Quit Application
      `)
@@ -191,25 +191,25 @@ func savePMLToFile() {
 }
 
 func showSequentialDrugPairs() {
-	fmt.Println("Sequential Drug Pairs:")
+	fmt.Println("Sequential DDIs:")
 	fmt.Println("======================")
 	findAndPrintInteractions(process.FindSequentialDrugPairs(), false)
 }
 
 func showParallelDrugPairs() {
-	fmt.Println("\nParallel Drug Pairs:")
+	fmt.Println("Parallel DDIs:")
 	fmt.Println("====================")
 	findAndPrintInteractions(process.FindParallelDrugPairs(), false)
 }
 
 func showAlternativeNonDDIDrugPairs() {
-	fmt.Println("Alternative Non-DDI Drug Pairs:")
+	fmt.Println("Alternative Non-DDIs:")
 	fmt.Println("================================")
 	findAndPrintInteractions(process.FindAlternativeNonDDIDrugPairs(), false)
 }
 
 func showAlternativeRepeatedDDIDrugPairs() {
-	fmt.Println("Alternative Repeated Drug Pairs:")
+	fmt.Println("Alternative Repeated DDIs:")
 	fmt.Println("================================")
 	findAndPrintInteractions(process.FindRepeatedAlternativeDrugPairs(), false)
 }
