@@ -263,7 +263,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `alternative_non_ddi.pml`. 
+   * When prompted to enter a pml file, enter `closest_approach.pml`. 
    * When you are asked what operation you would like to complete, select 'Show all closest approaches' by entering '10'.
    * The DDI Closest Approach will be displayed for any interactions. In this case, there will be one, and it will have a closest approach of 'infinite' due to it being in a selection.
 * Unit Testing:

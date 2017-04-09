@@ -161,6 +161,15 @@ func TestAlternativeNonDDI(t *testing.T) {
 	}
 }
 
+func TestRepeatedAlternativeDDI(t *testing.T) {
+	fmt.Println("* Testing that repeated alternative DDIs are registered")
+	process, err := processFromFile("repeated_alternative_ddi.pml")
+	drugPairs := process.FindRepeatedAlternativeDrugPairs()
+	if assert.Nil(t, err, "There should not be an error parsing the file") && assert.Equal(t, drugPairs[0].DDIType, RepeatedAlternativeDDIType, fmt.Sprintf("Repeated Alternative DDI not registered, { %s } registered instead", drugPairs[0].DDIType)) && assert.Equal(t, drugPairs[0].Delay, NewDelay("3 days"), fmt.Sprintf("Wrong delay, expected 3 days, got { %s }", drugPairs[0].Delay)) {
+		fmt.Println("PASSED!")
+	}
+}
+
 func TestBranchInSequenceDrugPair(t *testing.T) {
 	fmt.Println("* Testing that branches in sequence DDIs are registered")
 	process, err := processFromFile("multiple_branches_in_sequence.pml")
