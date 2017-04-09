@@ -143,6 +143,7 @@ func reportInfo() {
 	showTaskConstructs()
 	showPeriodicDrugUse()
 	showDelays()
+	showWaits()
 	fmt.Println("\n")
 }
 
@@ -169,6 +170,13 @@ func showPeriodicDrugUse() {
 func showDelays() {
 	for _, res := range process.AllWithDelays() {
 		str := fmt.Sprintf("Delay of %s within element '%s'", res.Delay.HumanReadableTime(), res.Element.Name)
+		fmt.Println(str)
+	}
+}
+
+func showWaits() {
+	for _, res := range process.AllWithWaits() {
+		str := fmt.Sprintf("Wait of %s within element '%s'", res.Wait, res.Element.Name)
 		fmt.Println(str)
 	}
 }

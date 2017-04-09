@@ -19,5 +19,11 @@ process test {
         script { "{\"drugs\": [\"milk\"]}" }
       }
     }
+    action act_6 {
+      script { "{\"drugs\": [\"caffeine\"]}" }
+    }
+    action act_7 {
+      script { "{\"drugs\": [\"alcohol\"]}" }
+    }
   }
 }

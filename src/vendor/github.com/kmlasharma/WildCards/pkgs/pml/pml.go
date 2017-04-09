@@ -178,6 +178,11 @@ type ElementWithDelay struct {
 	Delay   Delay
 }
 
+type ElementWithWait struct {
+	Element Element
+	Wait    Wait
+}
+
 func (el Element) AllWithDelays() (arr []ElementWithDelay) {
 	for _, child := range el.Children {
 		if child.Type() == DelayType {
@@ -188,6 +193,21 @@ func (el Element) AllWithDelays() (arr []ElementWithDelay) {
 		if child.IsSubElementType() {
 			element := child.(*Element)
 			arr = append(arr, element.AllWithDelays()...)
+		}
+	}
+	return
+}
+
+func (el Element) AllWithWaits() (arr []ElementWithWait) {
+	for _, child := range el.Children {
+		if child.Type() == WaitType {
+			wait := child.(Wait)
+			res := ElementWithWait{Element: el, Wait: wait}
+			arr = append(arr, res)
+		}
+		if child.IsSubElementType() {
+			element := child.(*Element)
+			arr = append(arr, element.AllWithWaits()...)
 		}
 	}
 	return
