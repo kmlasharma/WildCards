@@ -221,7 +221,7 @@ func showAllInteractions() {
 }
 
 func showAdverseInteractions() {
-	fmt.Println("All Interactions:")
+	fmt.Println("All Adverse Interactions:")
 	fmt.Println("=================")
 	findAndPrintInteractions(process.FindDrugPairs(), true)
 }
