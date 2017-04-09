@@ -78,7 +78,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `missing_pml_construct.pml`. 
+   * When prompted to enter a PML file, enter `missing_pml_construct.pml`. 
    * An error detailing an un-named PML construct will be returned, because the file starts with `process {`. 
    * To fix this and remove this error, change line 1 to `process process_name {`.
 * Unit Testing:
@@ -120,7 +120,7 @@ It is assumed that you have followed the instructions above before testing the f
    * You have completed the Lookup Drugs in Mock Data File step.
 * Testing Instructions:
    * After looking up the drugs from the PML file in the Mock data file, the program will return the valid interactions for this set of drugs after selecting 'Show All Interactions' in the menu by entering '1'.
-   * For example, using the default files (`test.pml` and ddi.csv), 'oj' and '7up', and 'caffeine' and 'alcohol' will be an interaction because both are in the PML file and there is an entry in the csv file for these drugs. 
+   * For example, using the default files (`test.pml` and `ddi.csv`), 'oj' and '7up', and 'caffeine' and 'alcohol' will be interactions because both are in the PML file and there are entries in the Mock data file for these drugs. 
    * You can adjust the Interactions returned by changing the drugs in the DDI file or the PML file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
@@ -133,10 +133,10 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `sequence_clashes.pml`. 
+   * When prompted to enter a PML file, enter `sequence_clashes.pml`. 
    * The program will report that there is a PML Construct name clash for this PML file. 
    * This is because there is two sequences called 'Andy'. 
-   * You can remove this error by changing one of the sequence names and rerunning this test, or recreate it by changing another pml to have clashing names within the same namespace.
+   * You can remove this error by changing one of the sequence names and rerunning this test, or recreate it by changing another PML to have clashing names within the same namespace.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
@@ -148,7 +148,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `subtasks.pml`. 
+   * When prompted to enter a PML file, enter `subtasks.pml`. 
    * This file has two tasks in it, so two tasks will be summarised on the screen.
    * If you add/remove a task from this file, or indeed any other file, and re run this test, you will see the results reflecting that.
 * Unit Testing:
@@ -162,7 +162,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `sequential_ddi.pml`. 
+   * When prompted to enter a PML file, enter `sequential_ddi.pml`. 
    * When you are asked what operation you would like to complete, select 'Show Sequential DDIs' by entering '3'
    * This file has a sequential DDI which will be displayed. 
    * There are a number of other files, such as `test.pml` and `sequence_in_branch.pml` that also have sequential DDIs. 
@@ -177,9 +177,9 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `parallel_ddi.pml`. 
+   * When prompted to enter a PML file, enter `parallel_ddi.pml`. 
    * When you are asked what operation you would like to complete, select 'Show Parallel DDIs' by entering '4'
-   * An Parallel DDI will be displayed due to the fact that there is one in the pml file.
+   * An Parallel DDI will be displayed due to the fact that there is one in the PML file.
    * There are a number of other files, such as `sequence_in_branch.pml` that also have parallel DDIs. 
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
@@ -192,9 +192,9 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `alternative_non_ddi.pml`.
+   * When prompted to enter a PML file, enter `alternative_non_ddi.pml`.
    * When you are asked what operation you would like to complete, select 'Show Alternative Non DDIs' by entering '5'
-   * An Alternative Non DDI will be displayed due to the fact that there is one in the pml file.
+   * An Alternative Non DDI will be displayed due to the fact that there is one in the PML file.
 * Unit Testing:
    * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
 
@@ -204,9 +204,9 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `selection_in_iteration.pml`. 
+   * When prompted to enter a PML file, enter `selection_in_iteration.pml`. 
    * When you are asked what operation you would like to complete, select 'Show Alternative Repeated DDIs' by entering '6'
-   * An Alternative Non DDI will be displayed due to the fact that there is one in the pml file.
+   * An Alternative Non DDI will be displayed due to the fact that there is one in the PML file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
   
@@ -219,7 +219,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `periodic_use.pml`. 
+   * When prompted to enter a PML file, enter `periodic_use.pml`. 
    * This file has an iteration with a `loops` and `delay` constructs, along us to specify periodic drug use. 
    * It will be run every 3 days (due to a delay of 3 at the end) and run 5 times before finishing. 
    * Periodic drug use will be reported immediately.
@@ -233,7 +233,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
     * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `delays.pml`. 
+   * When prompted to enter a PML file, enter `delays.pml`. 
    * The 'delay' construct will be correctly parsed, and the delays correcetly assigned.
    * Use of delays will be reported immediately.
 * Unit Testing:
@@ -245,7 +245,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `time_interval_offset.pml`.
+   * When prompted to enter a PML file, enter `time_interval_offset.pml`.
    * The 'wait' construct will be correctly parsed. It will wait to Monday due to the `wait{ "Monday" }` construct.
    * Removing it, or changing it, will adjust the interactions in this file.
 * Unit Testing:
@@ -258,7 +258,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `closest_approach.pml`. 
+   * When prompted to enter a PML file, enter `closest_approach.pml`. 
    * When you are asked what operation you would like to complete, select 'Show all closest approaches' by entering '10'.
    * The DDI Closest Approach will be displayed for any interactions. In this case, there will be three, and one of them will have a closest approach of 'infinite' due to it being in a selection.
 * Unit Testing:
@@ -271,11 +271,11 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
     * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
+   * When prompted to enter a PML file, enter any PML file (e.g `test.pml`). 
    * When you are asked what operation you would like to complete, select 'Merge PML Files' by entering '8'.
    * You will be asked to enter another PML file, which again, can be any PML file (enter `multi_drugs.pml` for example).
    * Once you hit enter, the processes will be merged using a branch construct.
-   * An easy way to see this in action is to then save the pml file using the instructions below.
+   * An easy way to see this in action is to then save the PML file using the instructions below.
  
  
 ### ✅ PML-TX Save PML To File
@@ -284,10 +284,10 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
+   * When prompted to enter a PML file, enter any PML file (e.g `test.pml`). 
    * When you are asked what operation you would like to complete, select 'Save PML to File' by entering '7'.
    * You will then be asked what you would like to name the saved file. 
-   * It will then be saved in the same directory as the other pml files.
+   * It will then be saved in the same directory as the other PML files.
    * If you want to read the file, quit the application by entering '11' when prompted. Then you can run `vim <FILE_NAME>` where `<FILE_NAME>` is the name of the file that you saved to.
 
 
