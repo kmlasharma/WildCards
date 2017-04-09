@@ -272,8 +272,8 @@ It is assumed that you have followed the instructions above before testing the f
     * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
    * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
-   * When you are asked what operation you would like to complete, select 'Merge PML Files' by entering '8' (enter `multi_drugs.pml` for example).
-   * You will be asked to enter another PML file, which again, can be any PML file.
+   * When you are asked what operation you would like to complete, select 'Merge PML Files' by entering '8'.
+   * You will be asked to enter another PML file, which again, can be any PML file (enter `multi_drugs.pml` for example).
    * Once you hit enter, the processes will be merged using a branch construct.
    * An easy way to see this in action is to then save the pml file using the instructions below.
  
