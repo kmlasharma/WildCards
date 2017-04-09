@@ -110,8 +110,8 @@ func TestBrokenFile(t *testing.T) {
 
 func TestDelayExistence(t *testing.T) {
 	fmt.Println("* Testing that Delays are processed")
-	process, err := processFromFile("Delays.pml")
-	success, message := DelayHelper(process)
+	process, err := processFromFile("delays.pml")
+	success, message := delayHelper(process)
 	if assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
@@ -119,7 +119,7 @@ func TestDelayExistence(t *testing.T) {
 
 func TestActionDelayFail(t *testing.T) {
 	fmt.Println("* Testing that PML files with Delays inside actions are rejected")
-	_, err := processFromFile("action_Delay.pml")
+	_, err := processFromFile("action_delay.pml")
 	if assert.NotEqual(t, err, nil, "There should be an error raised due to Delay inside action") {
 		fmt.Println("PASSED!")
 	}
@@ -167,6 +167,7 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
+
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
 	pairB := DrugPair{DrugA: "milk", DrugB: "oj", Delay: Delay(0), DDIType: ParallelType, parentName: "branch2"}
 
@@ -187,6 +188,7 @@ func TestBranchInIteration(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
+
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
 	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
 
@@ -202,6 +204,7 @@ func TestSequenceInBranch(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
+
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: SequentialType, parentName: "seq_1"}
 	pairB := DrugPair{DrugA: "7up", DrugB: "club", Delay: Delay(0), DDIType: SequentialType, parentName: "seq_2"}
 	pairC := DrugPair{DrugA: "coke", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
@@ -286,7 +289,7 @@ func processFromFile(filepath string) (*Element, error) {
 	return process, err
 }
 
-func DelayHelper(process *Element) (success bool, message string) {
+func delayHelper(process *Element) (success bool, message string) {
 	procChildren := process.Children
 
 	seq1 := procChildren[0].(*Element)

@@ -108,8 +108,8 @@ func TestModifyAllChildrenNames(t *testing.T) {
 
 func TestJoinPMLProcesses(t *testing.T) {
 	fmt.Println("Testing joining processes")
-	processOne, _ := processFromFile("valid_Delay.pml")
-	processTwo, _ := processFromFile("Delays.pml")
+	processOne, _ := processFromFile("valid_delay.pml")
+	processTwo, _ := processFromFile("delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	processFour, _ := processFromFile("subtasks.pml")
 	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree, processFour})
@@ -131,8 +131,8 @@ func TestWriteToFile(t *testing.T) {
 
 func TestWriteMergedProcessToFile(t *testing.T) {
 	fmt.Println("Testing writing merged processes to file")
-	processOne, _ := processFromFile("valid_Delay.pml")
-	processTwo, _ := processFromFile("Delays.pml")
+	processOne, _ := processFromFile("valid_delay.pml")
+	processTwo, _ := processFromFile("delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree})
 	writeProcessToFile(joinedProcess, "written_joined_process.pml")
