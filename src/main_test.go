@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"github.com/kmlasharma/WildCards/pkgs/ddi"
+	"github.com/kmlasharma/WildCards/pkgs/pml"
 	"os"
 )
 
@@ -26,16 +27,17 @@ func TestTimeIntervalOffset(t *testing.T) {
 func TestDDIClosestApproach(t *testing.T) {
 	fmt.Println("* Testing DDI closest approach")
 	assert := setup(t)
-	process := processFromFile("closest_approach.pml")
+	process := processFromFile(resDir + "/" + "closest_approach.pml")	
 	actualInteractions, interactionErr := db.FindActiveInteractionsForPairs(process.FindDrugPairs())
-	expectedInteraction := ddi.Interaction{"caffeine","alcohol", false, 604800}
-	if assert.Nil(interactionErr, "There should not be an error finding interactions") && assert.Equal(1, len(actualInteractions), "Too many interactions found") && assert.Equal(actualInteractions[0], expectedInteraction, fmt.Sprintf("Wrong interation found, expected { %s } found { %s }", expectedInteraction, actualInteractions[0])) {
+	expectedInteraction := ddi.Interaction{ "caffeine","alcohol", true, 604800 }
+	if assert.Nil(interactionErr, "There should not be an error finding interactions") && assert.Equal(1, len(actualInteractions), "Wrong number of interactions found") && assert.Equal(actualInteractions[0], expectedInteraction, fmt.Sprintf("Wrong interation found, expected { %s } found { %s }", expectedInteraction, actualInteractions[0])) {
 		fmt.Println("PASSED!")
 	}
 }
 
+
 func setup(t *testing.T) *assert.Assertions {
-	db.Clear()
+	db = ddi.NewDatabase()
 	db.PopulateFromFile(os.Getenv("RES_DIR") + "/ddi.csv")
 	return assert.New(t)
 }
