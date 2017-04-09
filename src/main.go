@@ -173,6 +173,7 @@ func showDelays() {
 }
 
 func mergePMLFile() {
+	fmt.Println("Provide file path of PML file to merge.")
 	newProcess := selectPML()
 	process = pml.JoinPMLProcesses(process, newProcess)
 	fmt.Println("Merged PML file into current Process. Save the file to see the result.")
