@@ -11,10 +11,10 @@ process test {
 
 		sequence seq_2 {
 			action act_3 {
-  				script { "{\"drugs\": [\"7up\"]}" }
+  				script { "{\"drugs\": [\"alcohol\"]}" }
 	 		}
 			action act_4 {
-  				script { "{\"drugs\": [\"club\"]}" }
+  				script { "{\"drugs\": [\"flat7up\"]}" }
 			}
 		}
 	}
