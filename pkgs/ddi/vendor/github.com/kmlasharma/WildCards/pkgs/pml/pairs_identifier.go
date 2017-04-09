@@ -1,6 +1,7 @@
 package pml
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -279,6 +280,9 @@ func (ele *Element) parseIteration(params Params) Params {
 	pairs := []DrugPair{}
 	for _, pair := range updatedParams.drugPairs {
 		delay := iterationDelay - pair.Delay
+		fmt.Println("Pair: ", pair)
+		fmt.Println("Pair.Delay:", pair.Delay)
+		fmt.Println("Rest of delay:", delay)
 		var minDelay Delay
 		if delay < pair.Delay {
 			minDelay = delay

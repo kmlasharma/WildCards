@@ -78,7 +78,7 @@ func selectCSV() (selectedCSVPath string) {
 	selectedCSVPath = strings.TrimRight(selectedCSVPath, "\n")
 	if selectedCSVPath == "" {
 		selectedCSVPath = testDDIFile
-	} 
+	}
 	checkExtension(selectedCSVPath, "csv")
 	return
 }
@@ -191,13 +191,13 @@ func savePMLToFile() {
 }
 
 func showSequentialDrugPairs() {
-	fmt.Println("Sequential Drug Pairs:")
+	fmt.Println("Sequential DDIs:")
 	fmt.Println("======================")
 	findAndPrintInteractions(process.FindSequentialDrugPairs(), false)
 }
 
 func showParallelDrugPairs() {
-	fmt.Println("\nParallel Drug Pairs:")
+	fmt.Println("\nParallel DDIs:")
 	fmt.Println("====================")
 	findAndPrintInteractions(process.FindParallelDrugPairs(), false)
 }
@@ -209,7 +209,7 @@ func showAlternativeNonDDIDrugPairs() {
 }
 
 func showAlternativeRepeatedDDIDrugPairs() {
-	fmt.Println("Alternative Repeated Drug Pairs:")
+	fmt.Println("Alternative Repeated DDIs:")
 	fmt.Println("================================")
 	findAndPrintInteractions(process.FindRepeatedAlternativeDrugPairs(), false)
 }
@@ -245,7 +245,7 @@ func showClosestApproaches() {
 	pairs := process.FindDrugPairs()
 	for _, pair := range pairs {
 		var time string
-		if(pair.DDIType == pml.AlternativeNonDDIType) {
+		if pair.DDIType == pml.AlternativeNonDDIType {
 			time = "infinite"
 		} else {
 			time = pair.Delay.HumanReadableTime()
