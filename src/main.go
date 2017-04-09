@@ -106,6 +106,7 @@ func startMessage() {
 	fmt.Println("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
 }
 
+
 func processFromFile(path string) *pml.Element {
 	reader, _ := os.Open(path)
 	parser := pml.NewParser(reader)
@@ -115,6 +116,7 @@ func processFromFile(path string) *pml.Element {
 	}
 	return retProcess
 }
+
 
 func getOptionSelection() string {
 	var selectedOperation string
