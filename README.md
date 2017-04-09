@@ -48,11 +48,6 @@ Docker is all you need for the project. To install Docker:
 
 ![](http://i.imgur.com/HFsNKtK.png)
 
-## Testing:
-
-A suite of automated unit tests can be run to test all features of the app. This can be done by navigating to `/go/src/app` (the default starting point of the app), and running `tests`. The test files are primarly for PML and DDI features, so are found in `/go/src/app/pkgs/pml/pml_test.go` and `/go/src/app/pkgs/ddi/ddi_test.go`. The `tests` command will automatically include these tests. The output will look like below (this is a subset of the tests and there will be more output):
-
-![](http://i.imgur.com/kmi1Pt5.png)
 
 ## Features:
 
@@ -263,7 +258,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Starting context:
    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * When prompted to enter a pml file, enter `alternative_non_ddi.pml`. 
+   * When prompted to enter a pml file, enter `closest_approach.pml`. 
    * When you are asked what operation you would like to complete, select 'Show all closest approaches' by entering '10'.
    * The DDI Closest Approach will be displayed for any interactions. In this case, there will be one, and it will have a closest approach of 'infinite' due to it being in a selection.
 * Unit Testing:
