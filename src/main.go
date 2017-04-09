@@ -130,7 +130,7 @@ func getOptionSelection() string {
         7) Save PML to File
         8) Merge PML Files
         9) Change to new PML file
-	10) Show all closest approaches
+	10) Show DDI closest approaches
         11) Quit Application
      `)
 
@@ -244,6 +244,7 @@ func findAndPrintNonDDIs(pairs []pml.DrugPair, onlyAdverse bool) {
 
 func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
 	for _, pair := range pairs {
+		fmt.Println(pair)
 		interaction, err := db.FindActiveInteractionForPair(pair)
 		if err == nil && (!onlyAdverse || interaction.Adverse) {
 			var adverse = "Yes"
@@ -256,10 +257,20 @@ func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
 }
 
 func showClosestApproaches() {
-	fmt.Println("All Closest Approaches:")
+	fmt.Println("DDI Closest Approaches:")
 	fmt.Println("======================")
 	pairs := process.FindDrugPairs()
+	var new_pairs []pml.DrugPair
 	for _, pair := range pairs {
+		altered_pair := pair
+		altered_pair.Delay = pml.Delay(0)
+		altered_pair.DDIType = pml.SequentialType
+		_, err := db.FindActiveInteractionForPair(altered_pair)
+		if err == nil {
+			new_pairs = append(new_pairs, pair)
+		}
+	}
+	for _, pair := range new_pairs {
 		var time string
 		if(pair.DDIType == pml.AlternativeNonDDIType) {
 			time = "infinite"
