@@ -168,13 +168,13 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
 
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairB := DrugPair{DrugA: "milk", DrugB: "oj", Delay: Delay(0), DDIType: ParallelType, parentName: "branch2"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
+	pairB := DrugPair{DrugA: "milk", DrugB: "oj", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch2"}
 
-	pairC := DrugPair{DrugA: "coke", DrugB: "milk", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
-	pairD := DrugPair{DrugA: "coke", DrugB: "oj", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
-	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
-	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "milk", Delay: Delay(0), DDIType: SequentialType, ParentName: "seq1"}
+	pairD := DrugPair{DrugA: "coke", DrugB: "oj", Delay: Delay(0), DDIType: SequentialType, ParentName: "seq1"}
+	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", Delay: Delay(0), DDIType: SequentialType, ParentName: "seq1"}
+	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", Delay: Delay(0), DDIType: SequentialType, ParentName: "seq1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList") {
@@ -189,8 +189,8 @@ func TestBranchInIteration(t *testing.T) {
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
 
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
+	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for branches within iterations") {
@@ -205,12 +205,12 @@ func TestSequenceInBranch(t *testing.T) {
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
 
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: SequentialType, parentName: "seq_1"}
-	pairB := DrugPair{DrugA: "7up", DrugB: "club", Delay: Delay(0), DDIType: SequentialType, parentName: "seq_2"}
-	pairC := DrugPair{DrugA: "coke", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairD := DrugPair{DrugA: "coke", DrugB: "club", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairE := DrugPair{DrugA: "pepsi", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: SequentialType, ParentName: "seq_1"}
+	pairB := DrugPair{DrugA: "7up", DrugB: "club", Delay: Delay(0), DDIType: SequentialType, ParentName: "seq_2"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
+	pairD := DrugPair{DrugA: "coke", DrugB: "club", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
+	pairE := DrugPair{DrugA: "pepsi", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
+	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for sequences within branches") {
@@ -241,7 +241,7 @@ func drugPairHelper(process *Element, expectedDDITypeIn DDIType, expectedParentN
 	actualDrugB := drugPair.DrugB
 	actualDelay := drugPair.Delay
 	actualDDIType := drugPair.DDIType
-	actualParentName := drugPair.parentName
+	actualParentName := drugPair.ParentName
 
 	if expectedDrugA != actualDrugA {
 		return false, fmt.Sprintf("Expected DrugA { %s } does not match actual DrugA { %s }", expectedDrugA, actualDrugA)

@@ -14,21 +14,21 @@ func TestDDIPairsListsEqual(t *testing.T) {
 			DrugB:      "pepsi",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 	}
 	var listTwo = []DrugPair{
@@ -37,21 +37,21 @@ func TestDDIPairsListsEqual(t *testing.T) {
 			DrugB:      "lemsip",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "coke",
 			DrugB:      "pepsi",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 	}
 	if assert.True(t, drugPairListsEqual(listOne, listTwo), "DrugPair lists should be the same") {
@@ -67,21 +67,21 @@ func TestDrugPairListContains(t *testing.T) {
 			DrugB:      "pepsi",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
 			Delay:      Delay(0),
 			DDIType:    ParallelType,
-			parentName: "parent",
+			ParentName: "parent",
 		},
 	}
 	var drugPair = DrugPair{
@@ -89,7 +89,7 @@ func TestDrugPairListContains(t *testing.T) {
 		DrugB:      "pepsi",
 		Delay:      Delay(0),
 		DDIType:    ParallelType,
-		parentName: "parent",
+		ParentName: "parent",
 	}
 	if assert.True(t, drugPairListContains(listOne, drugPair), "Drug should be in list") {
 		fmt.Println("PASSED!")

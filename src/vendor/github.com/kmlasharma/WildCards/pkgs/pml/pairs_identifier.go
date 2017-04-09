@@ -34,7 +34,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 					DrugB:      drugB,
 					Delay:      p.currentDelay - actionDelay,
 					DDIType:    ParallelType,
-					parentName: parentBranchName,
+					ParentName: parentBranchName,
 				}
 				p.drugPairs = append(p.drugPairs, pair)
 			}
@@ -51,7 +51,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 					DrugB:      drugB,
 					Delay:      p.currentDelay - actionDelay,
 					DDIType:    SequentialType,
-					parentName: parentSequenceName,
+					ParentName: parentSequenceName,
 				}
 				p.drugPairs = append(p.drugPairs, pair)
 			}
@@ -69,7 +69,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 						DrugB:      drugB,
 						Delay:      p.currentDelay - actionDelay,
 						DDIType:    RepeatedAlternativeDDIType,
-						parentName: parentSelectionName,
+						ParentName: parentSelectionName,
 					}
 					p.drugPairs = append(p.drugPairs, pair)
 				}
@@ -85,7 +85,7 @@ func (p *Params) addAction(action *Action, inIter bool) {
 						DrugB:      drugB,
 						Delay:      math.MaxInt64,
 						DDIType:    AlternativeNonDDIType,
-						parentName: parentSelectionName,
+						ParentName: parentSelectionName,
 					}
 					p.drugPairs = append(p.drugPairs, pair)
 				}
@@ -289,7 +289,7 @@ func (ele *Element) parseIteration(params Params) Params {
 			DrugB:      pair.DrugA,
 			Delay:      minDelay,
 			DDIType:    pair.DDIType,
-			parentName: pair.parentName,
+			ParentName: pair.ParentName,
 		}
 		updatedParams.drugPairs = append(updatedParams.drugPairs, newPair)
 	}
