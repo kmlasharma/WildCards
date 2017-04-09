@@ -3,37 +3,37 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "W7zly9dNaEhnrqo1fnd3twwMcjg=",
+			"checksumSHA1": "EZfG5GECbk6PJTtKDz+owqWhyUk=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/ddi",
-			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
-			"revisionTime": "2017-04-09T11:12:46Z"
+			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
+			"revisionTime": "2017-04-09T11:30:54Z"
 		},
 		{
 			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
-			"revisionTime": "2017-04-09T11:12:46Z"
+			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
+			"revisionTime": "2017-04-09T11:30:54Z"
 		},
 		{
-			"checksumSHA1": "8VLjWFFmJjMJbH4szP4ZvNJHUu0=",
+			"checksumSHA1": "rqa10hpCAUL3HGkUanVM8Mk3mog=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
-			"revisionTime": "2017-04-09T11:12:46Z"
+			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
+			"revisionTime": "2017-04-09T11:30:54Z"
 		},
 		{
-			"checksumSHA1": "HuW5g535PhU4F2sN5J2o5GL459c=",
+			"checksumSHA1": "6ZV/m7lRaCJMopHqHHjmcOy9s2A=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/github.com/mattn/go-sqlite3",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
-			"revisionTime": "2017-04-09T11:12:46Z"
+			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
+			"revisionTime": "2017-04-09T11:30:54Z"
 		},
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/golang.org/x/net/context",
 			"path": "golang.org/x/net/context",
-			"revision": "5b4df266513228b517c224f730b59e86d62fc074",
-			"revisionTime": "2017-04-09T11:12:46Z"
+			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
+			"revisionTime": "2017-04-09T11:30:54Z"
 		}
 	],
-	"rootPath": "github.com/KmlaSharma/WildCards/src"
+	"rootPath": "github.com/kmlasharma/WildCards/src"
 }
