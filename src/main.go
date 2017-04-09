@@ -48,6 +48,7 @@ func main() {
 			mergePMLFile()
 		case "9":
 			process = selectPML()
+			reportInfo()
 		case "10":
 			showClosestApproaches()
 		case "11":
@@ -78,7 +79,7 @@ func selectCSV() (selectedCSVPath string) {
 	selectedCSVPath = strings.TrimRight(selectedCSVPath, "\n")
 	if selectedCSVPath == "" {
 		selectedCSVPath = testDDIFile
-	} 
+	}
 	checkExtension(selectedCSVPath, "csv")
 	return
 }
