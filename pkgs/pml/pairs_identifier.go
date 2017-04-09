@@ -1,5 +1,9 @@
 package pml
 
+import (
+	"math"
+)
+
 var (
 	parentBranchName    = ""
 	parentSequenceName  = ""
@@ -74,13 +78,12 @@ func (p *Params) addAction(action *Action, inIter bool) {
 	} else {
 		for _, wrapper := range p.selectionActionWrappers {
 			action1 := wrapper.action
-			actionDelay := wrapper.currentDelay
 			for _, drugA := range action1.Drugs {
 				for _, drugB := range action.Drugs {
 					pair := DrugPair{
 						DrugA:      drugA,
 						DrugB:      drugB,
-						Delay:      p.currentDelay - actionDelay,
+						Delay:      math.MaxInt64,
 						ddiType:    AlternativeNonDDIType,
 						parentName: parentSelectionName,
 					}
