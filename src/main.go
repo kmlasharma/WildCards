@@ -49,7 +49,7 @@ func main() {
 		case "11":
 			continueApp = false
 		default:
-			break
+			fmt.Println(fmt.Sprintf("\"%s\" is not a valid selection. Please try again", selection))
 		}
 	}
 }
