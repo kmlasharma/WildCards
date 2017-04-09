@@ -49,7 +49,7 @@ func main() {
 		case "9":
 			process = selectPML()
 		case "10":
-			fmt.Println("SHOW ALL CLOSEST APPROACHES")
+			showClosestApproaches()
 		case "11":
 			os.Exit(0)
 		default:
@@ -241,7 +241,13 @@ func showClosestApproaches() {
 	fmt.Println("======================")
 	pairs := process.FindDrugPairs()
 	for _, pair := range pairs {
-		fmt.Println("Drug A: %s, Drug B: %s, Closest Approach: %s)", pair.DrugA, pair.DrugB, pair.Delay.HumanReadableTime())
+		var time string
+		if(pair.DDIType == pml.AlternativeNonDDIType) {
+			time = "infinite"
+		} else {
+			time = pair.Delay.HumanReadableTime()
+		}
+		fmt.Println(fmt.Sprintf("Drug A: %s, Drug B: %s, Closest Approach: %s", pair.DrugA, pair.DrugB, time))
 	}
 }
 
