@@ -10,24 +10,31 @@
 			"revisionTime": "2017-01-30T11:31:45Z"
 		},
 		{
-			"checksumSHA1": "EZfG5GECbk6PJTtKDz+owqWhyUk=",
+			"checksumSHA1": "k5Sfu7quPIPd2nrKerN62tCS8CQ=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/ddi",
-			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
-			"revisionTime": "2017-04-09T11:30:54Z"
+			"revision": "16e5180b29565b61caf492ca5c3de9d0831b2d0c",
+			"revisionTime": "2017-04-09T11:40:42Z"
 		},
 		{
 			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/github.com/kmlasharma/WildCards/pkgs/logger",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
-			"revisionTime": "2017-04-09T11:30:54Z"
+			"revision": "16e5180b29565b61caf492ca5c3de9d0831b2d0c",
+			"revisionTime": "2017-04-09T11:40:42Z"
 		},
 		{
-			"checksumSHA1": "6ZV/m7lRaCJMopHqHHjmcOy9s2A=",
+			"checksumSHA1": "xTddG7TRsTeqZgRCrylkAJ+w4lE=",
+			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/github.com/kmlasharma/WildCards/pkgs/pml",
+			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
+			"revision": "16e5180b29565b61caf492ca5c3de9d0831b2d0c",
+			"revisionTime": "2017-04-09T11:40:42Z"
+		},
+		{
+			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/github.com/mattn/go-sqlite3",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
-			"revisionTime": "2017-04-09T11:30:54Z"
+			"revision": "16e5180b29565b61caf492ca5c3de9d0831b2d0c",
+			"revisionTime": "2017-04-09T11:40:42Z"
 		},
 		{
 			"checksumSHA1": "zKKp5SZ3d3ycKe4EKMNT0BqAWBw=",
@@ -46,9 +53,9 @@
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/golang.org/x/net/context",
 			"path": "golang.org/x/net/context",
-			"revision": "15aeaa50613abf8695e8a7384beaa42d1e7a5d57",
-			"revisionTime": "2017-04-09T11:30:54Z"
+			"revision": "16e5180b29565b61caf492ca5c3de9d0831b2d0c",
+			"revisionTime": "2017-04-09T11:40:42Z"
 		}
 	],
-	"rootPath": "github.com/kmlasharma/WildCards/pkgs/pml"
+	"rootPath": "github.com/kmlasharma/wildcards/pkgs/pml"
 }
