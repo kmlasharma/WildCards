@@ -1,7 +1,6 @@
 package pml
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -180,7 +179,6 @@ func (ele *Element) parseElement(params Params, inIter bool) Params {
 			params.drugPairs = updatedParams.drugPairs
 			params.sequentialActionWrappers = append(params.sequentialActionWrappers, updatedParams.sequentialActionWrappers...)
 			params.currentDelay += updatedParams.currentDelay
-			fmt.Println("Adding delay:", updatedParams.currentDelay)
 		}
 	}
 	return params
@@ -269,7 +267,6 @@ func (ele *Element) parseSelection(params Params, inIter bool) Params {
 			maxDelay = delay
 		}
 	}
-	fmt.Println("Adding delay from selection:", maxDelay)
 	params.currentDelay = maxDelay
 	params.sequentialActionWrappers = append(params.sequentialActionWrappers, params.selectionActionWrappers...)
 	params.selectionActionWrappers = []ActionWrapper{}
