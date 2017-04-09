@@ -234,7 +234,7 @@ func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
 			if !interaction.Adverse {
 				adverse = "No"
 			}
-			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, pair.ParentName, interaction.HumanReadableTime()))
+			fmt.Println(fmt.Sprintf("Drug A: \"%s\", Drug B: \"%s\", Adverse Interaction: \"%s\", Parent Name: \"%s\", Closest Approach: \"%s\", Interaction Timeframe: \"%s\"", interaction.DrugA, interaction.DrugB, adverse, pair.ParentName, pair.Delay.HumanReadableTime(), interaction.HumanReadableTime()))
 		}
 	}
 }
