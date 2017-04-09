@@ -69,6 +69,7 @@ func (db *Database) FindInteractions(drugs []string) (interactions []Interaction
 	template := "SELECT * FROM interactions WHERE DrugA IN ('%s') AND DrugB IN ('%s');"
 	drugsString := strings.Join(drugs, "','")
 	query := fmt.Sprintf(template, drugsString, drugsString)
+	fmt.Println("Query:", query)
 	rows, err := db.conn.Query(query)
 	var drugA, drugB string
 	var adverse bool

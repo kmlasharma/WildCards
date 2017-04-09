@@ -13,41 +13,44 @@ var resDir = os.Getenv("RES_DIR")
 var testPMLFile = resDir + "/test.pml"
 var testDDIFile = resDir + "/ddi.csv"
 var process *pml.Element
+var db *ddi.Database
 
 func main() {
 	startMessage()
 	process = selectPML()
-	csvFilePath := selectCSV()
-	continueApp := true
 
-	for continueApp {
+	reportWarnings()
+
+	csvFilePath := selectCSV()
+	db := ddi.NewDatabase()
+	db.PopulateFromFile(csvFilePath)
+
+	for {
 		fmt.Println("\n")
 		selection := getOptionSelection()
 		clearScreen()
 		switch selection {
 		case "1":
 			fmt.Println("Drugs in this PML Process:\n", strings.Join(process.AllDrugs(), ", "))
-			showAllInteractions(csvFilePath)
+			showAllInteractions()
 		case "2":
 			fmt.Println("SHOWING ADVERSE DRUG INTERACTIONS, WITH CLOSEST APPROACH")
 		case "3":
-			showTaskConstructs()
-		case "4":
 			showSequentialDrugPairs()
-		case "5":
+		case "4":
 			showParallelDrugPairs()
-		case "6":
+		case "5":
 			showAlternativeNonDDIDrugPairs()
-		case "7":
+		case "6":
 			showAlternativeRepeatedDDIDrugPairs()
-		case "8":
+		case "7":
 			fmt.Println("SAVE PML TO FILE")
-		case "9":
+		case "8":
 			fmt.Println("MERGE PML FILES")
-		case "10":
+		case "9":
 			process = selectPML()
-		case "11":
-			continueApp = false
+		case "10":
+			os.Exit(0)
 		default:
 			break
 		}
@@ -119,15 +122,14 @@ func getOptionSelection() string {
 	fmt.Println(`
         1) Show All Interactions
         2) Show Adverse Drug Interactions (With Closest Approach)
-        3) Show Task Constructs
-        4) Show Sequential DDIs
-        5) Show Parallel DDIs
-        6) Show Alternative Non DDIs
-        7) Show Alternative Repeated DDIs
-        8) Save PML to File
-        9) Merge PML Files
-        10) Change to new pml file
-        11) Quit Application
+        3) Show Sequential DDIs
+        4) Show Parallel DDIs
+        5) Show Alternative Non DDIs
+        6) Show Alternative Repeated DDIs
+        7) Save PML to File
+        8) Merge PML Files
+        9) Change to new pml file
+        10) Quit Application
      `)
 
 	fmt.Scanln(&selectedOperation)
@@ -135,60 +137,59 @@ func getOptionSelection() string {
 	return selectedOperation
 }
 
+func reportWarnings() {
+	showTaskConstructs()
+	// Report missing name constructs etc
+}
+
 func showTaskConstructs() {
 	taskNames := []string{}
 	for _, task := range process.AllTasks() {
 		taskNames = append(taskNames, task.Name)
 	}
-	fmt.Println("Tasks in this PML Process:\n", strings.Join(taskNames, ", "))
+	if len(taskNames) > 0 {
+		fmt.Println("Tasks in this PML Process:\n", strings.Join(taskNames, ", "))
+	}
 }
 
 func showSequentialDrugPairs() {
 	fmt.Println("Sequential Drug Pairs:")
 	fmt.Println("======================")
-	for _, pair := range process.FindSequentialDrugPairs() {
-		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Sequence:", pair.ParentName())
-	}
-	fmt.Println("\n")
+	findAndPrintInteractions(process.FindSequentialDrugPairs())
 }
 
 func showParallelDrugPairs() {
 	fmt.Println("\nParallel Drug Pairs:")
 	fmt.Println("====================")
-	for _, pair := range process.FindParallelDrugPairs() {
-		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Branch:", pair.ParentName())
-	}
-	fmt.Println("\n")
+	findAndPrintInteractions(process.FindParallelDrugPairs())
 }
 
 func showAlternativeNonDDIDrugPairs() {
 	fmt.Println("Alternative Non-DDI Drug Pairs:")
 	fmt.Println("================================")
-	for _, pair := range process.FindAlternativeNonDDIDrugPairs() {
-		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Selection:", pair.ParentName())
-	}
-	fmt.Println("\n")
+	findAndPrintInteractions(process.FindAlternativeNonDDIDrugPairs())
 }
 
 func showAlternativeRepeatedDDIDrugPairs() {
 	fmt.Println("Alternative Repeated Drug Pairs:")
 	fmt.Println("================================")
-	for _, pair := range process.FindRepeatedAlternativeDrugPairs() {
-		fmt.Println("DrugA:", pair.DrugA, ", Drug B:", pair.DrugB, ", Parent Selection:", pair.ParentName())
-	}
-
-	fmt.Println("\n")
+	findAndPrintInteractions(process.FindRepeatedAlternativeDrugPairs())
 }
 
-func showAllInteractions(csvPath string) {
-	db := ddi.NewDatabase()
-	db.PopulateFromFile(csvPath)
-	interactions, err := db.FindInteractions(process.AllDrugs())
+func showAllInteractions() {
+	fmt.Println("All Interactions:")
+	fmt.Println("=================")
+	findAndPrintInteractions(process.FindDrugPairs())
+}
+
+func findAndPrintInteractions(pairs []pml.DrugPair) {
+	interactions, err := db.FindActiveInteractionsForPairs(pairs)
 	if err != nil {
 		fmt.Println("Couldn't find any DDI's")
 		os.Exit(1)
 	}
-	fmt.Println("DDI's for this PML File:", interactions)
+	fmt.Println(interactions)
+	fmt.Println("\n")
 }
 
 func clearScreen() {
