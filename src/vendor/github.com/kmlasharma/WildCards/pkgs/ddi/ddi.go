@@ -21,6 +21,10 @@ type Interaction struct {
 	Time    int
 }
 
+func (i Interaction) HumanReadableTime() string {
+	return secondsToHumanReadable(i.Time)
+}
+
 func NewDatabase() *Database {
 	conn, err := sql.Open("sqlite3", "./dinto.db")
 	if err != nil {

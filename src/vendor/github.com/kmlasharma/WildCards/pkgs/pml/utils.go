@@ -168,7 +168,7 @@ func JoinPMLProcesses(processes ...*Element) (joinedProcess *Element) {
 	for i, process := range processes {
 		process.ChangeNames("_" + strconv.Itoa(i+1))
 		process.elementType = SequenceType
-		branch.Children = append(branch.Children, *process)
+		branch.Children = append(branch.Children, process)
 	}
 	return
 }

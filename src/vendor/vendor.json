@@ -10,29 +10,29 @@
 			"revisionTime": "2017-01-30T11:31:45Z"
 		},
 		{
-			"checksumSHA1": "MlD/o6S0gKb8RqALoXe4Qu0b2vE=",
+			"checksumSHA1": "fbjbbjWNyJbBxofCbREwoY+ShOY=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/ddi",
-			"revision": "5fc3e923ec854a3351ca932df97e1f40632a0653",
-			"revisionTime": "2017-04-09T12:44:54Z"
+			"revision": "4a4af0870a9f0fe0c465325440cd7ffda4e0bc75",
+			"revisionTime": "2017-04-09T13:01:41Z"
 		},
 		{
 			"checksumSHA1": "nErpGBcFQx1Xw5uTd1tz3iritJs=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/logger",
-			"revision": "5fc3e923ec854a3351ca932df97e1f40632a0653",
-			"revisionTime": "2017-04-09T12:44:54Z"
+			"revision": "4a4af0870a9f0fe0c465325440cd7ffda4e0bc75",
+			"revisionTime": "2017-04-09T13:01:41Z"
 		},
 		{
-			"checksumSHA1": "4z+lHlEssC4PQtoG17qGAZ3L6OM=",
+			"checksumSHA1": "R0zfdt4IO03bbUXo/9etRc9JWSc=",
 			"path": "github.com/kmlasharma/WildCards/pkgs/pml",
-			"revision": "5fc3e923ec854a3351ca932df97e1f40632a0653",
-			"revisionTime": "2017-04-09T12:44:54Z"
+			"revision": "4a4af0870a9f0fe0c465325440cd7ffda4e0bc75",
+			"revisionTime": "2017-04-09T13:01:41Z"
 		},
 		{
 			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/github.com/mattn/go-sqlite3",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "5fc3e923ec854a3351ca932df97e1f40632a0653",
-			"revisionTime": "2017-04-09T12:44:54Z"
+			"revision": "4a4af0870a9f0fe0c465325440cd7ffda4e0bc75",
+			"revisionTime": "2017-04-09T13:01:41Z"
 		},
 		{
 			"checksumSHA1": "zKKp5SZ3d3ycKe4EKMNT0BqAWBw=",
@@ -51,8 +51,8 @@
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"origin": "github.com/kmlasharma/WildCards/pkgs/ddi/vendor/golang.org/x/net/context",
 			"path": "golang.org/x/net/context",
-			"revision": "5fc3e923ec854a3351ca932df97e1f40632a0653",
-			"revisionTime": "2017-04-09T12:44:54Z"
+			"revision": "4a4af0870a9f0fe0c465325440cd7ffda4e0bc75",
+			"revisionTime": "2017-04-09T13:01:41Z"
 		}
 	],
 	"rootPath": "github.com/kmlasharma/wildcards/src"
