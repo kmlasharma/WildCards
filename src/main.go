@@ -150,7 +150,7 @@ func reportInfo() {
 }
 
 func showAllDrugsInProcess() {
-	fmt.Println("Drugs in Process:", process.AllDrugs())
+	fmt.Println("Drugs in Process:", strings.Join(process.AllDrugs(), ", ")
 }
 
 func showTaskConstructs() {
