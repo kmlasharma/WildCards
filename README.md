@@ -272,20 +272,27 @@ It is assumed that you have followed the instructions above before testing the f
 
 ### ✅ Merging Clinical Pathways Written In PML
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+    * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
-   
-   
-### ⏳ PML-TX Save PML To File
+   * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
+   * When you are asked what operation you would like to complete, select 'Merge PML Files' by entering '8'.
+   * You will be asked to enter another PML file, which again, can be any PML file.
+   * Once you hit enter, the processes will be merged using a branch construct.
+   * An easy way to see this in action is to then save the pml file using the instructions below.
+ 
+ 
+### ✅ PML-TX Save PML To File
 
-* Status: **In Progress**
+* Status: **Complete**
 * Starting context:
-   * TODO
+   * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
-   * TODO: Planned for Iteration 7
+   * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
+   * When you are asked what operation you would like to complete, select 'Save PML to File' by entering '7'.
+   * You will then be asked what you would like the name the saved file. 
+   * It will then be saved in the same directory as the other pml files.
 
 
 ## Tearing down the Docker container
