@@ -156,7 +156,6 @@ It is assumed that you have followed the instructions above before testing the f
   
 ![](http://i.imgur.com/6AgKC0V.png)
 
-
 ### ✅ Identify Sequential DDIs
 
 * Status: **Complete**
@@ -248,6 +247,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * When prompted to enter a pml file, enter `time_interval_offset.pml`.
    * The 'wait' construct will be correctly parsed. It will wait to Monday due to the `wait{ "Monday" }` construct.
+   * Removing it, or changing it, will adjust the interactions in this file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`
 
