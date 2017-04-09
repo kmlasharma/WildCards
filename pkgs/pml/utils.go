@@ -19,7 +19,6 @@ var (
 	WEEKDAYS        = []string{"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"}
 	DAYTIMES        = []string{"morning", "afternoon", "evening"}
 	START_TIMESTAMP = int64(378000) // 378000 is the first monday at 9am timestamp
-	resDir          = os.Getenv("RES_DIR")
 )
 
 func convertToSeconds(timeValue string) (timeInSeconds int) {
