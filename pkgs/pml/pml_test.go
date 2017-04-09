@@ -3,11 +3,9 @@ package pml
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"os"
 	"testing"
-	"github.com/kmlasharma/WildCards/pkgs/ddi"
 )
-
-var db = NewDatabase()
 
 func TestMissingFile(t *testing.T) {
 	fmt.Println("* Testing loading PML file that does not exist")
@@ -111,35 +109,21 @@ func TestBrokenFile(t *testing.T) {
 }
 
 func TestDelayExistence(t *testing.T) {
-	fmt.Println("* Testing that delays are processed")
-	process, err := processFromFile("delays.pml")
-	success, message := delayHelper(process)
+	fmt.Println("* Testing that Delays are processed")
+	process, err := processFromFile("Delays.pml")
+	success, message := DelayHelper(process)
 	if assert.Equal(t, err, nil, "There should no errors detected processing the file") && assert.Equal(t, success, true, message) {
 		fmt.Println("PASSED!")
 	}
 }
 
 func TestActionDelayFail(t *testing.T) {
-	fmt.Println("* Testing that PML files with delays inside actions are rejected")
-	_, err := processFromFile("action_delay.pml")
-	if assert.NotEqual(t, err, nil, "There should be an error raised due to delay inside action") {
+	fmt.Println("* Testing that PML files with Delays inside actions are rejected")
+	_, err := processFromFile("action_Delay.pml")
+	if assert.NotEqual(t, err, nil, "There should be an error raised due to Delay inside action") {
 		fmt.Println("PASSED!")
 	}
 }
-
-/*
-func TestTimeIntervalOffset(t *testing.T) {
- 	fmt.Println("* Testing that time interval offsets are processed")
- 	process, err := processFromFile("time_interval_offset.pml")
-	drugPair := process.FindDrugPairs()[0]
-	actualDDIType := Pull drug pair interaction from DDI database
-		expectedDDIType := "NOT ADVERSE"
-	---
-	if assert.Nil(t, err, "Error with PML file") && assert.Equal(t, expectedDDIType, actualDDIType, "Time interval offset not correctly registered -resulting in wrong DDI type for drug pair")
-		fmt.Println("PASSED!")
-	}
-}
-*/
 
 func TestPeriodicDrugUse(t *testing.T) {
 	fmt.Println("* Testing that periodic drug use is registered")
@@ -177,30 +161,19 @@ func TestAlternativeNonDDI(t *testing.T) {
 	}
 }
 
-func TestDDIClosestApproach(t *testing.T) {
-	fmt.Println("* Testing DDI closest approach")
-	assert := setup(t)
-	process, procErr := processFromFile("closest_approach.pml")
-	actualInteractions, interactionErr := ddi.FindActiveInteractionsForPairs(process.FindDrugPairs())
-	expectedInteraction := ddi.Interaction{"caffeine","alcohol", false, 604800}
-	if assert.Nil(procErr, "There should not be an error with the process") && assert.Nil(interactionErr, "There should not be an error finding interactions") && assertEqual(1, len(actualInteractions), "Too many interactions found") && assert.Equal(actualInteractions[0], expectedInteraction, fmt.Sprintf("Wrong interation found, expected { %s } found { %s }", expectedInteraction, actualInteractions[0])) {
-		fmt.Println("PASSED!")
-	}
-}
-
 func TestBranchInSequenceDrugPair(t *testing.T) {
 	fmt.Println("* Testing that branches in sequence DDIs are registered")
 	process, err := processFromFile("multiple_branches_in_sequence.pml")
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairB := DrugPair{DrugA: "milk", DrugB: "oj", delay: Delay(0), DDIType: ParallelType, parentName: "branch2"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairB := DrugPair{DrugA: "milk", DrugB: "oj", Delay: Delay(0), DDIType: ParallelType, parentName: "branch2"}
 
-	pairC := DrugPair{DrugA: "coke", DrugB: "milk", delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
-	pairD := DrugPair{DrugA: "coke", DrugB: "oj", delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
-	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
-	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "milk", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
+	pairD := DrugPair{DrugA: "coke", DrugB: "oj", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
+	pairE := DrugPair{DrugA: "pepsi", DrugB: "milk", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
+	pairF := DrugPair{DrugA: "pepsi", DrugB: "oj", Delay: Delay(0), DDIType: SequentialType, parentName: "seq1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList") {
@@ -214,8 +187,8 @@ func TestBranchInIteration(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for branches within iterations") {
@@ -229,12 +202,12 @@ func TestSequenceInBranch(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", delay: Delay(0), DDIType: SequentialType, parentName: "seq_1"}
-	pairB := DrugPair{DrugA: "7up", DrugB: "club", delay: Delay(0), DDIType: SequentialType, parentName: "seq_2"}
-	pairC := DrugPair{DrugA: "coke", DrugB: "7up", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairD := DrugPair{DrugA: "coke", DrugB: "club", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairE := DrugPair{DrugA: "pepsi", DrugB: "7up", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
-	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: SequentialType, parentName: "seq_1"}
+	pairB := DrugPair{DrugA: "7up", DrugB: "club", Delay: Delay(0), DDIType: SequentialType, parentName: "seq_2"}
+	pairC := DrugPair{DrugA: "coke", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairD := DrugPair{DrugA: "coke", DrugB: "club", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairE := DrugPair{DrugA: "pepsi", DrugB: "7up", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
+	pairF := DrugPair{DrugA: "pepsi", DrugB: "club", Delay: Delay(0), DDIType: ParallelType, parentName: "branch1"}
 
 	var expectedDrugList = []DrugPair{pairA, pairB, pairC, pairD, pairE, pairF}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for sequences within branches") {
@@ -263,7 +236,7 @@ func drugPairHelper(process *Element, expectedDDITypeIn DDIType, expectedParentN
 
 	actualDrugA := drugPair.DrugA
 	actualDrugB := drugPair.DrugB
-	actualDelay := drugPair.delay
+	actualDelay := drugPair.Delay
 	actualDDIType := drugPair.DDIType
 	actualParentName := drugPair.parentName
 
@@ -274,7 +247,7 @@ func drugPairHelper(process *Element, expectedDDITypeIn DDIType, expectedParentN
 		return false, fmt.Sprintf("Expected DrugB { %s } does not match actual DrugB { %s }", expectedDrugB, actualDrugB)
 	}
 	if expectedDelay != actualDelay {
-		return false, fmt.Sprintf("Expected delay { %i } does not match actual delay { %i }", expectedDelay, actualDelay)
+		return false, fmt.Sprintf("Expected Delay { %i } does not match actual Delay { %i }", expectedDelay, actualDelay)
 	}
 	if expectedDDIType != actualDDIType {
 		return false, fmt.Sprintf("Expected DDIType { %s } does not match actual type { %s }", expectedDDIType, actualDDIType)
@@ -298,7 +271,7 @@ func periodicDrugUseHelper(process *Element) (success bool, message string) {
 		return false, fmt.Sprintf("Expected loops { %i } does not match actual loops { %i }", expectedLoops, actualLoops)
 	}
 	if expectedDelay != actualDelay {
-		return false, fmt.Sprintf("Expected delay { %i } does not match actual delay { %i }", expectedDelay, actualDelay)
+		return false, fmt.Sprintf("Expected Delay { %i } does not match actual Delay { %i }", expectedDelay, actualDelay)
 	}
 	return true, "success"
 }
@@ -313,13 +286,7 @@ func processFromFile(filepath string) (*Element, error) {
 	return process, err
 }
 
-func setup(t *testing.T) *assert.Assertions {
-	db.Clear()
-	db.PopulateFromFile(os.Getenv("RES_DIR") + "/ddi.csv")
-	return assert.New(t)
-}
-
-func delayHelper(process *Element) (success bool, message string) {
+func DelayHelper(process *Element) (success bool, message string) {
 	procChildren := process.Children
 
 	seq1 := procChildren[0].(*Element)
@@ -341,12 +308,12 @@ func delayHelper(process *Element) (success bool, message string) {
 	procDelayOneActual := procChildren[2].(Delay)
 	procDelayOneExpected := NewDelay("5 hr")
 	if procDelayOneExpected != procDelayOneActual {
-		return false, "proc delay one expected does not match actual"
+		return false, "proc Delay one expected does not match actual"
 	}
 	procDelayTwoActual := procChildren[3].(Delay)
 	procDelayTwoExpected := NewDelay("4 days")
 	if procDelayTwoExpected != procDelayTwoActual {
-		return false, "proc delay two expected does not match actual"
+		return false, "proc Delay two expected does not match actual"
 	}
 	iter1Children := iter1.Children
 	iter1ExpectedDelay := NewDelay("3 week")

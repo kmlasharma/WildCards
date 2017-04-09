@@ -9,7 +9,7 @@
             script { "{\"drugs\":[\"7up\"]}" }
           }
         }
-        delay { "30 secs" }
+        delay { "3 days" }
         loops { "3" }
       }
       branch branch1 {

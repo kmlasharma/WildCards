@@ -12,21 +12,21 @@ func TestDDIPairsListsEqual(t *testing.T) {
 		DrugPair{
 			DrugA:      "coke",
 			DrugB:      "pepsi",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
@@ -35,21 +35,21 @@ func TestDDIPairsListsEqual(t *testing.T) {
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "coke",
 			DrugB:      "pepsi",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
@@ -65,21 +65,21 @@ func TestDrugPairListContains(t *testing.T) {
 		DrugPair{
 			DrugA:      "coke",
 			DrugB:      "pepsi",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "7up",
 			DrugB:      "club",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
 		DrugPair{
 			DrugA:      "fizz",
 			DrugB:      "lemsip",
-			delay:      Delay(0),
+			Delay:      Delay(0),
 			DDIType:    ParallelType,
 			parentName: "parent",
 		},
@@ -87,7 +87,7 @@ func TestDrugPairListContains(t *testing.T) {
 	var drugPair = DrugPair{
 		DrugA:      "coke",
 		DrugB:      "pepsi",
-		delay:      Delay(0),
+		Delay:      Delay(0),
 		DDIType:    ParallelType,
 		parentName: "parent",
 	}
@@ -108,8 +108,8 @@ func TestModifyAllChildrenNames(t *testing.T) {
 
 func TestJoinPMLProcesses(t *testing.T) {
 	fmt.Println("Testing joining processes")
-	processOne, _ := processFromFile("valid_delay.pml")
-	processTwo, _ := processFromFile("delays.pml")
+	processOne, _ := processFromFile("valid_Delay.pml")
+	processTwo, _ := processFromFile("Delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	processFour, _ := processFromFile("subtasks.pml")
 	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree, processFour})
@@ -131,8 +131,8 @@ func TestWriteToFile(t *testing.T) {
 
 func TestWriteMergedProcessToFile(t *testing.T) {
 	fmt.Println("Testing writing merged processes to file")
-	processOne, _ := processFromFile("valid_delay.pml")
-	processTwo, _ := processFromFile("delays.pml")
+	processOne, _ := processFromFile("valid_Delay.pml")
+	processTwo, _ := processFromFile("Delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree})
 	writeProcessToFile(joinedProcess, "written_joined_process.pml")
