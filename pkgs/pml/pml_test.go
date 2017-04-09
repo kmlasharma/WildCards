@@ -156,7 +156,7 @@ func TestAlternativeNonDDI(t *testing.T) {
 	fmt.Println("* Testing that alternative non-DDIs are registered")
 	process, err := processFromFile("alternative_non_ddi.pml")
 	drugPair := process.FindDrugPairs()[0]
-	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, drugPair.ddiType, AlternativeNonDDIType, fmt.Sprintf("Alternative Non-DDI not registered, { %s } registered instead", drugPair.ddiType)) {
+	if assert.Nil(t, err, "There should not be an error") && assert.Equal(t, drugPair.DDIType, AlternativeNonDDIType, fmt.Sprintf("Alternative Non-DDI not registered, { %s } registered instead", drugPair.DDIType)) {
 		fmt.Println("PASSED!")
 	}
 }
@@ -167,6 +167,7 @@ func TestBranchInSequenceDrugPair(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
+
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 	pairB := DrugPair{DrugA: "milk", DrugB: "oj", Delay: Delay(0), ddiType: ParallelType, parentName: "branch2"}
 
@@ -187,6 +188,7 @@ func TestBranchInIteration(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
+
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
 
@@ -202,6 +204,7 @@ func TestSequenceInBranch(t *testing.T) {
 
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
+
 	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), ddiType: SequentialType, parentName: "seq_1"}
 	pairB := DrugPair{DrugA: "7up", DrugB: "club", Delay: Delay(0), ddiType: SequentialType, parentName: "seq_2"}
 	pairC := DrugPair{DrugA: "coke", DrugB: "7up", Delay: Delay(0), ddiType: ParallelType, parentName: "branch1"}
@@ -323,4 +326,3 @@ func delayHelper(process *Element) (success bool, message string) {
 	}
 	return true, ""
 }
-

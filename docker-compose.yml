@@ -3,7 +3,7 @@ services:
   project:
     build:
       context: .
-      dockerfile: ./dockerfiles/Dockerfile
+      dockerfile: ./utils/dockerfiles/Dockerfile
     ports:
      - "8080:8080"
   

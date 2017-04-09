@@ -19,7 +19,7 @@ func main() {
 	startMessage()
 	process = selectPML()
 
-	reportWarnings()
+	reportInfo()
 
 	csvFilePath := selectCSV()
 	db := ddi.NewDatabase()
@@ -137,8 +137,9 @@ func getOptionSelection() string {
 	return selectedOperation
 }
 
-func reportWarnings() {
+func reportInfo() {
 	showTaskConstructs()
+	showPeriodicDrugUse()
 	// Report missing name constructs etc
 }
 
@@ -149,6 +150,12 @@ func showTaskConstructs() {
 	}
 	if len(taskNames) > 0 {
 		fmt.Println("Tasks in this PML Process:\n", strings.Join(taskNames, ", "))
+	}
+}
+
+func showPeriodicDrugUse() {
+	for _, iter := range process.AllPeriodicIterations() {
+		fmt.Println("Periodic Drug Use in iteration", iter.Name)
 	}
 }
 
