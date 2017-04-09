@@ -101,9 +101,9 @@ func startMessage() {
 	fmt.Println("\t* You will choose a PML file")
 	fmt.Println("\t* You will choose a CSV file for DDI's")
 	fmt.Println("\t* The app will generate the following:")
-	fmt.Println("\t\t1) Analysis based on your files")
-	fmt.Println("\t\t2) A log file for you to read called analysis.log")
-	fmt.Println("\t\t3) An error output file called analysis.err")
+	fmt.Println("\t\t1) A log file for you to read called analysis.log")
+	fmt.Println("\t\t2) An error output file called analysis.err")
+	fmt.Println("\t* You will then be presented with a more detailed menu for analysing the data") 
 	fmt.Println("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
 }
 
