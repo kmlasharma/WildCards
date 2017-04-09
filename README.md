@@ -107,7 +107,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
     * Hit enter at the prompt to select the default PML file. You can also use an alternative PML file.
     * Hit enter at the prompt to select the default DDI file. You can also use an alternative DDI file.
-    * The program will automatically lookup the drugs from the PML file in the Mock data file.
+    * After after selecting 'Show All Interactions' in the menu by entering '1', the app will look up the drugs from the PML file in the Mock data file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
   
@@ -272,7 +272,7 @@ It is assumed that you have followed the instructions above before testing the f
     * You are in the container having run `docker-compose run project`, and have run `app`
 * Testing Instructions:
    * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
-   * When you are asked what operation you would like to complete, select 'Merge PML Files' by entering '8'.
+   * When you are asked what operation you would like to complete, select 'Merge PML Files' by entering '8' (enter `multi_drugs.pml` for example).
    * You will be asked to enter another PML file, which again, can be any PML file.
    * Once you hit enter, the processes will be merged using a branch construct.
    * An easy way to see this in action is to then save the pml file using the instructions below.
@@ -286,8 +286,9 @@ It is assumed that you have followed the instructions above before testing the f
 * Testing Instructions:
    * When prompted to enter a pml file, enter any PML file (e.g `test.pml`). 
    * When you are asked what operation you would like to complete, select 'Save PML to File' by entering '7'.
-   * You will then be asked what you would like the name the saved file. 
+   * You will then be asked what you would like to name the saved file. 
    * It will then be saved in the same directory as the other pml files.
+   * If you want to read the file, quit the application by entering '11' when prompted. Then you can run `vim <FILE_NAME>` where `<FILE_NAME>` is the name of the file that you saved to.
 
 
 ## Tearing down the Docker container
