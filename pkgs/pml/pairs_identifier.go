@@ -292,7 +292,7 @@ func (ele *Element) parseIteration(params Params) Params {
 			DDIType:    pair.DDIType,
 			ParentName: pair.ParentName,
 		}
-		pairs := append(pairs, newPair)
+		pairs = append(pairs, newPair)
 	}
 	totalDelay := Delay(int(iterationDelay) * (ele.Loops - 1))
 	updatedParams.currentDelay += totalDelay
