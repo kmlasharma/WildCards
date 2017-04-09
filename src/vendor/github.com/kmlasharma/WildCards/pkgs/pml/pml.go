@@ -1,6 +1,11 @@
 package pml
 
+import "os"
+
+
 type ElementType int
+
+var resDir = os.Getenv("RES_DIR")
 
 const (
 	ProcessType ElementType = iota
