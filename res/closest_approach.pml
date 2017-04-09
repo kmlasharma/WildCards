@@ -11,7 +11,6 @@ process test {
     action act_3 {
       script { "{\"drugs\": [\"caffeine\"]}" }
     }
-    delay { "5 days" }
     action act_4 {
       script { "{\"drugs\": [\"alcohol\"]}" }
     }
@@ -21,7 +20,7 @@ process test {
       script { "{\"drugs\": [\"pepsi\"]}" }
     }
     delay { "1 day" }
-    action act_5 {
+    action act_6 {
       script { "{\"drugs\": [\"flat7up\"]}" }
     }
   }

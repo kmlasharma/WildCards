@@ -112,7 +112,7 @@ func TestJoinPMLProcesses(t *testing.T) {
 	processTwo, _ := processFromFile("delays.pml")
 	processThree, _ := processFromFile("no_drugs.pml")
 	processFour, _ := processFromFile("subtasks.pml")
-	joinedProcess := JoinPMLProcesses([]*Element{processOne, processTwo, processThree, processFour})
+	joinedProcess := JoinPMLProcesses(processOne, processTwo, processThree, processFour)
 	expectedProcess, _ := processFromFile("joined_processes.pml")
 	if assert.Equal(t, joinedProcess.Encode("  "), expectedProcess.Encode("  "), "Processes should be equal") {
 		fmt.Println("PASSED!")
