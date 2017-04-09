@@ -156,6 +156,35 @@ func (el Element) AllTasks() (tasks []*Element) {
 	return
 }
 
+func (el Element) AllPeriodicIterations() (iterations []*Element) {
+	for _, child := range el.Children {
+		if child.Type() == IterationType {
+			iter := child.(*Element)
+			for _, ch := range iter.Children {
+				if ch.Type() == DelayType {
+					iterations = append(iterations, iter)
+					break
+				}
+			}
+		}
+	}
+	return
+}
+
+func (el Element) AllDelays() (delays []*Element) {
+	for _, child := range el.Children {
+		if child.Type() == DelayType {
+			element := child.(*Element)
+			delays = append(delays, element)
+		}
+		if child.IsSubElementType() {
+			element := child.(*Element)
+			delays = append(delays, element.AllDelays()...)
+		}
+	}
+	return
+}
+
 func (d Delay) toHumanReadableDate() string {
 	return secondsToHumanReadable(int(d))
 }
