@@ -6,6 +6,8 @@ import (
 	"testing"
 )
 
+var resDir = os.Getenv("RES_DIR")
+
 var db = NewDatabase()
 
 /*
