@@ -245,7 +245,6 @@ func findAndPrintNonDDIs(pairs []pml.DrugPair, onlyAdverse bool) {
 
 func findAndPrintInteractions(pairs []pml.DrugPair, onlyAdverse bool) {
 	for _, pair := range pairs {
-		fmt.Println(pair)
 		interaction, err := db.FindActiveInteractionForPair(pair)
 		if err == nil && (!onlyAdverse || interaction.Adverse) {
 			var adverse = "Yes"
