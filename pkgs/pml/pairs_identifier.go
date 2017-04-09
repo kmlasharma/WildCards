@@ -276,6 +276,7 @@ func (ele *Element) parseSelection(params Params, inIter bool) Params {
 func (ele *Element) parseIteration(params Params) Params {
 	updatedParams := ele.parseElement(params, true)
 	iterationDelay := updatedParams.currentDelay - params.currentDelay
+	pairs := []DrugPair{}
 	for _, pair := range updatedParams.drugPairs {
 		delay := iterationDelay - pair.Delay
 		var minDelay Delay
@@ -291,9 +292,10 @@ func (ele *Element) parseIteration(params Params) Params {
 			DDIType:    pair.DDIType,
 			ParentName: pair.ParentName,
 		}
-		updatedParams.drugPairs = append(updatedParams.drugPairs, newPair)
+		pairs := append(pairs, newPair)
 	}
 	totalDelay := Delay(int(iterationDelay) * (ele.Loops - 1))
 	updatedParams.currentDelay += totalDelay
+	updatedParams.drugPairs = pairs
 	return updatedParams
 }

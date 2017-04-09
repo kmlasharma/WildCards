@@ -43,11 +43,9 @@ func main() {
 		case "6":
 			showAlternativeRepeatedDDIDrugPairs()
 		case "7":
-			fmt.Println("SAVE PML TO FILE")
+			savePMLToFile()
 		case "8":
-			fmt.Println("MERGE PML FILES")
-			newProcess := selectPML()
-			process = pml.JoinPMLProcesses(process, newProcess)
+			mergePMLFile()
 		case "9":
 			process = selectPML()
 		case "10":
@@ -168,6 +166,20 @@ func showPeriodicDrugUse() {
 
 func showDelays() {
 
+}
+
+func mergePMLFile() {
+	newProcess := selectPML()
+	process = pml.JoinPMLProcesses(process, newProcess)
+	fmt.Println("Merged PML file into current Process. Save the file to see the result.")
+}
+
+func savePMLToFile() {
+	var savedPMLFileName string
+	fmt.Print("\nEnter filename to save PML File to: ")
+	fmt.Scanln(&savedPMLFileName)
+	pml.WriteProcessToFile(process, savedPMLFileName)
+	fmt.Println("Saved PML File to", savedPMLFileName)
 }
 
 func showSequentialDrugPairs() {
