@@ -100,7 +100,7 @@ func startMessage() {
 	fmt.Println("Welcome to the app")
 	fmt.Println("\nHere is how it works:")
 	fmt.Println("\t* You will choose a PML file")
-	fmt.Println("\t* You will choose a CSV file for DDI's")
+	fmt.Println("\t* You will choose a CSV file for DDIs")
 	fmt.Println("\t* You will then be presented with a more detailed menu for analysing the data")
 	fmt.Println("\nYou will now be asked to choose the files to analyse\nIf you want to use the default files then just hit enter at the prompt")
 }
