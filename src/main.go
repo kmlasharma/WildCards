@@ -22,7 +22,7 @@ func main() {
 	reportInfo()
 
 	csvFilePath := selectCSV()
-	db := ddi.NewDatabase()
+	db = ddi.NewDatabase()
 	db.PopulateFromFile(csvFilePath)
 
 	for {

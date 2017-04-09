@@ -19,15 +19,15 @@
           action act_2_2 {
             script { "{\"drugs\":null}" }
           }
-          delay { "30 secs" }
+          delay { "20 mins" }
         }
-        delay { "30 secs" }
-        delay { "30 secs" }
+        delay { "5 hrs" }
+        delay { "4 days" }
         iteration iter1_2 {
           action act_3_2 {
             script { "{\"drugs\":null}" }
           }
-          delay { "30 secs" }
+          delay { "3 weeks" }
         }
       }
       sequence test_3 {

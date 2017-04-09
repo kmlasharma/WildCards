@@ -18,6 +18,7 @@ run:
 
 govendor:
 	@chmod +x utils/scripts/vendor.sh && ./utils/scripts/vendor.sh
+	@chmod +x utils/scripts/vendor.sh && ./utils/scripts/vendor.sh # Run twice to ensure it's vendored.
 
 test:
 	@chmod +x utils/scripts/test.sh && ./utils/scripts/test.sh
