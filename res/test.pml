@@ -9,7 +9,6 @@ process test {
           script { "{\"drugs\": [\"7up\"]}" }
         }
       }
-      delay { "3 days" }
       loops { "3" }
     }
     branch branch1 {
