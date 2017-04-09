@@ -120,7 +120,7 @@ It is assumed that you have followed the instructions above before testing the f
    * You have completed the Lookup Drugs in Mock Data File step.
 * Testing Instructions:
    * After looking up the drugs from the PML file in the Mock data file, the program will return the valid interactions for this set of drugs after selecting 'Show All Interactions' in the menu by entering '1'.
-   * For example, using the default files (`test.pml` and ddi.csv), coke and 7up will be an interaction because both are in the PML file and there is an entry in the csv file for these drugs. 
+   * For example, using the default files (`test.pml` and ddi.csv), 'oj' and '7up', and 'caffeine' and 'alcohol' will be an interaction because both are in the PML file and there is an entry in the csv file for these drugs. 
    * You can adjust the Interactions returned by changing the drugs in the DDI file or the PML file.
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/ddi/ddi_test.go`.
