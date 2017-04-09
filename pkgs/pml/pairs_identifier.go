@@ -1,7 +1,6 @@
 package pml
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -188,7 +187,7 @@ func (ele *Element) parseElement(params Params, inIter bool) Params {
 func (ele *Element) parseBranch(params Params, inIter bool) Params {
 	// One element - current delay which is used for an direct delays
 	parentBranchName = ele.Name
-	delays := []Delay{params.currentDelay}
+	delays := []Delay{0}
 	for _, child := range ele.Children {
 		switch child.Type() {
 		case ActionType:
@@ -232,7 +231,7 @@ func (ele *Element) parseBranch(params Params, inIter bool) Params {
 func (ele *Element) parseSelection(params Params, inIter bool) Params {
 	// One element - current delay which is used for an direct delays
 	parentSelectionName = ele.Name
-	delays := []Delay{params.currentDelay}
+	delays := []Delay{0}
 	for _, child := range ele.Children {
 		switch child.Type() {
 		case ActionType:
@@ -280,7 +279,6 @@ func (ele *Element) parseIteration(params Params) Params {
 	pairs := []DrugPair{}
 	for _, pair := range updatedParams.drugPairs {
 		if pair.DDIType == RepeatedAlternativeDDIType {
-			fmt.Println("here")
 			newPair := DrugPair{
 				DrugA:      pair.DrugB,
 				DrugB:      pair.DrugA,
