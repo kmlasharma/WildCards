@@ -2,6 +2,14 @@
 
 RESULT=0
 echo "Running test suite. This may take a minute.."
+
+cd src
+go test
+PASSED=$?
+RESULT=$(($RESULT+$PASSED))
+
+cd ..
+
 for dir in `ls pkgs/`;
 do
     cd pkgs/$dir
@@ -10,11 +18,6 @@ do
     RESULT=$(($RESULT+$PASSED))
     cd ../..
 done
-
-cd src
-go test
-PASSED=$?
-RESULT=$(($RESULT+$PASSED))
 
 echo "####################################################################"
 echo "####################################################################"

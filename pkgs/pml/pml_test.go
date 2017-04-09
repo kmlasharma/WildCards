@@ -189,10 +189,9 @@ func TestBranchInIteration(t *testing.T) {
 	drugPairsList := process.FindDrugPairs() //actual value
 	//expected values
 
-	pairA := DrugPair{DrugA: "coke", DrugB: "pepsi", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
-	pairB := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
+	pair := DrugPair{DrugA: "pepsi", DrugB: "coke", Delay: Delay(0), DDIType: ParallelType, ParentName: "branch1"}
 
-	var expectedDrugList = []DrugPair{pairA, pairB}
+	var expectedDrugList = []DrugPair{pair}
 	if assert.Nil(t, err, "There should not be an error") && assert.True(t, drugPairListsEqual(expectedDrugList, drugPairsList), "Expected drug list should equal drugPairList for branches within iterations") {
 		fmt.Println("PASSED!")
 	}
