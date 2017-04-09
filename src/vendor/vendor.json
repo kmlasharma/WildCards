@@ -3,7 +3,11 @@
 	"ignore": "test",
 	"package": [
 		{
+<<<<<<< HEAD
 			"checksumSHA1": "EcuNym+mliD+7qoU1N70KwiHq+s=",
+=======
+			"checksumSHA1": "1dg2wbu6x5+JUYAviaBXTbqPbfI=",
+>>>>>>> d634384ac85bd33507c9371b940f4ca4641cbd46
 			"path": "github.com/kmlasharma/WildCards/pkgs/ddi",
 			"revision": "35800d08fb68009b455d570dd68ad03c5748b205",
 			"revisionTime": "2017-04-08T17:28:56Z"
