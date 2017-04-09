@@ -128,7 +128,7 @@ func indexOf(s []string, e string) time.Weekday {
 	return time.Weekday(1)
 }
 
-func writeProcessToFile(process *Element, fileName string) {
+func WriteProcessToFile(process *Element, fileName string) {
 	bytes := []byte(process.Encode("  "))
 	ioutil.WriteFile(resDir+"/"+fileName, bytes, 0644)
 }
@@ -151,7 +151,7 @@ func drugPairListContains(drugPairs []DrugPair, elem DrugPair) (contains bool) {
 	return false
 }
 
-func JoinPMLProcesses(processes []*Element) (joinedProcess *Element) {
+func JoinPMLProcesses(processes ...*Element) (joinedProcess *Element) {
 	joinedProcess = &Element{
 		Name:        "merged",
 		Children:    []ElementInterface{},
@@ -168,7 +168,7 @@ func JoinPMLProcesses(processes []*Element) (joinedProcess *Element) {
 	for i, process := range processes {
 		process.ChangeNames("_" + strconv.Itoa(i+1))
 		process.elementType = SequenceType
-		branch.Children = append(branch.Children, process)
+		branch.Children = append(branch.Children, *process)
 	}
 	return
 }

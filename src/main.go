@@ -46,6 +46,8 @@ func main() {
 			fmt.Println("SAVE PML TO FILE")
 		case "8":
 			fmt.Println("MERGE PML FILES")
+			newProcess := selectPML()
+			process = pml.JoinPMLProcesses(process, newProcess)
 		case "9":
 			process = selectPML()
 		case "10":
