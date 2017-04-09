@@ -31,7 +31,6 @@ func main() {
 		clearScreen()
 		switch selection {
 		case "1":
-			fmt.Println("Drugs in this PML Process:\n", strings.Join(process.AllDrugs(), ", "))
 			showAllInteractions()
 		case "2":
 			fmt.Println("SHOWING ADVERSE DRUG INTERACTIONS, WITH CLOSEST APPROACH")
@@ -138,9 +137,15 @@ func getOptionSelection() string {
 }
 
 func reportInfo() {
+	showAllDrugsInProcess()
 	showTaskConstructs()
 	showPeriodicDrugUse()
+	showDelays()
 	// Report missing name constructs etc
+}
+
+func showAllDrugsInProcess() {
+	fmt.Println("Drugs in Process:", process.AllDrugs())
 }
 
 func showTaskConstructs() {
@@ -157,6 +162,10 @@ func showPeriodicDrugUse() {
 	for _, iter := range process.AllPeriodicIterations() {
 		fmt.Println("Periodic Drug Use in iteration", iter.Name)
 	}
+}
+
+func showDelays() {
+
 }
 
 func showSequentialDrugPairs() {

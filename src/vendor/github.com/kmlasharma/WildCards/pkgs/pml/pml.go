@@ -25,12 +25,7 @@ type DrugPair struct {
 	DrugB      string
 	Delay      Delay
 	DDIType    DDIType //parallel, sequential etc
-	parentName string
-}
-
-// temp getter. TODO remove
-func (dp DrugPair) ParentName() string {
-	return dp.parentName
+	ParentName string
 }
 
 type DDIType int
