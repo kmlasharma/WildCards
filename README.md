@@ -154,7 +154,7 @@ It is assumed that you have followed the instructions above before testing the f
 * Unit Testing:
   * This feature is tested in `/go/src/app/pkgs/pml/pml_test.go`.
   
-![](http://imgur.com/MzmzX3L.png)
+![](http://imgur.com/a/pk65G.png)
 
 ### ✅ Identify Sequential DDIs
 
